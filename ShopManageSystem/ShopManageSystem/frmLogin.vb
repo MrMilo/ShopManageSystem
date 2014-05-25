@@ -2,16 +2,8 @@
 Imports System.Text
 Imports System.Data.OleDb
 
-Partial Public Class frmLogin
+Public Class frmLogin
     Inherits DevExpress.XtraEditors.XtraForm
-
-    Public Sub New()
-        'MyBase.New()
-        DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "Visual Studio 2013 Light"
-        DevExpress.Skins.SkinManager.EnableFormSkins()
-
-        InitializeComponent()
-    End Sub
 
     Private Sub frmLogin_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         RemoveHandler cboUser.SelectedIndexChanged, AddressOf cboUser_SelectedIndexChanged 'to prevent selected index change function execute immediately, we'll need to remove the handler first
