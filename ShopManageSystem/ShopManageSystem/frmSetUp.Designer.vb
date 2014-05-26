@@ -194,6 +194,7 @@ Partial Class frmSetUp
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "frmSetUp"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtShopName.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtContactNumber.Properties, System.ComponentModel.ISupportInitialize).EndInit()

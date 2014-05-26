@@ -1,9 +1,14 @@
 ﻿Imports System.ComponentModel
 Imports System.Text
 Imports System.Data.OleDb
+Imports DevExpress.XtraEditors
 
 Public Class frmLogin
     Inherits DevExpress.XtraEditors.XtraForm
+
+    Private Sub frmLogin_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        formClose(Nothing)
+    End Sub
 
     Private Sub frmLogin_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         RemoveHandler cboUser.SelectedIndexChanged, AddressOf cboUser_SelectedIndexChanged 'to prevent selected index change function execute immediately, we'll need to remove the handler first
@@ -22,9 +27,9 @@ Public Class frmLogin
 
     Private Sub btnLogin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLogin.Click
         If cboUser.SelectedIndex = -1 Then 'does not select anything
-            DevExpress.XtraEditors.XtraMessageBox.Show("Please select an admin to proceed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            XtraMessageBox.Show("Please select an admin to proceed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Else
-            DevExpress.XtraEditors.XtraMessageBox.Show("Welcome to Shop Management System!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            XtraMessageBox.Show("Welcome to Shop Management System!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
         End If
     End Sub
 
