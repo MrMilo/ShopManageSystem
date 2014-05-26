@@ -84,11 +84,16 @@
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="dbConnection.vb" />
-    <Compile Include="Form.vb" />
     <Compile Include="frmLogin.Designer.vb">
       <DependentUpon>frmLogin.vb</DependentUpon>
     </Compile>
     <Compile Include="frmLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSetPassword.Designer.vb">
+      <DependentUpon>frmSetPassword.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSetPassword.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmSetUp.Designer.vb">
@@ -114,11 +119,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Settings.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSetPassword.resx">
+      <DependentUpon>frmSetPassword.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSetUp.resx">
       <DependentUpon>frmSetUp.vb</DependentUpon>

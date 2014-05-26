@@ -26,7 +26,7 @@ Partial Class frmLogin
         Me.ImageSlider = New DevExpress.XtraEditors.Controls.ImageSlider()
         Me.AvatarDecoration = New System.Windows.Forms.PictureBox()
         Me.lblPasswordNotSet = New DevExpress.XtraEditors.LabelControl()
-        Me.btnSetPassword = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnPassword = New DevExpress.XtraEditors.SimpleButton()
         Me.btnLogin = New DevExpress.XtraEditors.SimpleButton()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.cboUser = New System.Windows.Forms.ComboBox()
@@ -68,14 +68,14 @@ Partial Class frmLogin
         Me.lblPasswordNotSet.Text = "*Username ""Boss"" haven't set their password"
         Me.lblPasswordNotSet.Visible = False
         '
-        'btnSetPassword
+        'btnPassword
         '
-        Me.btnSetPassword.Enabled = False
-        Me.btnSetPassword.Location = New System.Drawing.Point(35, 220)
-        Me.btnSetPassword.Name = "btnSetPassword"
-        Me.btnSetPassword.Size = New System.Drawing.Size(113, 32)
-        Me.btnSetPassword.TabIndex = 5
-        Me.btnSetPassword.Text = "&Set Password"
+        Me.btnPassword.Enabled = False
+        Me.btnPassword.Location = New System.Drawing.Point(35, 220)
+        Me.btnPassword.Name = "btnPassword"
+        Me.btnPassword.Size = New System.Drawing.Size(113, 32)
+        Me.btnPassword.TabIndex = 5
+        Me.btnPassword.Text = "&Set Password"
         '
         'btnLogin
         '
@@ -92,7 +92,7 @@ Partial Class frmLogin
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.cboUser)
         Me.Panel1.Controls.Add(Me.btnLogin)
-        Me.Panel1.Controls.Add(Me.btnSetPassword)
+        Me.Panel1.Controls.Add(Me.btnPassword)
         Me.Panel1.Controls.Add(Me.lblPasswordNotSet)
         Me.Panel1.Controls.Add(Me.AvatarDecoration)
         Me.Panel1.Location = New System.Drawing.Point(350, 0)
@@ -132,7 +132,7 @@ Partial Class frmLogin
     Friend WithEvents ImageSlider As DevExpress.XtraEditors.Controls.ImageSlider
     Friend WithEvents AvatarDecoration As System.Windows.Forms.PictureBox
     Friend WithEvents lblPasswordNotSet As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents btnSetPassword As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btnPassword As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnLogin As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents cboUser As System.Windows.Forms.ComboBox

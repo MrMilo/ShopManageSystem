@@ -79,10 +79,12 @@ Namespace My
             Dim ShopVariables As XmlNode = xd.SelectSingleNode("/ShopData/ShopVariables")
             ShopSetupCondition = ShopVariables.ChildNodes(0).InnerText
 
-            If ShopSetupCondition = 0 Then
-                My.Application.MainForm = frmSetUp
-            Else
-                My.Application.MainForm = frmLogin
+            If Not GlobalVariables.IgnoreStartupCode Then
+                If ShopSetupCondition = 0 Then
+                    My.Application.MainForm = frmSetUp
+                Else
+                    My.Application.MainForm = frmLogin
+                End If
             End If
 
             'MsgBox(ShopSetupCondition)

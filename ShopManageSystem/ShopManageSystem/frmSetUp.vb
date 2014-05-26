@@ -2,6 +2,7 @@
 Imports System
 Imports System.Xml
 Imports DevExpress.XtraEditors
+Imports System.Data.OleDb
 
 Public Class frmSetUp
     Inherits DevExpress.XtraEditors.XtraForm
@@ -29,6 +30,16 @@ Public Class frmSetUp
                 ShopVariables.ChildNodes(0).InnerText = 1 'ShopSetupCondition
 
                 xd.Save("ShopConfig.xml")
+
+                'Save email into admin account too
+                Dim UpdateEmailAddress As New OleDbCommand("UPDATE tblAdmin SET admin_email = ? WHERE admin_id = 1", openConn())
+                UpdateEmailAddress.Parameters.AddWithValue("admin_email", txtEmailAddress.Text)
+
+                Try
+                    UpdateEmailAddress.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox(ex.Message)
+                End Try
 
                 XtraMessageBox.Show("Congratulation! You are all set and ready to go!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information)
 

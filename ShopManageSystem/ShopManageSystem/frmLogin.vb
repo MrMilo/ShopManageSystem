@@ -33,7 +33,18 @@ Public Class frmLogin
         End If
     End Sub
 
-    Private Sub CheckPasswordExist()
+    Private Sub btnPassword_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPassword.Click
+        If btnPassword.Text = "&Set Password" Then
+            frmSetPassword.GetAdminID = cboUser.SelectedValue
+            frmSetPassword.GetAdminUserName = cboUser.Text
+            frmSetPassword.ShowDialog()
+        Else
+            'Me.Hide()
+            'frmForgetPassword.Show()
+        End If
+    End Sub
+
+    Public Sub CheckPasswordExist()
         lblPasswordNotSet.Visible = False
 
         Dim CheckIfPasswordSet As New OleDbCommand("SELECT admin_password FROM tblAdmin WHERE admin_username = ?", openConn())
@@ -53,10 +64,10 @@ Public Class frmLogin
             lblPasswordNotSet.Visible = True
             lblPasswordNotSet.Text = "*Username '" & cboUser.Text & "' haven't set the password!"
 
-            btnSetPassword.Enabled = True
+            btnPassword.Enabled = True
         Else
-            btnSetPassword.Enabled = True
-            btnSetPassword.Text = "&Forget Password"
+            btnPassword.Enabled = True
+            btnPassword.Text = "&Forget Password"
         End If
     End Sub
 End Class

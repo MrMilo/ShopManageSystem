@@ -148,7 +148,7 @@ Partial Class frmSetUp
         '
         'btnConfirm
         '
-        Me.btnConfirm.Location = New System.Drawing.Point(488, 364)
+        Me.btnConfirm.Location = New System.Drawing.Point(488, 368)
         Me.btnConfirm.Name = "btnConfirm"
         Me.btnConfirm.Size = New System.Drawing.Size(124, 44)
         Me.btnConfirm.TabIndex = 12
@@ -160,7 +160,7 @@ Partial Class frmSetUp
         Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
         Me.ShapeContainer1.Name = "ShapeContainer1"
         Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.LineShape1})
-        Me.ShapeContainer1.Size = New System.Drawing.Size(624, 414)
+        Me.ShapeContainer1.Size = New System.Drawing.Size(624, 424)
         Me.ShapeContainer1.TabIndex = 13
         Me.ShapeContainer1.TabStop = False
         '
@@ -170,14 +170,14 @@ Partial Class frmSetUp
         Me.LineShape1.Name = "LineShape1"
         Me.LineShape1.X1 = -5
         Me.LineShape1.X2 = 630
-        Me.LineShape1.Y1 = 354
-        Me.LineShape1.Y2 = 354
+        Me.LineShape1.Y1 = 356
+        Me.LineShape1.Y2 = 356
         '
         'frmSetUp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(624, 414)
+        Me.ClientSize = New System.Drawing.Size(624, 424)
         Me.Controls.Add(Me.btnConfirm)
         Me.Controls.Add(Me.lblEmailWarning)
         Me.Controls.Add(Me.txtEmailAddress)
