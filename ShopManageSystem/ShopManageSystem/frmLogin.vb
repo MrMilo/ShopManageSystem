@@ -39,8 +39,7 @@ Public Class frmLogin
             frmSetPassword.GetAdminUserName = cboUser.Text
             frmSetPassword.ShowDialog()
         Else
-            'Me.Hide()
-            'frmForgetPassword.Show()
+            frmForgetPassword.ShowDialog()
         End If
     End Sub
 
@@ -64,9 +63,10 @@ Public Class frmLogin
             lblPasswordNotSet.Visible = True
             lblPasswordNotSet.Text = "*Username '" & cboUser.Text & "' haven't set the password!"
 
-            btnPassword.Enabled = True
+            txtPassword.Visible = False
         Else
-            btnPassword.Enabled = True
+            lblPasswordNotSet.Visible = False
+            txtPassword.Visible = True
             btnPassword.Text = "&Forget Password"
         End If
     End Sub

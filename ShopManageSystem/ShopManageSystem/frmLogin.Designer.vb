@@ -30,9 +30,11 @@ Partial Class frmLogin
         Me.btnLogin = New DevExpress.XtraEditors.SimpleButton()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.cboUser = New System.Windows.Forms.ComboBox()
+        Me.txtPassword = New DevExpress.XtraEditors.TextEdit()
         CType(Me.ImageSlider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AvatarDecoration, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        CType(Me.txtPassword.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ImageSlider
@@ -70,11 +72,10 @@ Partial Class frmLogin
         '
         'btnPassword
         '
-        Me.btnPassword.Enabled = False
         Me.btnPassword.Location = New System.Drawing.Point(35, 220)
         Me.btnPassword.Name = "btnPassword"
         Me.btnPassword.Size = New System.Drawing.Size(113, 32)
-        Me.btnPassword.TabIndex = 5
+        Me.btnPassword.TabIndex = 2
         Me.btnPassword.Text = "&Set Password"
         '
         'btnLogin
@@ -82,7 +83,7 @@ Partial Class frmLogin
         Me.btnLogin.Location = New System.Drawing.Point(167, 220)
         Me.btnLogin.Name = "btnLogin"
         Me.btnLogin.Size = New System.Drawing.Size(162, 32)
-        Me.btnLogin.TabIndex = 6
+        Me.btnLogin.TabIndex = 3
         Me.btnLogin.Text = "&Login"
         '
         'Panel1
@@ -90,6 +91,7 @@ Partial Class frmLogin
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.txtPassword)
         Me.Panel1.Controls.Add(Me.cboUser)
         Me.Panel1.Controls.Add(Me.btnLogin)
         Me.Panel1.Controls.Add(Me.btnPassword)
@@ -109,6 +111,17 @@ Partial Class frmLogin
         Me.cboUser.Size = New System.Drawing.Size(218, 21)
         Me.cboUser.TabIndex = 7
         '
+        'txtPassword
+        '
+        Me.txtPassword.Location = New System.Drawing.Point(72, 173)
+        Me.txtPassword.Name = "txtPassword"
+        Me.txtPassword.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPassword.Properties.Appearance.Options.UseFont = True
+        Me.txtPassword.Properties.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtPassword.Size = New System.Drawing.Size(218, 20)
+        Me.txtPassword.TabIndex = 1
+        Me.txtPassword.Visible = False
+        '
         'frmLogin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -126,6 +139,7 @@ Partial Class frmLogin
         CType(Me.AvatarDecoration, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.txtPassword.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -136,4 +150,5 @@ Partial Class frmLogin
     Friend WithEvents btnLogin As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents cboUser As System.Windows.Forms.ComboBox
+    Friend WithEvents txtPassword As DevExpress.XtraEditors.TextEdit
 End Class

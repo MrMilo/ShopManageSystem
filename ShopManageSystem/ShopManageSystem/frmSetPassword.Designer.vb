@@ -90,15 +90,15 @@ Partial Class frmSetPassword
         Me.btnConfirm.Location = New System.Drawing.Point(292, 229)
         Me.btnConfirm.Name = "btnConfirm"
         Me.btnConfirm.Size = New System.Drawing.Size(124, 44)
-        Me.btnConfirm.TabIndex = 13
+        Me.btnConfirm.TabIndex = 4
         Me.btnConfirm.Text = "&Confirm"
         '
         'LineShape1
         '
         Me.LineShape1.BorderColor = System.Drawing.SystemColors.AppWorkspace
         Me.LineShape1.Name = "LineShape1"
-        Me.LineShape1.X1 = -93
-        Me.LineShape1.X2 = 542
+        Me.LineShape1.X1 = -57
+        Me.LineShape1.X2 = 469
         Me.LineShape1.Y1 = 218
         Me.LineShape1.Y2 = 218
         '
@@ -120,7 +120,7 @@ Partial Class frmSetPassword
         Me.txtPassword.Properties.Appearance.Options.UseFont = True
         Me.txtPassword.Properties.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtPassword.Size = New System.Drawing.Size(266, 22)
-        Me.txtPassword.TabIndex = 15
+        Me.txtPassword.TabIndex = 1
         '
         'txtRePassword
         '
@@ -130,7 +130,7 @@ Partial Class frmSetPassword
         Me.txtRePassword.Properties.Appearance.Options.UseFont = True
         Me.txtRePassword.Properties.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtRePassword.Size = New System.Drawing.Size(266, 22)
-        Me.txtRePassword.TabIndex = 16
+        Me.txtRePassword.TabIndex = 2
         '
         'txtEmailAddress
         '
@@ -139,7 +139,7 @@ Partial Class frmSetPassword
         Me.txtEmailAddress.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtEmailAddress.Properties.Appearance.Options.UseFont = True
         Me.txtEmailAddress.Size = New System.Drawing.Size(266, 22)
-        Me.txtEmailAddress.TabIndex = 17
+        Me.txtEmailAddress.TabIndex = 3
         '
         'LabelControl1
         '
