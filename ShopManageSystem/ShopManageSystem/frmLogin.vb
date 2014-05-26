@@ -28,6 +28,23 @@ Public Class frmLogin
     Private Sub btnLogin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLogin.Click
         If cboUser.SelectedIndex = -1 Then 'does not select anything
             XtraMessageBox.Show("Please select an admin to proceed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        ElseIf PasswordNotSet = 1 Then
+            Dim ValidateAccount As New OleDbCommand("SELECT * FROM tblAdmin WHERE admin_id = ? AND admin_username = ? AND admin_password = ?", openConn())
+            ValidateAccount.Parameters.AddWithValue("admin_id", cboUser.SelectedValue)
+            ValidateAccount.Parameters.AddWithValue("admin_username", cboUser.Text)
+            ValidateAccount.Parameters.AddWithValue("admin_password", txtPassword.Text.GetHashCode)
+
+            Try
+                Dim sdr As OleDbDataReader = ValidateAccount.ExecuteReader()
+
+                If (sdr.Read() = True) Then 'account okay
+                    XtraMessageBox.Show("Welcome to Shop Management System!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                Else
+                    XtraMessageBox.Show("You had key in the wrong password. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            End Try
         Else
             XtraMessageBox.Show("Welcome to Shop Management System!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
         End If
