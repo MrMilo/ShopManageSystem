@@ -4,9 +4,9 @@ Imports DevExpress.XtraEditors
 Module Library
     Public Sub formClose(ByVal e As System.Windows.Forms.FormClosingEventArgs)
         Dim response As MsgBoxResult
-        response = XtraMessageBox.Show("Do you want to exit program?", "Exit Program?", MessageBoxButtons.OK, MessageBoxIcon.Question)
+        response = XtraMessageBox.Show("Do you want to exit program?", "Exit Program?", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If response = MsgBoxResult.Yes Then
-            End
+            Environment.Exit(0)
         ElseIf response = MsgBoxResult.No Then
             e.Cancel = True
         End If

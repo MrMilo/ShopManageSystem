@@ -22,7 +22,7 @@ Namespace My
             DevExpress.Skins.SkinManager.EnableMdiFormSkins()
             DevExpress.Skins.SkinManager.EnableFormSkins()
 
-            If IO.File.Exists("ShopConfig.xml") = False Then 'create the XML if not exist
+            If GlobalVariables.AlwaysCreateShopConfig Or IO.File.Exists("ShopConfig.xml") = False Then 'create the XML if not exist
                 Dim XmlSettings As New XmlWriterSettings
                 Dim XmlWrite As XmlWriter = XmlWriter.Create("ShopConfig.xml", XmlSettings)
 
