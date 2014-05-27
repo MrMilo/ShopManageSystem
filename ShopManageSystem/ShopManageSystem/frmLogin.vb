@@ -39,6 +39,9 @@ Public Class frmLogin
 
                 If (sdr.Read() = True) Then 'account okay
                     XtraMessageBox.Show("Welcome to Shop Management System!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                    frmMain.LoggedInUsername = cboUser.Text
+                    Me.Hide()
+                    frmMain.Show()
                 Else
                     XtraMessageBox.Show("You had key in the wrong password. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
@@ -47,6 +50,9 @@ Public Class frmLogin
             End Try
         Else
             XtraMessageBox.Show("Welcome to Shop Management System!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            frmMain.LoggedInUsername = cboUser.Text
+            Me.Hide()
+            frmMain.Show()
         End If
     End Sub
 
