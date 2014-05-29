@@ -172,6 +172,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\assistant-icon.png" />
+    <None Include="Resources\assistant-icon-hover.png" />
+    <None Include="Resources\char-icon-hover.png" />
+    <None Include="Resources\chart-icon.png" />
+    <None Include="Resources\home-icon.png" />
+    <None Include="Resources\home-icon-hover.png" />
+    <None Include="Resources\settings-icon.png" />
+    <None Include="Resources\settings-icon-hover.png" />
     <Content Include="shop_management_system.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

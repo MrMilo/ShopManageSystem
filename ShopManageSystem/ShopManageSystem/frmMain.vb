@@ -7,7 +7,7 @@ Public Class frmMain
     Dim sb As New System.Text.StringBuilder
     Dim Direction As Boolean = False 'true = left to right, false = right to left
 
-    Public LoggedInUsername As String
+    Public LoggedInUsername As String = "Guest"
 
     Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         formClose(Nothing)
@@ -42,5 +42,71 @@ Public Class frmMain
 
         Dim ShopName As XmlNode = xd.SelectSingleNode("/ShopData/ShopBasicConfig")
         MarqueeText = "Welcome to [" & ShopName.ChildNodes(0).InnerText & "], current user : " & LoggedInUsername & "   "
+
+        lblVersion.BackColor = Color.Transparent
+        lblVersion.Text = "v1.0.0.0"
+
+        lblUsername.BackColor = Color.Transparent
+        lblUsername.Text = LoggedInUsername
+
+        'Seem like there's no other way..
+        pbHome.BackColor = Color.Transparent
+        pbReport.BackColor = Color.Transparent
+        pbSettings.BackColor = Color.Transparent
+        pbAssistant.BackColor = Color.Transparent
+
+        lblHome.BackColor = Color.Transparent
+        lblReporting.BackColor = Color.Transparent
+        lblSetting.BackColor = Color.Transparent
+        lblAssistant.BackColor = Color.Transparent
     End Sub
+
+    Private Sub pbHome_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles pbHome.MouseUp, pbHome.MouseHover
+        pbHome.Image = My.Resources.home_icon_hover
+        lblHome.ForeColor = Color.FromArgb(23, 181, 26)
+    End Sub
+
+    Private Sub pbReport_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles pbReport.MouseUp, pbReport.MouseHover
+        pbReport.Image = My.Resources.char_icon_hover
+        lblReporting.ForeColor = Color.FromArgb(23, 181, 26)
+    End Sub
+
+    Private Sub pbSettings_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles pbSettings.MouseUp, pbSettings.MouseHover
+        pbSettings.Image = My.Resources.settings_icon_hover
+        lblSetting.ForeColor = Color.FromArgb(23, 181, 26)
+    End Sub
+
+    Private Sub pbAssistant_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles pbAssistant.MouseUp, pbAssistant.MouseHover
+        pbAssistant.Image = My.Resources.assistant_icon_hover
+        lblAssistant.ForeColor = Color.FromArgb(23, 181, 26)
+    End Sub
+
+    Private Sub pbHome_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pbHome.MouseDown, pbHome.MouseLeave
+        pbHome.Image = My.Resources.home_icon
+        lblHome.ForeColor = Color.White
+    End Sub
+
+    Private Sub pbReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pbReport.MouseDown, pbReport.MouseLeave
+        pbReport.Image = My.Resources.chart_icon
+        lblReporting.ForeColor = Color.White
+    End Sub
+
+    Private Sub pbSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pbSettings.MouseDown, pbSettings.MouseLeave
+        pbSettings.Image = My.Resources.settings_icon
+        lblSetting.ForeColor = Color.White
+    End Sub
+
+    Private Sub pbAssistant_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pbAssistant.MouseDown, pbAssistant.MouseLeave
+        pbAssistant.Image = My.Resources.assistant_icon
+        lblAssistant.ForeColor = Color.White
+    End Sub
+
+    'Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+    '    Dim frm As New frmLogin
+    '    frm.TopLevel = False
+    '    frm.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+    '    frm.Dock = DockStyle.Fill
+    '    XtraTabControl1.TabPages(1).Controls.Add(frm)
+    '    frm.Show()
+    'End Sub
 End Class
