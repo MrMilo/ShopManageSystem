@@ -101,12 +101,21 @@ Public Class frmMain
         lblAssistant.ForeColor = Color.White
     End Sub
 
-    'Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-    '    Dim frm As New frmLogin
-    '    frm.TopLevel = False
-    '    frm.FormBorderStyle = Windows.Forms.FormBorderStyle.None
-    '    frm.Dock = DockStyle.Fill
-    '    XtraTabControl1.TabPages(1).Controls.Add(frm)
-    '    frm.Show()
-    'End Sub
+    'Tabpage index | Tabpage title
+    '0 | Home
+    '1 | Stock Management
+    '2 | Customer
+    '3 | Supplier
+    '4 | Sales Order
+    '5 | Restock Order
+    '6 | Report
+    Private Sub btnStockManagement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnStockManagement.Click
+        frmStockManagement.TopLevel = False
+        frmStockManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+        frmStockManagement.Dock = DockStyle.Fill
+        TabControl.TabPages(1).Controls.Add(frmStockManagement)
+        frmStockManagement.Show()
+        TabControl.TabPages(1).PageVisible = True
+        TabControl.SelectedTabPageIndex = 1
+    End Sub
 End Class

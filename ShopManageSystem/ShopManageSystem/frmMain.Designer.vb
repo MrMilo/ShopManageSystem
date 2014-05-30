@@ -24,7 +24,7 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim SerializableAppearanceObject2 As DevExpress.Utils.SerializableAppearanceObject = New DevExpress.Utils.SerializableAppearanceObject()
+        Dim SerializableAppearanceObject1 As DevExpress.Utils.SerializableAppearanceObject = New DevExpress.Utils.SerializableAppearanceObject()
         Me.MarqueeTimer = New System.Windows.Forms.Timer(Me.components)
         Me.btnSideBar = New System.Windows.Forms.Button()
         Me.SidePanel = New System.Windows.Forms.Panel()
@@ -45,15 +45,20 @@ Partial Class frmMain
         Me.pbLogo = New System.Windows.Forms.PictureBox()
         Me.pTop = New System.Windows.Forms.Panel()
         Me.btnSearch = New DevExpress.XtraEditors.ButtonEdit()
-        Me.XtraTabControl1 = New DevExpress.XtraTab.XtraTabControl()
-        Me.TP1 = New DevExpress.XtraTab.XtraTabPage()
+        Me.TabControl = New DevExpress.XtraTab.XtraTabControl()
+        Me.TP0 = New DevExpress.XtraTab.XtraTabPage()
         Me.btnReport = New System.Windows.Forms.Button()
         Me.btnRestockOrder = New System.Windows.Forms.Button()
         Me.btnSalesOrder = New System.Windows.Forms.Button()
         Me.btnSupplier = New System.Windows.Forms.Button()
         Me.btnCustomer = New System.Windows.Forms.Button()
         Me.btnStockManagement = New System.Windows.Forms.Button()
+        Me.TP1 = New DevExpress.XtraTab.XtraTabPage()
         Me.TP2 = New DevExpress.XtraTab.XtraTabPage()
+        Me.TP3 = New DevExpress.XtraTab.XtraTabPage()
+        Me.TP4 = New DevExpress.XtraTab.XtraTabPage()
+        Me.TP5 = New DevExpress.XtraTab.XtraTabPage()
+        Me.TP6 = New DevExpress.XtraTab.XtraTabPage()
         Me.StatusStrip.SuspendLayout()
         CType(Me.pbSettings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbReport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -62,9 +67,9 @@ Partial Class frmMain
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pTop.SuspendLayout()
         CType(Me.btnSearch.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.XtraTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.XtraTabControl1.SuspendLayout()
-        Me.TP1.SuspendLayout()
+        CType(Me.TabControl, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabControl.SuspendLayout()
+        Me.TP0.SuspendLayout()
         Me.SuspendLayout()
         '
         'MarqueeTimer
@@ -281,36 +286,36 @@ Partial Class frmMain
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSearch.Properties.Appearance.Options.UseFont = True
-        Me.btnSearch.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, True, True, False, DevExpress.XtraEditors.ImageLocation.MiddleCenter, CType(resources.GetObject("btnSearch.Properties.Buttons"), System.Drawing.Image), New DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), SerializableAppearanceObject2, "", Nothing, Nothing, True)})
+        Me.btnSearch.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, True, True, False, DevExpress.XtraEditors.ImageLocation.MiddleCenter, CType(resources.GetObject("btnSearch.Properties.Buttons"), System.Drawing.Image), New DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), SerializableAppearanceObject1, "", Nothing, Nothing, True)})
         Me.btnSearch.Properties.NullValuePrompt = "Search anything here"
         Me.btnSearch.Size = New System.Drawing.Size(163, 22)
         Me.btnSearch.TabIndex = 6
         '
-        'XtraTabControl1
+        'TabControl
         '
-        Me.XtraTabControl1.Appearance.BackColor = System.Drawing.Color.FromArgb(CType(CType(2, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(179, Byte), Integer))
-        Me.XtraTabControl1.Appearance.Options.UseBackColor = True
-        Me.XtraTabControl1.Appearance.Options.UseImage = True
-        Me.XtraTabControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.XtraTabControl1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InAllTabPageHeaders
-        Me.XtraTabControl1.Location = New System.Drawing.Point(50, 92)
-        Me.XtraTabControl1.Name = "XtraTabControl1"
-        Me.XtraTabControl1.SelectedTabPage = Me.TP1
-        Me.XtraTabControl1.Size = New System.Drawing.Size(814, 436)
-        Me.XtraTabControl1.TabIndex = 33
-        Me.XtraTabControl1.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.TP1, Me.TP2})
+        Me.TabControl.Appearance.BackColor = System.Drawing.Color.FromArgb(CType(CType(2, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(179, Byte), Integer))
+        Me.TabControl.Appearance.Options.UseBackColor = True
+        Me.TabControl.Appearance.Options.UseImage = True
+        Me.TabControl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.TabControl.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InAllTabPageHeaders
+        Me.TabControl.Location = New System.Drawing.Point(50, 92)
+        Me.TabControl.Name = "TabControl"
+        Me.TabControl.SelectedTabPage = Me.TP0
+        Me.TabControl.Size = New System.Drawing.Size(814, 436)
+        Me.TabControl.TabIndex = 33
+        Me.TabControl.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.TP0, Me.TP1, Me.TP2, Me.TP3, Me.TP4, Me.TP5, Me.TP6})
         '
-        'TP1
+        'TP0
         '
-        Me.TP1.Controls.Add(Me.btnReport)
-        Me.TP1.Controls.Add(Me.btnRestockOrder)
-        Me.TP1.Controls.Add(Me.btnSalesOrder)
-        Me.TP1.Controls.Add(Me.btnSupplier)
-        Me.TP1.Controls.Add(Me.btnCustomer)
-        Me.TP1.Controls.Add(Me.btnStockManagement)
-        Me.TP1.Name = "TP1"
-        Me.TP1.Size = New System.Drawing.Size(808, 408)
-        Me.TP1.Text = "Home"
+        Me.TP0.Controls.Add(Me.btnReport)
+        Me.TP0.Controls.Add(Me.btnRestockOrder)
+        Me.TP0.Controls.Add(Me.btnSalesOrder)
+        Me.TP0.Controls.Add(Me.btnSupplier)
+        Me.TP0.Controls.Add(Me.btnCustomer)
+        Me.TP0.Controls.Add(Me.btnStockManagement)
+        Me.TP0.Name = "TP0"
+        Me.TP0.Size = New System.Drawing.Size(808, 408)
+        Me.TP0.Text = "Home"
         '
         'btnReport
         '
@@ -402,11 +407,47 @@ Partial Class frmMain
         Me.btnStockManagement.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.btnStockManagement.UseVisualStyleBackColor = False
         '
+        'TP1
+        '
+        Me.TP1.Name = "TP1"
+        Me.TP1.PageVisible = False
+        Me.TP1.Size = New System.Drawing.Size(808, 408)
+        Me.TP1.Text = "Stock Management"
+        '
         'TP2
         '
         Me.TP2.Name = "TP2"
+        Me.TP2.PageVisible = False
         Me.TP2.Size = New System.Drawing.Size(808, 408)
-        Me.TP2.Text = "Stock Management"
+        Me.TP2.Text = "Customer"
+        '
+        'TP3
+        '
+        Me.TP3.Name = "TP3"
+        Me.TP3.PageVisible = False
+        Me.TP3.Size = New System.Drawing.Size(808, 408)
+        Me.TP3.Text = "Supplier"
+        '
+        'TP4
+        '
+        Me.TP4.Name = "TP4"
+        Me.TP4.PageVisible = False
+        Me.TP4.Size = New System.Drawing.Size(808, 408)
+        Me.TP4.Text = "Sales Order"
+        '
+        'TP5
+        '
+        Me.TP5.Name = "TP5"
+        Me.TP5.PageVisible = False
+        Me.TP5.Size = New System.Drawing.Size(808, 408)
+        Me.TP5.Text = "Restock Order"
+        '
+        'TP6
+        '
+        Me.TP6.Name = "TP6"
+        Me.TP6.PageVisible = False
+        Me.TP6.Size = New System.Drawing.Size(808, 408)
+        Me.TP6.Text = "Report"
         '
         'frmMain
         '
@@ -415,7 +456,7 @@ Partial Class frmMain
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(864, 552)
-        Me.Controls.Add(Me.XtraTabControl1)
+        Me.Controls.Add(Me.TabControl)
         Me.Controls.Add(Me.StatusStrip)
         Me.Controls.Add(Me.SidePanel)
         Me.Controls.Add(Me.btnSideBar)
@@ -435,9 +476,9 @@ Partial Class frmMain
         Me.pTop.ResumeLayout(False)
         Me.pTop.PerformLayout()
         CType(Me.btnSearch.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.XtraTabControl1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.XtraTabControl1.ResumeLayout(False)
-        Me.TP1.ResumeLayout(False)
+        CType(Me.TabControl, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabControl.ResumeLayout(False)
+        Me.TP0.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -461,9 +502,8 @@ Partial Class frmMain
     Friend WithEvents pbAssistant As System.Windows.Forms.PictureBox
     Friend WithEvents pbLogo As System.Windows.Forms.PictureBox
     Friend WithEvents pTop As System.Windows.Forms.Panel
-    Friend WithEvents XtraTabControl1 As DevExpress.XtraTab.XtraTabControl
-    Friend WithEvents TP1 As DevExpress.XtraTab.XtraTabPage
-    Friend WithEvents TP2 As DevExpress.XtraTab.XtraTabPage
+    Friend WithEvents TabControl As DevExpress.XtraTab.XtraTabControl
+    Friend WithEvents TP0 As DevExpress.XtraTab.XtraTabPage
     Friend WithEvents btnReport As System.Windows.Forms.Button
     Friend WithEvents btnRestockOrder As System.Windows.Forms.Button
     Friend WithEvents btnSalesOrder As System.Windows.Forms.Button
@@ -471,4 +511,10 @@ Partial Class frmMain
     Friend WithEvents btnCustomer As System.Windows.Forms.Button
     Friend WithEvents btnStockManagement As System.Windows.Forms.Button
     Friend WithEvents btnSearch As DevExpress.XtraEditors.ButtonEdit
+    Friend WithEvents TP1 As DevExpress.XtraTab.XtraTabPage
+    Friend WithEvents TP2 As DevExpress.XtraTab.XtraTabPage
+    Friend WithEvents TP3 As DevExpress.XtraTab.XtraTabPage
+    Friend WithEvents TP4 As DevExpress.XtraTab.XtraTabPage
+    Friend WithEvents TP5 As DevExpress.XtraTab.XtraTabPage
+    Friend WithEvents TP6 As DevExpress.XtraTab.XtraTabPage
 End Class

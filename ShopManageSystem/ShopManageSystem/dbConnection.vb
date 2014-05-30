@@ -23,5 +23,5 @@ Module dbConnection
         Return databaseConn
     End Function
 
-    'Public conn As New OleDbConnection("Provider=Microsoft.Jet.OLEDB.12.0;Data Source=shop_management_system.mdb")
+    Public conn As New OleDbConnection("Provider=Microsoft.Ace.OLEDB.12.0;Data Source=shop_management_system.accdb")
 End Module
