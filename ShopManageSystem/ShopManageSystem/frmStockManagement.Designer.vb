@@ -65,6 +65,7 @@ Partial Class frmStockManagement
         '
         'btnSearch
         '
+        Me.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnSearch.Location = New System.Drawing.Point(731, 13)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(75, 23)

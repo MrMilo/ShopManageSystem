@@ -106,6 +106,12 @@
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="dbConnection.vb" />
+    <Compile Include="frmAddStock.Designer.vb">
+      <DependentUpon>frmAddStock.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddStock.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmForgetPassword.Designer.vb">
       <DependentUpon>frmForgetPassword.vb</DependentUpon>
     </Compile>
@@ -161,6 +167,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmAddStock.resx">
+      <DependentUpon>frmAddStock.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmForgetPassword.resx">
       <DependentUpon>frmForgetPassword.vb</DependentUpon>
     </EmbeddedResource>
