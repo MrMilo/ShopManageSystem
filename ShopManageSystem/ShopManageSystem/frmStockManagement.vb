@@ -1,5 +1,8 @@
 ﻿Imports System.Data.OleDb
 Imports DevExpress.XtraEditors
+Imports DevExpress.XtraGrid.Views.Grid
+Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
+Imports DevExpress.Utils
 
 Public Class frmStockManagement
     Inherits DevExpress.XtraEditors.XtraForm
@@ -67,10 +70,10 @@ Public Class frmStockManagement
             Dim da As OleDbDataAdapter 'define it here so it escape the undefine error below
 
             If HideZeroStockState = 0 Then
-                da = New OleDbDataAdapter("SELECT tblProduct.prod_id, tblProduct.prod_model, tblCategory.cat_name, tblProduct.prod_quantity, tblProduct.prod_cost, tblProduct.prod_price" _
+                da = New OleDbDataAdapter("SELECT tblProduct.prod_id, tblProduct.prod_model, tblCategory.cat_name, tblProduct.prod_quantity, tblProduct.prod_cost, tblProduct.prod_price, tblProduct.prod_description" _
                                                 & " FROM tblCategory INNER JOIN tblProduct ON tblCategory.cat_id = tblProduct.prod_category", openConn())
             Else
-                da = New OleDbDataAdapter("SELECT tblProduct.prod_id, tblProduct.prod_model, tblCategory.cat_name, tblProduct.prod_quantity, tblProduct.prod_cost, tblProduct.prod_price" _
+                da = New OleDbDataAdapter("SELECT tblProduct.prod_id, tblProduct.prod_model, tblCategory.cat_name, tblProduct.prod_quantity, tblProduct.prod_cost, tblProduct.prod_price, tblProduct.prod_description" _
                                                 & " FROM tblCategory INNER JOIN tblProduct ON tblCategory.cat_id = tblProduct.prod_category WHERE tblProduct.prod_quantity > 0", openConn())
             End If
 
@@ -107,6 +110,8 @@ Public Class frmStockManagement
             StockGV.Columns(5).Width = 40
             StockGV.Columns(5).DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
             StockGV.Columns(5).DisplayFormat.FormatString = "c2"
+
+            StockGV.Columns(6).Visible = False 'prod_description
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -203,5 +208,27 @@ Public Class frmStockManagement
         End If
 
         fillStockGV()
+    End Sub
+
+    Private Sub ToolTipController_GetActiveObjectInfo(ByVal sender As Object, ByVal e As DevExpress.Utils.ToolTipControllerGetActiveObjectInfoEventArgs) Handles ToolTipController.GetActiveObjectInfo
+        If Not e.SelectedControl Is StockDGV Then Return
+
+        Dim hitInfo As GridHitInfo = StockGV.CalcHitInfo(e.ControlMousePosition)
+
+        If hitInfo.InRow = False Then Return
+
+        Dim toolTipArgs As SuperToolTipSetupArgs = New SuperToolTipSetupArgs
+
+        Dim drCurrentRow As DataRow = StockGV.GetDataRow(hitInfo.RowHandle)
+        If drCurrentRow IsNot Nothing Then
+            toolTipArgs.Title.Text = drCurrentRow(1).ToString
+            toolTipArgs.Contents.Text = drCurrentRow(6).ToString
+        End If
+
+        e.Info = New ToolTipControlInfo
+        e.Info.Object = hitInfo.HitTest.ToString() + hitInfo.RowHandle.ToString()
+        e.Info.ToolTipType = ToolTipType.SuperTip
+        e.Info.SuperTip = New SuperToolTip
+        e.Info.SuperTip.Setup(toolTipArgs)
     End Sub
 End Class

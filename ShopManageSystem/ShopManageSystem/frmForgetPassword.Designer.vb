@@ -35,6 +35,7 @@ Partial Class frmForgetPassword
         '
         'btnConfirm
         '
+        Me.btnConfirm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnConfirm.Location = New System.Drawing.Point(292, 172)
         Me.btnConfirm.Name = "btnConfirm"
         Me.btnConfirm.Size = New System.Drawing.Size(124, 44)

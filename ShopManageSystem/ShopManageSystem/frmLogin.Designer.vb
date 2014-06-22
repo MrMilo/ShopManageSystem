@@ -29,8 +29,8 @@ Partial Class frmLogin
         Me.btnPassword = New DevExpress.XtraEditors.SimpleButton()
         Me.btnLogin = New DevExpress.XtraEditors.SimpleButton()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.cboUser = New System.Windows.Forms.ComboBox()
         Me.txtPassword = New DevExpress.XtraEditors.TextEdit()
+        Me.cboUser = New System.Windows.Forms.ComboBox()
         CType(Me.ImageSlider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AvatarDecoration, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -72,6 +72,7 @@ Partial Class frmLogin
         '
         'btnPassword
         '
+        Me.btnPassword.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnPassword.Location = New System.Drawing.Point(35, 220)
         Me.btnPassword.Name = "btnPassword"
         Me.btnPassword.Size = New System.Drawing.Size(113, 32)
@@ -80,6 +81,7 @@ Partial Class frmLogin
         '
         'btnLogin
         '
+        Me.btnLogin.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnLogin.Location = New System.Drawing.Point(167, 220)
         Me.btnLogin.Name = "btnLogin"
         Me.btnLogin.Size = New System.Drawing.Size(162, 32)
@@ -102,15 +104,6 @@ Partial Class frmLogin
         Me.Panel1.Size = New System.Drawing.Size(364, 264)
         Me.Panel1.TabIndex = 2
         '
-        'cboUser
-        '
-        Me.cboUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cboUser.FormattingEnabled = True
-        Me.cboUser.Location = New System.Drawing.Point(72, 139)
-        Me.cboUser.Name = "cboUser"
-        Me.cboUser.Size = New System.Drawing.Size(218, 21)
-        Me.cboUser.TabIndex = 7
-        '
         'txtPassword
         '
         Me.txtPassword.Location = New System.Drawing.Point(72, 173)
@@ -121,6 +114,15 @@ Partial Class frmLogin
         Me.txtPassword.Size = New System.Drawing.Size(218, 20)
         Me.txtPassword.TabIndex = 1
         Me.txtPassword.Visible = False
+        '
+        'cboUser
+        '
+        Me.cboUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cboUser.FormattingEnabled = True
+        Me.cboUser.Location = New System.Drawing.Point(72, 139)
+        Me.cboUser.Name = "cboUser"
+        Me.cboUser.Size = New System.Drawing.Size(218, 21)
+        Me.cboUser.TabIndex = 7
         '
         'frmLogin
         '
