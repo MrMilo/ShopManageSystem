@@ -41,8 +41,8 @@ Partial Class frmStockManagement
         Me.tvCategory = New System.Windows.Forms.TreeView()
         Me.StockDGV = New DevExpress.XtraGrid.GridControl()
         Me.StockGV = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
         Me.ToolTipController = New DevExpress.Utils.ToolTipController(Me.components)
+        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
         Me.PanelTop.SuspendLayout()
         CType(Me.cboSearch.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelButton.SuspendLayout()
@@ -122,7 +122,7 @@ Partial Class frmStockManagement
         Me.pceDDCategory.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.pceDDCategory.Properties.Appearance.Options.UseFont = True
         Me.pceDDCategory.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.pceDDCategory.Properties.NullValuePrompt = "All"
+        Me.pceDDCategory.Properties.NullValuePrompt = "Others"
         Me.pceDDCategory.Properties.PopupControl = Me.PopupContainerControl
         Me.pceDDCategory.Properties.PopupSizeable = False
         Me.pceDDCategory.Properties.ShowPopupCloseButton = False
@@ -216,6 +216,9 @@ Partial Class frmStockManagement
         Me.StockGV.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect
         Me.StockGV.OptionsView.ShowGroupPanel = False
         Me.StockGV.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
+        '
+        'ToolTipController
+        '
         '
         'SimpleButton1
         '

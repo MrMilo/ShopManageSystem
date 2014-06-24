@@ -22,6 +22,7 @@ Partial Class frmAddStock
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAddStock))
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
@@ -44,6 +45,9 @@ Partial Class frmAddStock
         Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
         Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
         Me.btnAdd = New DevExpress.XtraEditors.SimpleButton()
+        Me.LabelControl7 = New DevExpress.XtraEditors.LabelControl()
+        Me.lblProductProfit = New DevExpress.XtraEditors.LabelControl()
+        Me.ToolTipController = New DevExpress.Utils.ToolTipController(Me.components)
         CType(Me.PopupContainerControl, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PopupContainerControl.SuspendLayout()
         CType(Me.pceDDCategory.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -58,11 +62,11 @@ Partial Class frmAddStock
         'LabelControl1
         '
         Me.LabelControl1.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl1.Location = New System.Drawing.Point(47, 67)
+        Me.LabelControl1.Location = New System.Drawing.Point(25, 67)
         Me.LabelControl1.Name = "LabelControl1"
-        Me.LabelControl1.Size = New System.Drawing.Size(90, 16)
+        Me.LabelControl1.Size = New System.Drawing.Size(112, 16)
         Me.LabelControl1.TabIndex = 0
-        Me.LabelControl1.Text = "Product Model :"
+        Me.LabelControl1.Text = "Product Model (*) :"
         '
         'LabelControl2
         '
@@ -85,7 +89,7 @@ Partial Class frmAddStock
         'LabelControl4
         '
         Me.LabelControl4.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl4.Location = New System.Drawing.Point(77, 109)
+        Me.LabelControl4.Location = New System.Drawing.Point(77, 107)
         Me.LabelControl4.Name = "LabelControl4"
         Me.LabelControl4.Size = New System.Drawing.Size(60, 16)
         Me.LabelControl4.TabIndex = 0
@@ -94,7 +98,7 @@ Partial Class frmAddStock
         'LabelControl5
         '
         Me.LabelControl5.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl5.Location = New System.Drawing.Point(34, 151)
+        Me.LabelControl5.Location = New System.Drawing.Point(34, 147)
         Me.LabelControl5.Name = "LabelControl5"
         Me.LabelControl5.Size = New System.Drawing.Size(103, 16)
         Me.LabelControl5.TabIndex = 0
@@ -103,7 +107,7 @@ Partial Class frmAddStock
         'LabelControl6
         '
         Me.LabelControl6.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl6.Location = New System.Drawing.Point(18, 192)
+        Me.LabelControl6.Location = New System.Drawing.Point(18, 187)
         Me.LabelControl6.Name = "LabelControl6"
         Me.LabelControl6.Size = New System.Drawing.Size(119, 16)
         Me.LabelControl6.TabIndex = 0
@@ -132,7 +136,7 @@ Partial Class frmAddStock
         Me.pceDDCategory.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.pceDDCategory.Properties.Appearance.Options.UseFont = True
         Me.pceDDCategory.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.pceDDCategory.Properties.NullValuePrompt = "All"
+        Me.pceDDCategory.Properties.NullValuePrompt = "Others"
         Me.pceDDCategory.Properties.PopupControl = Me.PopupContainerControl
         Me.pceDDCategory.Properties.PopupSizeable = False
         Me.pceDDCategory.Properties.ShowPopupCloseButton = False
@@ -147,38 +151,53 @@ Partial Class frmAddStock
         Me.txtModel.Properties.Appearance.Options.UseFont = True
         Me.txtModel.Size = New System.Drawing.Size(374, 22)
         Me.txtModel.TabIndex = 1
+        Me.txtModel.ToolTipController = Me.ToolTipController
         '
         'txtQuantity
         '
-        Me.txtQuantity.Location = New System.Drawing.Point(143, 148)
+        Me.txtQuantity.EditValue = "0"
+        Me.txtQuantity.Location = New System.Drawing.Point(143, 144)
         Me.txtQuantity.Name = "txtQuantity"
         Me.txtQuantity.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtQuantity.Properties.Appearance.Options.UseFont = True
         Me.txtQuantity.Size = New System.Drawing.Size(130, 22)
         Me.txtQuantity.TabIndex = 4
+        Me.txtQuantity.ToolTip = "Numeric only"
+        Me.txtQuantity.ToolTipIconType = DevExpress.Utils.ToolTipIconType.Warning
         '
         'txtPrice
         '
-        Me.txtPrice.Location = New System.Drawing.Point(388, 148)
+        Me.txtPrice.EditValue = "0.00"
+        Me.txtPrice.Location = New System.Drawing.Point(387, 148)
         Me.txtPrice.Name = "txtPrice"
         Me.txtPrice.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPrice.Properties.Appearance.Options.UseFont = True
+        Me.txtPrice.Properties.Mask.BeepOnError = True
+        Me.txtPrice.Properties.Mask.EditMask = "$000000.00"
+        Me.txtPrice.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtPrice.Properties.Mask.UseMaskAsDisplayFormat = True
+        Me.txtPrice.Properties.MaxLength = 10
         Me.txtPrice.Size = New System.Drawing.Size(130, 22)
         Me.txtPrice.TabIndex = 6
         '
         'txtCost
         '
+        Me.txtCost.EditValue = "0.00"
         Me.txtCost.Location = New System.Drawing.Point(387, 106)
         Me.txtCost.Name = "txtCost"
         Me.txtCost.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCost.Properties.Appearance.Options.UseFont = True
+        Me.txtCost.Properties.Mask.BeepOnError = True
+        Me.txtCost.Properties.Mask.EditMask = "$000000.00"
+        Me.txtCost.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtCost.Properties.Mask.UseMaskAsDisplayFormat = True
         Me.txtCost.Size = New System.Drawing.Size(130, 22)
         Me.txtCost.TabIndex = 5
         '
         'txtDescription
         '
         Me.txtDescription.EditValue = ""
-        Me.txtDescription.Location = New System.Drawing.Point(143, 189)
+        Me.txtDescription.Location = New System.Drawing.Point(143, 184)
         Me.txtDescription.Name = "txtDescription"
         Me.txtDescription.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDescription.Properties.Appearance.Options.UseFont = True
@@ -241,6 +260,29 @@ Partial Class frmAddStock
         Me.btnAdd.TabIndex = 14
         Me.btnAdd.Text = "&Add"
         '
+        'LabelControl7
+        '
+        Me.LabelControl7.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl7.Location = New System.Drawing.Point(51, 227)
+        Me.LabelControl7.Name = "LabelControl7"
+        Me.LabelControl7.Size = New System.Drawing.Size(86, 16)
+        Me.LabelControl7.TabIndex = 0
+        Me.LabelControl7.Text = "Product Profit :"
+        '
+        'lblProductProfit
+        '
+        Me.lblProductProfit.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblProductProfit.Location = New System.Drawing.Point(143, 227)
+        Me.lblProductProfit.Name = "lblProductProfit"
+        Me.lblProductProfit.Size = New System.Drawing.Size(43, 16)
+        Me.lblProductProfit.TabIndex = 0
+        Me.lblProductProfit.Text = "RM0.00"
+        '
+        'ToolTipController
+        '
+        Me.ToolTipController.Rounded = True
+        Me.ToolTipController.ShowBeak = True
+        '
         'frmAddStock
         '
         Me.Appearance.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(236, Byte), Integer), CType(CType(239, Byte), Integer))
@@ -248,6 +290,8 @@ Partial Class frmAddStock
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(539, 329)
+        Me.Controls.Add(Me.lblProductProfit)
+        Me.Controls.Add(Me.LabelControl7)
         Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.PanelTop)
@@ -268,6 +312,7 @@ Partial Class frmAddStock
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmAddStock"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         CType(Me.PopupContainerControl, System.ComponentModel.ISupportInitialize).EndInit()
@@ -305,4 +350,7 @@ Partial Class frmAddStock
     Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
     Friend WithEvents LineShape1 As Microsoft.VisualBasic.PowerPacks.LineShape
     Friend WithEvents btnAdd As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents LabelControl7 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lblProductProfit As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents ToolTipController As DevExpress.Utils.ToolTipController
 End Class
