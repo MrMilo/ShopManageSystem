@@ -1,7 +1,7 @@
 ﻿Imports System.Data.OleDb
 Imports DevExpress.XtraEditors
 
-Public Class frmAddStock
+Public Class frmEditStock
     Inherits DevExpress.XtraEditors.XtraForm
 
     Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
@@ -24,7 +24,7 @@ Public Class frmAddStock
         'AddHandler txtPrice.KeyPress, AddressOf CurrencyKeyPress
     End Sub
 
-    Dim CurrentSelectedNodeID As Integer = 2
+    Public CurrentSelectedNodeID As Integer = 2
     Private Sub tvCategoryDropDown_NodeMouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.TreeNodeMouseClickEventArgs) Handles tvCategoryDropDown.NodeMouseDoubleClick
         pceDDCategory.Text = tvCategoryDropDown.SelectedNode.Text
         pceDDCategory.ClosePopup()
@@ -66,21 +66,23 @@ Public Class frmAddStock
         End If
     End Sub
 
-    Private Sub btnAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
+    Public CurrentProdID As Integer = 0
+    Private Sub btnEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEdit.Click
         If txtModel.Text.Length = 0 Then
             txtModel.ToolTipController.ShowHint("Please key in product model name!", DevExpress.Utils.ToolTipLocation.BottomRight, txtModel.PointToScreen(New Point(20, -15)))
         Else
-            Dim insertNewStock As New OleDbCommand("INSERT INTO tblProduct (prod_model, prod_quantity, prod_cost, prod_price, prod_description, prod_category) VALUES (?, ?, ?, ?, ?, ?)", openConn())
+            Dim insertNewStock As New OleDbCommand("UPDATE tblProduct SET prod_model = ?, prod_quantity = ?, prod_cost = ?, prod_price = ?, prod_description = ?, prod_category = ? WHERE prod_id = ?", openConn())
             insertNewStock.Parameters.AddWithValue("prod_model", txtModel.Text)
             insertNewStock.Parameters.AddWithValue("prod_quantity", txtQuantity.Text)
             insertNewStock.Parameters.AddWithValue("prod_cost", txtCost.Text)
             insertNewStock.Parameters.AddWithValue("prod_price", txtPrice.Text)
             insertNewStock.Parameters.AddWithValue("prod_description", txtDescription.Text)
             insertNewStock.Parameters.AddWithValue("prod_category", CurrentSelectedNodeID)
+            insertNewStock.Parameters.AddWithValue("prod_id", CurrentProdID)
 
             Try
                 insertNewStock.ExecuteNonQuery()
-                XtraMessageBox.Show("Product has been added!", "Product added", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                XtraMessageBox.Show("Product has been edited!", "Product edited", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Catch ex As Exception
                 MsgBox(ex.Message)
             Finally
