@@ -26,10 +26,14 @@ Public Class frmAddStock
 
     Dim CurrentSelectedNodeID As Integer = 2
     Private Sub tvCategoryDropDown_NodeMouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.TreeNodeMouseClickEventArgs) Handles tvCategoryDropDown.NodeMouseDoubleClick
-        pceDDCategory.Text = tvCategoryDropDown.SelectedNode.Text
-        pceDDCategory.ClosePopup()
+        If tvCategoryDropDown.SelectedNode.Name = 1 Then
+            pceDDCategory.ClosePopup()
+        Else
+            pceDDCategory.Text = tvCategoryDropDown.SelectedNode.Text
+            pceDDCategory.ClosePopup()
 
-        CurrentSelectedNodeID = tvCategoryDropDown.SelectedNode.Name
+            CurrentSelectedNodeID = tvCategoryDropDown.SelectedNode.Name
+        End If
     End Sub
 
     Private Sub TextValidate(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtQuantity.KeyPress

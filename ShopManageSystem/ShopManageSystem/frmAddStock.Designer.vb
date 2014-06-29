@@ -34,6 +34,7 @@ Partial Class frmAddStock
         Me.tvCategoryDropDown = New System.Windows.Forms.TreeView()
         Me.pceDDCategory = New DevExpress.XtraEditors.PopupContainerEdit()
         Me.txtModel = New DevExpress.XtraEditors.TextEdit()
+        Me.ToolTipController = New DevExpress.Utils.ToolTipController(Me.components)
         Me.txtQuantity = New DevExpress.XtraEditors.TextEdit()
         Me.txtPrice = New DevExpress.XtraEditors.TextEdit()
         Me.txtCost = New DevExpress.XtraEditors.TextEdit()
@@ -47,7 +48,6 @@ Partial Class frmAddStock
         Me.btnAdd = New DevExpress.XtraEditors.SimpleButton()
         Me.LabelControl7 = New DevExpress.XtraEditors.LabelControl()
         Me.lblProductProfit = New DevExpress.XtraEditors.LabelControl()
-        Me.ToolTipController = New DevExpress.Utils.ToolTipController(Me.components)
         CType(Me.PopupContainerControl, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PopupContainerControl.SuspendLayout()
         CType(Me.pceDDCategory.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -136,7 +136,7 @@ Partial Class frmAddStock
         Me.pceDDCategory.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.pceDDCategory.Properties.Appearance.Options.UseFont = True
         Me.pceDDCategory.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.pceDDCategory.Properties.NullValuePrompt = "Others"
+        Me.pceDDCategory.Properties.NullValuePrompt = "Select a category"
         Me.pceDDCategory.Properties.PopupControl = Me.PopupContainerControl
         Me.pceDDCategory.Properties.PopupSizeable = False
         Me.pceDDCategory.Properties.ShowPopupCloseButton = False
@@ -152,6 +152,11 @@ Partial Class frmAddStock
         Me.txtModel.Size = New System.Drawing.Size(374, 22)
         Me.txtModel.TabIndex = 1
         Me.txtModel.ToolTipController = Me.ToolTipController
+        '
+        'ToolTipController
+        '
+        Me.ToolTipController.Rounded = True
+        Me.ToolTipController.ShowBeak = True
         '
         'txtQuantity
         '
@@ -277,11 +282,6 @@ Partial Class frmAddStock
         Me.lblProductProfit.Size = New System.Drawing.Size(43, 16)
         Me.lblProductProfit.TabIndex = 0
         Me.lblProductProfit.Text = "RM0.00"
-        '
-        'ToolTipController
-        '
-        Me.ToolTipController.Rounded = True
-        Me.ToolTipController.ShowBeak = True
         '
         'frmAddStock
         '

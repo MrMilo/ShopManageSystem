@@ -128,10 +128,14 @@ Public Class frmStockManagement
 
     Dim CurrentSelectedNodeID As Integer = 2
     Private Sub tvCategoryDropDown_NodeMouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.TreeNodeMouseClickEventArgs) Handles tvCategoryDropDown.NodeMouseDoubleClick
-        pceDDCategory.Text = tvCategoryDropDown.SelectedNode.Text
-        pceDDCategory.ClosePopup()
+        If tvCategoryDropDown.SelectedNode.Name = 1 Then
+            pceDDCategory.ClosePopup()
+        Else
+            pceDDCategory.Text = tvCategoryDropDown.SelectedNode.Text
+            pceDDCategory.ClosePopup()
 
-        CurrentSelectedNodeID = tvCategoryDropDown.SelectedNode.Name
+            CurrentSelectedNodeID = tvCategoryDropDown.SelectedNode.Name
+        End If
     End Sub
 
     Private Sub btnBuckChangeCat_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBuckChangeCat.Click
@@ -241,6 +245,53 @@ Public Class frmStockManagement
             Dim qty As Integer = view.GetRowCellDisplayText(e.RowHandle, view.Columns("prod_quantity"))
             If qty <= 0 Then
                 e.Appearance.ForeColor = Color.DarkRed
+            End If
+        End If
+    End Sub
+
+    Private Sub pceDDCategory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pceDDCategory.Click
+        tvCategoryDropDown.ExpandAll()
+    End Sub
+
+    Dim currentNodeCount As Integer = 0
+    Dim NodeCollectionList As String = ""
+    Private Sub CheckAllChildNodes(ByVal treeNode As TreeNode)
+        Dim node As TreeNode
+        For Each node In treeNode.Nodes
+            currentNodeCount = currentNodeCount + 1
+            NodeCollectionList = NodeCollectionList + node.Text + ","
+            If node.Nodes.Count > 0 Then
+                ' If the current node has child nodes, call the CheckAllChildsNodes method recursively. 
+                CheckAllChildNodes(node)
+            End If
+        Next node
+    End Sub
+
+    Private Sub tvCategory_AfterSelect(ByVal sender As Object, ByVal e As System.Windows.Forms.TreeViewEventArgs) Handles tvCategory.AfterSelect
+        If tvCategory.SelectedNode.Name = 1 Then
+            StockGV.ClearColumnsFilter()
+        Else
+            If e.Action <> TreeViewAction.Unknown Then
+                currentNodeCount = 0 'reset value
+                NodeCollectionList = "" 'reset value
+                If e.Node.Nodes.Count > 0 Then
+                    Me.CheckAllChildNodes(e.Node)
+                End If
+                NodeCollectionList = NodeCollectionList + tvCategory.SelectedNode.Text 'append the selected node
+            End If
+
+            If currentNodeCount > 0 Then
+                Dim arr() As String = NodeCollectionList.Split(",")
+                Dim vals As List(Of String) = arr.ToList
+                Dim FilterText As String = ""
+
+                For Each node As String In vals
+                    FilterText = FilterText + "[cat_name] = '" & node & "'" + " OR "
+                Next
+
+                StockGV.ActiveFilter.NonColumnFilter = FilterText.Substring(0, FilterText.Length - 4)
+            Else
+                StockGV.ActiveFilter.NonColumnFilter = "[cat_name] = '" & NodeCollectionList & "'"
             End If
         End If
     End Sub
