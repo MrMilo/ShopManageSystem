@@ -47,6 +47,7 @@ Partial Class frmStockManagement
         Me.StockDGV = New DevExpress.XtraGrid.GridControl()
         Me.StockGV = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.btnAddNewCategory = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnExport = New DevExpress.XtraEditors.SimpleButton()
         Me.PanelTop.SuspendLayout()
         CType(Me.PopupContainerProduct.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PopupContainerControl_ProductSearch, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -169,6 +170,7 @@ Partial Class frmStockManagement
         Me.PanelButton.Controls.Add(Me.chkSelectAll)
         Me.PanelButton.Controls.Add(Me.PopupContainerCategory)
         Me.PanelButton.Controls.Add(Me.btnBuckChangeCat)
+        Me.PanelButton.Controls.Add(Me.btnExport)
         Me.PanelButton.Controls.Add(Me.btnHideZeroStock)
         Me.PanelButton.Controls.Add(Me.btnDelete)
         Me.PanelButton.Controls.Add(Me.btnEdit)
@@ -180,16 +182,19 @@ Partial Class frmStockManagement
         '
         'chkSelectAll
         '
-        Me.chkSelectAll.Location = New System.Drawing.Point(730, 14)
+        Me.chkSelectAll.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.chkSelectAll.Location = New System.Drawing.Point(728, 14)
         Me.chkSelectAll.Name = "chkSelectAll"
+        Me.chkSelectAll.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkSelectAll.Properties.Appearance.Options.UseFont = True
         Me.chkSelectAll.Properties.Caption = "Select All"
-        Me.chkSelectAll.Size = New System.Drawing.Size(75, 19)
+        Me.chkSelectAll.Size = New System.Drawing.Size(75, 20)
         Me.chkSelectAll.TabIndex = 9
         '
         'PopupContainerCategory
         '
         Me.PopupContainerCategory.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PopupContainerCategory.Location = New System.Drawing.Point(549, 13)
+        Me.PopupContainerCategory.Location = New System.Drawing.Point(615, 13)
         Me.PopupContainerCategory.Name = "PopupContainerCategory"
         Me.PopupContainerCategory.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PopupContainerCategory.Properties.Appearance.Options.UseFont = True
@@ -198,13 +203,13 @@ Partial Class frmStockManagement
         Me.PopupContainerCategory.Properties.PopupControl = Me.PopupContainerControl_Category
         Me.PopupContainerCategory.Properties.PopupSizeable = False
         Me.PopupContainerCategory.Properties.ShowPopupCloseButton = False
-        Me.PopupContainerCategory.Size = New System.Drawing.Size(130, 22)
+        Me.PopupContainerCategory.Size = New System.Drawing.Size(104, 22)
         Me.PopupContainerCategory.TabIndex = 8
         '
         'btnBuckChangeCat
         '
         Me.btnBuckChangeCat.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnBuckChangeCat.Location = New System.Drawing.Point(434, 12)
+        Me.btnBuckChangeCat.Location = New System.Drawing.Point(501, 12)
         Me.btnBuckChangeCat.Name = "btnBuckChangeCat"
         Me.btnBuckChangeCat.Size = New System.Drawing.Size(115, 23)
         Me.btnBuckChangeCat.TabIndex = 0
@@ -213,7 +218,7 @@ Partial Class frmStockManagement
         'btnHideZeroStock
         '
         Me.btnHideZeroStock.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnHideZeroStock.Location = New System.Drawing.Point(318, 13)
+        Me.btnHideZeroStock.Location = New System.Drawing.Point(289, 13)
         Me.btnHideZeroStock.Name = "btnHideZeroStock"
         Me.btnHideZeroStock.Size = New System.Drawing.Size(89, 23)
         Me.btnHideZeroStock.TabIndex = 0
@@ -222,7 +227,7 @@ Partial Class frmStockManagement
         'btnDelete
         '
         Me.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnDelete.Location = New System.Drawing.Point(216, 13)
+        Me.btnDelete.Location = New System.Drawing.Point(197, 13)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(75, 23)
         Me.btnDelete.TabIndex = 0
@@ -231,7 +236,7 @@ Partial Class frmStockManagement
         'btnEdit
         '
         Me.btnEdit.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnEdit.Location = New System.Drawing.Point(114, 13)
+        Me.btnEdit.Location = New System.Drawing.Point(105, 13)
         Me.btnEdit.Name = "btnEdit"
         Me.btnEdit.Size = New System.Drawing.Size(75, 23)
         Me.btnEdit.TabIndex = 0
@@ -240,7 +245,7 @@ Partial Class frmStockManagement
         'btnNew
         '
         Me.btnNew.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnNew.Location = New System.Drawing.Point(12, 13)
+        Me.btnNew.Location = New System.Drawing.Point(13, 13)
         Me.btnNew.Name = "btnNew"
         Me.btnNew.Size = New System.Drawing.Size(75, 23)
         Me.btnNew.TabIndex = 0
@@ -283,6 +288,15 @@ Partial Class frmStockManagement
         Me.btnAddNewCategory.Size = New System.Drawing.Size(139, 43)
         Me.btnAddNewCategory.TabIndex = 0
         Me.btnAddNewCategory.Text = "New &Category"
+        '
+        'btnExport
+        '
+        Me.btnExport.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnExport.Location = New System.Drawing.Point(395, 13)
+        Me.btnExport.Name = "btnExport"
+        Me.btnExport.Size = New System.Drawing.Size(89, 23)
+        Me.btnExport.TabIndex = 0
+        Me.btnExport.Text = "E&xport"
         '
         'frmStockManagement
         '
@@ -339,4 +353,5 @@ Partial Class frmStockManagement
     Friend WithEvents PopupContainerControl_ProductSearch As DevExpress.XtraEditors.PopupContainerControl
     Friend WithEvents ProductSearchDGV As DevExpress.XtraGrid.GridControl
     Friend WithEvents ProductSearchGV As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents btnExport As DevExpress.XtraEditors.SimpleButton
 End Class

@@ -99,9 +99,6 @@ Public Class frmStockManagement
 
             StockDGV.DataSource = dt
 
-            'basic styling
-            'StockGV.BestFitColumns()
-
             For i = 1 To 5
                 StockGV.Columns(i).AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
             Next
@@ -240,7 +237,7 @@ Public Class frmStockManagement
     End Sub
 
     Dim HideZeroStockState As Integer = 0 '0 = no click ; 1 = click
-    Private Sub btnHideZeroStock_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHideZeroStock.Click
+    Private Sub btnHideZeroStock_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHideZeroStock.Click, btnExport.Click
         If HideZeroStockState = 0 Then
             HideZeroStockState = 1
             StockGV.ActiveFilter.NonColumnFilter = "[prod_quantity] > 0"
@@ -250,8 +247,6 @@ Public Class frmStockManagement
             StockGV.ClearColumnsFilter()
             btnHideZeroStock.Text = "&Hide Zero Stock"
         End If
-
-        fillStockGV()
     End Sub
 
     Private Sub ToolTipController_GetActiveObjectInfo(ByVal sender As Object, ByVal e As DevExpress.Utils.ToolTipControllerGetActiveObjectInfoEventArgs) Handles ToolTipController.GetActiveObjectInfo
@@ -341,10 +336,21 @@ Public Class frmStockManagement
         PopupContainerProduct.SelectAll()
     End Sub
 
+    Private Sub PopupContainerProduct_ButtonClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles PopupContainerProduct.ButtonClick
+        PopupContainerProduct.ShowPopup()
+        ProductSearchGV.ClearColumnsFilter()
+        PopupContainerProduct.Focus()
+    End Sub
+
     Private Sub PopupContainerProduct_EditValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PopupContainerProduct.EditValueChanged
         PopupContainerProduct.ShowPopup()
         ProductSearchGV.ActiveFilter.NonColumnFilter = "[prod_model] LIKE '%" & PopupContainerProduct.Text & "%'"
         PopupContainerProduct.Focus()
+
+        If PopupContainerProduct.Text.Length = 0 Then
+            StockGV.ClearColumnsFilter()
+            ProductSearchGV.ClearColumnsFilter()
+        End If
     End Sub
 
     Private Sub ProductSearchGV_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles ProductSearchGV.DoubleClick
@@ -360,6 +366,9 @@ Public Class frmStockManagement
     Private Sub btnSearch_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSearch.Click
         If PopupContainerProduct.Text.Length > 0 Then
             StockGV.ActiveFilter.NonColumnFilter = "[prod_model] LIKE '%" & PopupContainerProduct.Text & "%'"
+        Else
+            StockGV.ClearColumnsFilter()
+            ProductSearchGV.ClearColumnsFilter()
         End If
     End Sub
 End Class

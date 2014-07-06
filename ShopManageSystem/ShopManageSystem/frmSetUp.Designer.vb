@@ -148,6 +148,7 @@ Partial Class frmSetUp
         '
         'btnConfirm
         '
+        Me.btnConfirm.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnConfirm.Location = New System.Drawing.Point(488, 368)
         Me.btnConfirm.Name = "btnConfirm"
         Me.btnConfirm.Size = New System.Drawing.Size(124, 44)

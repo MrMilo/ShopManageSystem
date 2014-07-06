@@ -59,6 +59,8 @@ Public Class frmMain
         lblReporting.BackColor = Color.Transparent
         lblSetting.BackColor = Color.Transparent
         lblAssistant.BackColor = Color.Transparent
+
+        TabControl.TabPages(0).ShowCloseButton = DevExpress.Utils.DefaultBoolean.False 'always hide home close button
     End Sub
 
     Private Sub pbHome_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles pbHome.MouseUp, pbHome.MouseHover
@@ -119,13 +121,17 @@ Public Class frmMain
         TabControl.SelectedTabPageIndex = 1
     End Sub
 
-    'Private Sub btnCustomer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCustomer.Click
-    '    frmCustomerManagement.TopLevel = False
-    '    frmCustomerManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
-    '    frmCustomerManagement.Dock = DockStyle.Fill
-    '    TabControl.TabPages(2).Controls.Add(frmCustomerManagement)
-    '    frmCustomerManagement.Show()
-    '    TabControl.TabPages(2).PageVisible = True
-    '    TabControl.SelectedTabPageIndex = 2
-    'End Sub
+    Private Sub btnCustomer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCustomer.Click
+        frmCustomerManagement.TopLevel = False
+        frmCustomerManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+        frmCustomerManagement.Dock = DockStyle.Fill
+        TabControl.TabPages(2).Controls.Add(frmCustomerManagement)
+        frmCustomerManagement.Show()
+        TabControl.TabPages(2).PageVisible = True
+        TabControl.SelectedTabPageIndex = 2
+    End Sub
+
+    Private Sub TabControl_CloseButtonClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles TabControl.CloseButtonClick
+        TabControl.SelectedTabPage.PageVisible = False
+    End Sub
 End Class
