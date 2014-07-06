@@ -41,7 +41,6 @@ Partial Class frmAddStock
         Me.txtDescription = New DevExpress.XtraEditors.TextEdit()
         Me.PanelTop = New System.Windows.Forms.Panel()
         Me.lblStockAdd = New DevExpress.XtraEditors.LabelControl()
-        Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.btnCancel = New DevExpress.XtraEditors.SimpleButton()
         Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
         Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
@@ -167,8 +166,7 @@ Partial Class frmAddStock
         Me.txtQuantity.Properties.Appearance.Options.UseFont = True
         Me.txtQuantity.Size = New System.Drawing.Size(130, 22)
         Me.txtQuantity.TabIndex = 4
-        Me.txtQuantity.ToolTip = "Numeric only"
-        Me.txtQuantity.ToolTipIconType = DevExpress.Utils.ToolTipIconType.Warning
+        Me.txtQuantity.ToolTipController = Me.ToolTipController
         '
         'txtPrice
         '
@@ -345,7 +343,6 @@ Partial Class frmAddStock
     Friend WithEvents txtDescription As DevExpress.XtraEditors.TextEdit
     Friend WithEvents PanelTop As System.Windows.Forms.Panel
     Friend WithEvents lblStockAdd As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents OpenFileDialog As System.Windows.Forms.OpenFileDialog
     Friend WithEvents btnCancel As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
     Friend WithEvents LineShape1 As Microsoft.VisualBasic.PowerPacks.LineShape

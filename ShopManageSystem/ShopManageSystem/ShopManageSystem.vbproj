@@ -105,6 +105,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="frmAddCategory.Designer.vb">
+      <DependentUpon>frmAddCategory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddCategory.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmEditStock.Designer.vb">
       <DependentUpon>frmEditStock.vb</DependentUpon>
     </Compile>
@@ -173,6 +179,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmAddCategory.resx">
+      <DependentUpon>frmAddCategory.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmEditStock.resx">
       <DependentUpon>frmEditStock.vb</DependentUpon>
     </EmbeddedResource>

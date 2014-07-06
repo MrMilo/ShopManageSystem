@@ -9,7 +9,7 @@ Public Class frmStockManagement
 
     Private Sub frmStockManagement_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         fillStockGV() 'fill stock grid view
-
+        fillProductSearchGV() 'fill container product grid
         Try
             conn.Open()
             tvCategory.Nodes.Clear()
@@ -33,36 +33,40 @@ Public Class frmStockManagement
     End Sub
 
     Private Sub btnDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
-        If StockGV.SelectedRowsCount > 0 Then
-            Dim Rows As New ArrayList()
-            ' Add the selected rows to the list.
-            Dim I As Integer
-            For I = 0 To StockGV.SelectedRowsCount() - 1
-                If (StockGV.GetSelectedRows()(I) >= 0) Then
-                    Rows.Add(StockGV.GetDataRow(StockGV.GetSelectedRows()(I)))
-                End If
-            Next
+        If StockGV.SelectedRowsCount > 0 Then 'confirm yes no
+            Dim dialogResult = XtraMessageBox.Show("Are you sure you want to delete the selected data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-            For I = 0 To Rows.Count - 1
-                Dim Row As DataRow = CType(Rows(I), DataRow)
+            If dialogResult = Windows.Forms.DialogResult.Yes Then
+                Dim Rows As New ArrayList()
+                ' Add the selected rows to the list.
+                Dim I As Integer
+                For I = 0 To StockGV.SelectedRowsCount() - 1
+                    If (StockGV.GetSelectedRows()(I) >= 0) Then
+                        Rows.Add(StockGV.GetDataRow(StockGV.GetSelectedRows()(I)))
+                    End If
+                Next
 
-                Dim deleteStockProduct As New OleDbCommand("DELETE FROM tblProduct WHERE prod_id = ?", conn)
-                deleteStockProduct.Parameters.AddWithValue("prod_id", Row("prod_id"))
+                For I = 0 To Rows.Count - 1
+                    Dim Row As DataRow = CType(Rows(I), DataRow)
 
-                Try
-                    conn.Open()
-                    deleteStockProduct.ExecuteNonQuery()
-                Catch ex As Exception
-                    MsgBox(ex.Message)
-                Finally
-                    conn.Close()
-                    deleteStockProduct.Parameters.Clear()
-                End Try
-            Next
-            XtraMessageBox.Show("The selected data has been deleted", "Data Deleted", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                    Dim deleteStockProduct As New OleDbCommand("DELETE FROM tblProduct WHERE prod_id = ?", conn)
+                    deleteStockProduct.Parameters.AddWithValue("prod_id", Row("prod_id"))
 
-            'finally remove the rows from grid control, so that no repopulation is needed
-            StockGV.DeleteSelectedRows()
+                    Try
+                        conn.Open()
+                        deleteStockProduct.ExecuteNonQuery()
+                    Catch ex As Exception
+                        MsgBox(ex.Message)
+                    Finally
+                        conn.Close()
+                        deleteStockProduct.Parameters.Clear()
+                    End Try
+                Next
+                XtraMessageBox.Show("The selected data has been deleted", "Data Deleted", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+
+                'finally remove the rows from grid control, so that no repopulation is needed
+                StockGV.DeleteSelectedRows()
+            End If
         Else
             XtraMessageBox.Show("Please select a record to perform this action!", "No data selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
@@ -72,15 +76,8 @@ Public Class frmStockManagement
         StockDGV.DataSource = Nothing
 
         Try
-            Dim da As OleDbDataAdapter 'define it here so it escape the undefine error below
-
-            If HideZeroStockState = 0 Then
-                da = New OleDbDataAdapter("SELECT tblProduct.prod_id, tblProduct.prod_model, tblCategory.cat_name, tblProduct.prod_quantity, tblProduct.prod_cost, tblProduct.prod_price, tblProduct.prod_description, tblProduct.prod_category" _
-                                                & " FROM tblCategory INNER JOIN tblProduct ON tblCategory.cat_id = tblProduct.prod_category", openConn())
-            Else
-                da = New OleDbDataAdapter("SELECT tblProduct.prod_id, tblProduct.prod_model, tblCategory.cat_name, tblProduct.prod_quantity, tblProduct.prod_cost, tblProduct.prod_price, tblProduct.prod_description, tblProduct.prod_category" _
-                                                & " FROM tblCategory INNER JOIN tblProduct ON tblCategory.cat_id = tblProduct.prod_category WHERE tblProduct.prod_quantity > 0", openConn())
-            End If
+            Dim da As New OleDbDataAdapter("SELECT tblProduct.prod_id, tblProduct.prod_model, tblCategory.cat_name, tblProduct.prod_quantity, tblProduct.prod_cost, tblProduct.prod_price, tblProduct.prod_description, tblProduct.prod_category" _
+                                            & " FROM tblCategory INNER JOIN tblProduct ON tblCategory.cat_id = tblProduct.prod_category", openConn())
 
             Dim dt As New DataTable
 
@@ -126,13 +123,37 @@ Public Class frmStockManagement
         StockGV.IndicatorWidth = 35
     End Sub
 
+    Public Sub fillProductSearchGV()
+        ProductSearchDGV.DataSource = Nothing
+
+        Try
+            Dim da As New OleDbDataAdapter("SELECT tblCategory.cat_name, tblProduct.prod_model FROM tblCategory INNER JOIN tblProduct ON tblCategory.cat_id = tblProduct.prod_category", openConn())
+
+            Dim dt As New DataTable
+
+            da.Fill(dt)
+
+            ProductSearchDGV.DataSource = dt
+
+            For i = 0 To 1
+                ProductSearchGV.Columns(i).AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+            Next
+
+            ProductSearchGV.Columns(0).Caption = "Category"
+
+            ProductSearchGV.Columns(1).Caption = "Model"
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
     Dim CurrentSelectedNodeID As Integer = 2
     Private Sub tvCategoryDropDown_NodeMouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.TreeNodeMouseClickEventArgs) Handles tvCategoryDropDown.NodeMouseDoubleClick
         If tvCategoryDropDown.SelectedNode.Name = 1 Then
-            pceDDCategory.ClosePopup()
+            PopupContainerCategory.ClosePopup()
         Else
-            pceDDCategory.Text = tvCategoryDropDown.SelectedNode.Text
-            pceDDCategory.ClosePopup()
+            PopupContainerCategory.Text = tvCategoryDropDown.SelectedNode.Text
+            PopupContainerCategory.ClosePopup()
 
             CurrentSelectedNodeID = tvCategoryDropDown.SelectedNode.Name
         End If
@@ -186,7 +207,7 @@ Public Class frmStockManagement
         frmAddStock.ShowDialog()
     End Sub
 
-    Private Sub btnEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEdit.Click
+    Private Sub btnEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEdit.Click, StockGV.DoubleClick
         If StockGV.SelectedRowsCount > 1 Then
             XtraMessageBox.Show("You may only select one row of data!", "More than one data selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         ElseIf StockGV.SelectedRowsCount = 0 Then
@@ -208,9 +229,11 @@ Public Class frmStockManagement
     Private Sub btnHideZeroStock_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHideZeroStock.Click
         If HideZeroStockState = 0 Then
             HideZeroStockState = 1
+            StockGV.ActiveFilter.NonColumnFilter = "[prod_quantity] > 0"
             btnHideZeroStock.Text = "&Show All"
         Else
             HideZeroStockState = 0
+            StockGV.ClearColumnsFilter()
             btnHideZeroStock.Text = "&Hide Zero Stock"
         End If
 
@@ -249,7 +272,7 @@ Public Class frmStockManagement
         End If
     End Sub
 
-    Private Sub pceDDCategory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pceDDCategory.Click
+    Private Sub PopUpContainerCategory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PopupContainerCategory.Click
         tvCategoryDropDown.ExpandAll()
     End Sub
 
@@ -293,6 +316,36 @@ Public Class frmStockManagement
             Else
                 StockGV.ActiveFilter.NonColumnFilter = "[cat_name] = '" & NodeCollectionList & "'"
             End If
+        End If
+    End Sub
+
+    Private Sub btnAddNewCategory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewCategory.Click
+        frmAddCategory.ShowDialog()
+    End Sub
+
+    Private Sub PopupContainerProduct_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles PopupContainerProduct.Click
+        PopupContainerProduct.SelectAll()
+    End Sub
+
+    Private Sub PopupContainerProduct_EditValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PopupContainerProduct.EditValueChanged
+        PopupContainerProduct.ShowPopup()
+        ProductSearchGV.ActiveFilter.NonColumnFilter = "[prod_model] LIKE '%" & PopupContainerProduct.Text & "%'"
+        PopupContainerProduct.Focus()
+    End Sub
+
+    Private Sub ProductSearchGV_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles ProductSearchGV.DoubleClick
+        If ProductSearchGV.SelectedRowsCount = 0 Then
+            XtraMessageBox.Show("Please select a record to perform this action!", "No data selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        Else
+            PopupContainerProduct.Text = ProductSearchGV.GetRowCellValue(ProductSearchGV.FocusedRowHandle, "prod_model")
+            StockGV.ActiveFilter.NonColumnFilter = "[prod_model] = '" & ProductSearchGV.GetRowCellValue(ProductSearchGV.FocusedRowHandle, "prod_model") & "'"
+            PopupContainerProduct.ClosePopup()
+        End If
+    End Sub
+
+    Private Sub btnSearch_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSearch.Click
+        If PopupContainerProduct.Text.Length > 0 Then
+            StockGV.ActiveFilter.NonColumnFilter = "[prod_model] LIKE '%" & PopupContainerProduct.Text & "%'"
         End If
     End Sub
 End Class

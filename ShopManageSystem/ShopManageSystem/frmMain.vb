@@ -118,4 +118,14 @@ Public Class frmMain
         TabControl.TabPages(1).PageVisible = True
         TabControl.SelectedTabPageIndex = 1
     End Sub
+
+    'Private Sub btnCustomer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCustomer.Click
+    '    frmCustomerManagement.TopLevel = False
+    '    frmCustomerManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+    '    frmCustomerManagement.Dock = DockStyle.Fill
+    '    TabControl.TabPages(2).Controls.Add(frmCustomerManagement)
+    '    frmCustomerManagement.Show()
+    '    TabControl.TabPages(2).PageVisible = True
+    '    TabControl.SelectedTabPageIndex = 2
+    'End Sub
 End Class

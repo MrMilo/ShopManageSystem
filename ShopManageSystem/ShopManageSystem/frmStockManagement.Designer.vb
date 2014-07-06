@@ -25,14 +25,19 @@ Partial Class frmStockManagement
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmStockManagement))
         Me.PanelTop = New System.Windows.Forms.Panel()
+        Me.PopupContainerProduct = New DevExpress.XtraEditors.PopupContainerEdit()
+        Me.PopupContainerControl_ProductSearch = New DevExpress.XtraEditors.PopupContainerControl()
+        Me.ProductSearchDGV = New DevExpress.XtraGrid.GridControl()
+        Me.ProductSearchGV = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.ToolTipController = New DevExpress.Utils.ToolTipController(Me.components)
+        Me.lblProduct = New DevExpress.XtraEditors.LabelControl()
         Me.btnSearch = New DevExpress.XtraEditors.SimpleButton()
-        Me.cboSearch = New DevExpress.XtraEditors.ComboBoxEdit()
         Me.lblStockManagement = New DevExpress.XtraEditors.LabelControl()
+        Me.PopupContainerControl_Category = New DevExpress.XtraEditors.PopupContainerControl()
+        Me.tvCategoryDropDown = New System.Windows.Forms.TreeView()
         Me.PanelButton = New System.Windows.Forms.Panel()
         Me.chkSelectAll = New DevExpress.XtraEditors.CheckEdit()
-        Me.pceDDCategory = New DevExpress.XtraEditors.PopupContainerEdit()
-        Me.PopupContainerControl = New DevExpress.XtraEditors.PopupContainerControl()
-        Me.tvCategoryDropDown = New System.Windows.Forms.TreeView()
+        Me.PopupContainerCategory = New DevExpress.XtraEditors.PopupContainerEdit()
         Me.btnBuckChangeCat = New DevExpress.XtraEditors.SimpleButton()
         Me.btnHideZeroStock = New DevExpress.XtraEditors.SimpleButton()
         Me.btnDelete = New DevExpress.XtraEditors.SimpleButton()
@@ -41,15 +46,18 @@ Partial Class frmStockManagement
         Me.tvCategory = New System.Windows.Forms.TreeView()
         Me.StockDGV = New DevExpress.XtraGrid.GridControl()
         Me.StockGV = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.ToolTipController = New DevExpress.Utils.ToolTipController(Me.components)
-        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnAddNewCategory = New DevExpress.XtraEditors.SimpleButton()
         Me.PanelTop.SuspendLayout()
-        CType(Me.cboSearch.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PopupContainerProduct.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PopupContainerControl_ProductSearch, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PopupContainerControl_ProductSearch.SuspendLayout()
+        CType(Me.ProductSearchDGV, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ProductSearchGV, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PopupContainerControl_Category, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PopupContainerControl_Category.SuspendLayout()
         Me.PanelButton.SuspendLayout()
         CType(Me.chkSelectAll.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.pceDDCategory.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PopupContainerControl, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PopupContainerControl.SuspendLayout()
+        CType(Me.PopupContainerCategory.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.StockDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.StockGV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -57,13 +65,70 @@ Partial Class frmStockManagement
         'PanelTop
         '
         Me.PanelTop.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.PanelTop.Controls.Add(Me.PopupContainerProduct)
+        Me.PanelTop.Controls.Add(Me.lblProduct)
         Me.PanelTop.Controls.Add(Me.btnSearch)
-        Me.PanelTop.Controls.Add(Me.cboSearch)
         Me.PanelTop.Controls.Add(Me.lblStockManagement)
         Me.PanelTop.Location = New System.Drawing.Point(-1, -1)
         Me.PanelTop.Name = "PanelTop"
         Me.PanelTop.Size = New System.Drawing.Size(822, 50)
         Me.PanelTop.TabIndex = 4
+        '
+        'PopupContainerProduct
+        '
+        Me.PopupContainerProduct.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.PopupContainerProduct.Location = New System.Drawing.Point(532, 14)
+        Me.PopupContainerProduct.Name = "PopupContainerProduct"
+        Me.PopupContainerProduct.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PopupContainerProduct.Properties.Appearance.Options.UseFont = True
+        Me.PopupContainerProduct.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.PopupContainerProduct.Properties.NullValuePrompt = "Search with Model Name"
+        Me.PopupContainerProduct.Properties.PopupControl = Me.PopupContainerControl_ProductSearch
+        Me.PopupContainerProduct.Properties.PopupSizeable = False
+        Me.PopupContainerProduct.Properties.ShowPopupCloseButton = False
+        Me.PopupContainerProduct.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard
+        Me.PopupContainerProduct.Size = New System.Drawing.Size(193, 22)
+        Me.PopupContainerProduct.TabIndex = 10
+        '
+        'PopupContainerControl_ProductSearch
+        '
+        Me.PopupContainerControl_ProductSearch.Controls.Add(Me.ProductSearchDGV)
+        Me.PopupContainerControl_ProductSearch.Location = New System.Drawing.Point(211, 458)
+        Me.PopupContainerControl_ProductSearch.Name = "PopupContainerControl_ProductSearch"
+        Me.PopupContainerControl_ProductSearch.Size = New System.Drawing.Size(314, 181)
+        Me.PopupContainerControl_ProductSearch.TabIndex = 9
+        '
+        'ProductSearchDGV
+        '
+        Me.ProductSearchDGV.Location = New System.Drawing.Point(2, 1)
+        Me.ProductSearchDGV.MainView = Me.ProductSearchGV
+        Me.ProductSearchDGV.Name = "ProductSearchDGV"
+        Me.ProductSearchDGV.Size = New System.Drawing.Size(310, 178)
+        Me.ProductSearchDGV.TabIndex = 8
+        Me.ProductSearchDGV.ToolTipController = Me.ToolTipController
+        Me.ProductSearchDGV.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.ProductSearchGV})
+        '
+        'ProductSearchGV
+        '
+        Me.ProductSearchGV.GridControl = Me.ProductSearchDGV
+        Me.ProductSearchGV.Name = "ProductSearchGV"
+        Me.ProductSearchGV.OptionsBehavior.Editable = False
+        Me.ProductSearchGV.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.ProductSearchGV.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never
+        Me.ProductSearchGV.OptionsView.ShowGroupPanel = False
+        Me.ProductSearchGV.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
+        '
+        'ToolTipController
+        '
+        '
+        'lblProduct
+        '
+        Me.lblProduct.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblProduct.Location = New System.Drawing.Point(446, 16)
+        Me.lblProduct.Name = "lblProduct"
+        Me.lblProduct.Size = New System.Drawing.Size(80, 16)
+        Me.lblProduct.TabIndex = 7
+        Me.lblProduct.Text = "Model Name :"
         '
         'btnSearch
         '
@@ -74,14 +139,6 @@ Partial Class frmStockManagement
         Me.btnSearch.TabIndex = 6
         Me.btnSearch.Text = "&Search"
         '
-        'cboSearch
-        '
-        Me.cboSearch.Location = New System.Drawing.Point(532, 15)
-        Me.cboSearch.Name = "cboSearch"
-        Me.cboSearch.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboSearch.Size = New System.Drawing.Size(193, 20)
-        Me.cboSearch.TabIndex = 5
-        '
         'lblStockManagement
         '
         Me.lblStockManagement.Appearance.Font = New System.Drawing.Font("Open Sans", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -91,11 +148,26 @@ Partial Class frmStockManagement
         Me.lblStockManagement.TabIndex = 4
         Me.lblStockManagement.Text = "Stock Management"
         '
+        'PopupContainerControl_Category
+        '
+        Me.PopupContainerControl_Category.Controls.Add(Me.tvCategoryDropDown)
+        Me.PopupContainerControl_Category.Location = New System.Drawing.Point(-1, 456)
+        Me.PopupContainerControl_Category.Name = "PopupContainerControl_Category"
+        Me.PopupContainerControl_Category.Size = New System.Drawing.Size(203, 238)
+        Me.PopupContainerControl_Category.TabIndex = 8
+        '
+        'tvCategoryDropDown
+        '
+        Me.tvCategoryDropDown.Location = New System.Drawing.Point(1, 1)
+        Me.tvCategoryDropDown.Name = "tvCategoryDropDown"
+        Me.tvCategoryDropDown.Size = New System.Drawing.Size(202, 237)
+        Me.tvCategoryDropDown.TabIndex = 0
+        '
         'PanelButton
         '
         Me.PanelButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PanelButton.Controls.Add(Me.chkSelectAll)
-        Me.PanelButton.Controls.Add(Me.pceDDCategory)
+        Me.PanelButton.Controls.Add(Me.PopupContainerCategory)
         Me.PanelButton.Controls.Add(Me.btnBuckChangeCat)
         Me.PanelButton.Controls.Add(Me.btnHideZeroStock)
         Me.PanelButton.Controls.Add(Me.btnDelete)
@@ -114,35 +186,20 @@ Partial Class frmStockManagement
         Me.chkSelectAll.Size = New System.Drawing.Size(75, 19)
         Me.chkSelectAll.TabIndex = 9
         '
-        'pceDDCategory
+        'PopupContainerCategory
         '
-        Me.pceDDCategory.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.pceDDCategory.Location = New System.Drawing.Point(549, 13)
-        Me.pceDDCategory.Name = "pceDDCategory"
-        Me.pceDDCategory.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.pceDDCategory.Properties.Appearance.Options.UseFont = True
-        Me.pceDDCategory.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.pceDDCategory.Properties.NullValuePrompt = "Others"
-        Me.pceDDCategory.Properties.PopupControl = Me.PopupContainerControl
-        Me.pceDDCategory.Properties.PopupSizeable = False
-        Me.pceDDCategory.Properties.ShowPopupCloseButton = False
-        Me.pceDDCategory.Size = New System.Drawing.Size(130, 22)
-        Me.pceDDCategory.TabIndex = 8
-        '
-        'PopupContainerControl
-        '
-        Me.PopupContainerControl.Controls.Add(Me.tvCategoryDropDown)
-        Me.PopupContainerControl.Location = New System.Drawing.Point(-1, 456)
-        Me.PopupContainerControl.Name = "PopupContainerControl"
-        Me.PopupContainerControl.Size = New System.Drawing.Size(203, 238)
-        Me.PopupContainerControl.TabIndex = 8
-        '
-        'tvCategoryDropDown
-        '
-        Me.tvCategoryDropDown.Location = New System.Drawing.Point(1, 1)
-        Me.tvCategoryDropDown.Name = "tvCategoryDropDown"
-        Me.tvCategoryDropDown.Size = New System.Drawing.Size(202, 237)
-        Me.tvCategoryDropDown.TabIndex = 0
+        Me.PopupContainerCategory.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.PopupContainerCategory.Location = New System.Drawing.Point(549, 13)
+        Me.PopupContainerCategory.Name = "PopupContainerCategory"
+        Me.PopupContainerCategory.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PopupContainerCategory.Properties.Appearance.Options.UseFont = True
+        Me.PopupContainerCategory.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.PopupContainerCategory.Properties.NullValuePrompt = "Others"
+        Me.PopupContainerCategory.Properties.PopupControl = Me.PopupContainerControl_Category
+        Me.PopupContainerCategory.Properties.PopupSizeable = False
+        Me.PopupContainerCategory.Properties.ShowPopupCloseButton = False
+        Me.PopupContainerCategory.Size = New System.Drawing.Size(130, 22)
+        Me.PopupContainerCategory.TabIndex = 8
         '
         'btnBuckChangeCat
         '
@@ -194,7 +251,7 @@ Partial Class frmStockManagement
         Me.tvCategory.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(236, Byte), Integer), CType(CType(239, Byte), Integer))
         Me.tvCategory.Location = New System.Drawing.Point(-1, 97)
         Me.tvCategory.Name = "tvCategory"
-        Me.tvCategory.Size = New System.Drawing.Size(140, 260)
+        Me.tvCategory.Size = New System.Drawing.Size(140, 273)
         Me.tvCategory.TabIndex = 6
         '
         'StockDGV
@@ -202,7 +259,7 @@ Partial Class frmStockManagement
         Me.StockDGV.Location = New System.Drawing.Point(138, 97)
         Me.StockDGV.MainView = Me.StockGV
         Me.StockDGV.Name = "StockDGV"
-        Me.StockDGV.Size = New System.Drawing.Size(675, 302)
+        Me.StockDGV.Size = New System.Drawing.Size(675, 314)
         Me.StockDGV.TabIndex = 7
         Me.StockDGV.ToolTipController = Me.ToolTipController
         Me.StockDGV.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.StockGV})
@@ -214,29 +271,28 @@ Partial Class frmStockManagement
         Me.StockGV.OptionsBehavior.Editable = False
         Me.StockGV.OptionsSelection.MultiSelect = True
         Me.StockGV.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect
+        Me.StockGV.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never
         Me.StockGV.OptionsView.ShowGroupPanel = False
         Me.StockGV.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
         '
-        'ToolTipController
+        'btnAddNewCategory
         '
-        '
-        'SimpleButton1
-        '
-        Me.SimpleButton1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.SimpleButton1.Location = New System.Drawing.Point(-1, 356)
-        Me.SimpleButton1.Name = "SimpleButton1"
-        Me.SimpleButton1.Size = New System.Drawing.Size(140, 43)
-        Me.SimpleButton1.TabIndex = 0
-        Me.SimpleButton1.Text = "New &Category"
+        Me.btnAddNewCategory.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnAddNewCategory.Location = New System.Drawing.Point(0, 368)
+        Me.btnAddNewCategory.Name = "btnAddNewCategory"
+        Me.btnAddNewCategory.Size = New System.Drawing.Size(139, 43)
+        Me.btnAddNewCategory.TabIndex = 0
+        Me.btnAddNewCategory.Text = "New &Category"
         '
         'frmStockManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(819, 411)
-        Me.Controls.Add(Me.PopupContainerControl)
+        Me.Controls.Add(Me.PopupContainerControl_ProductSearch)
+        Me.Controls.Add(Me.PopupContainerControl_Category)
         Me.Controls.Add(Me.StockDGV)
-        Me.Controls.Add(Me.SimpleButton1)
+        Me.Controls.Add(Me.btnAddNewCategory)
         Me.Controls.Add(Me.tvCategory)
         Me.Controls.Add(Me.PanelButton)
         Me.Controls.Add(Me.PanelTop)
@@ -245,12 +301,16 @@ Partial Class frmStockManagement
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.PanelTop.ResumeLayout(False)
         Me.PanelTop.PerformLayout()
-        CType(Me.cboSearch.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PopupContainerProduct.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PopupContainerControl_ProductSearch, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PopupContainerControl_ProductSearch.ResumeLayout(False)
+        CType(Me.ProductSearchDGV, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ProductSearchGV, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PopupContainerControl_Category, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PopupContainerControl_Category.ResumeLayout(False)
         Me.PanelButton.ResumeLayout(False)
         CType(Me.chkSelectAll.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.pceDDCategory.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PopupContainerControl, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PopupContainerControl.ResumeLayout(False)
+        CType(Me.PopupContainerCategory.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.StockDGV, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.StockGV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -258,7 +318,6 @@ Partial Class frmStockManagement
     End Sub
     Friend WithEvents PanelTop As System.Windows.Forms.Panel
     Friend WithEvents btnSearch As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents cboSearch As DevExpress.XtraEditors.ComboBoxEdit
     Friend WithEvents lblStockManagement As DevExpress.XtraEditors.LabelControl
     Friend WithEvents PanelButton As System.Windows.Forms.Panel
     Friend WithEvents tvCategory As System.Windows.Forms.TreeView
@@ -269,10 +328,15 @@ Partial Class frmStockManagement
     Friend WithEvents btnEdit As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnNew As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnBuckChangeCat As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents pceDDCategory As DevExpress.XtraEditors.PopupContainerEdit
-    Friend WithEvents PopupContainerControl As DevExpress.XtraEditors.PopupContainerControl
+    Friend WithEvents PopupContainerCategory As DevExpress.XtraEditors.PopupContainerEdit
+    Friend WithEvents PopupContainerControl_Category As DevExpress.XtraEditors.PopupContainerControl
     Friend WithEvents tvCategoryDropDown As System.Windows.Forms.TreeView
     Friend WithEvents chkSelectAll As DevExpress.XtraEditors.CheckEdit
-    Friend WithEvents SimpleButton1 As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btnAddNewCategory As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents ToolTipController As DevExpress.Utils.ToolTipController
+    Friend WithEvents lblProduct As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents PopupContainerProduct As DevExpress.XtraEditors.PopupContainerEdit
+    Friend WithEvents PopupContainerControl_ProductSearch As DevExpress.XtraEditors.PopupContainerControl
+    Friend WithEvents ProductSearchDGV As DevExpress.XtraGrid.GridControl
+    Friend WithEvents ProductSearchGV As DevExpress.XtraGrid.Views.Grid.GridView
 End Class

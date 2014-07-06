@@ -5,7 +5,11 @@ Public Class frmAddStock
     Inherits DevExpress.XtraEditors.XtraForm
 
     Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
-        Me.Hide()
+        Me.Dispose()
+    End Sub
+
+    Private Sub frmAddStock_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        Me.Dispose()
     End Sub
 
     Private Sub frmAddStock_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -40,6 +44,7 @@ Public Class frmAddStock
         'must be numeric / back space
         If Not IsNumeric(e.KeyChar) And Asc(e.KeyChar) <> 8 Then
             e.Handled = True
+            txtQuantity.ToolTipController.ShowHint("Numeric only!", DevExpress.Utils.ToolTipLocation.BottomRight, txtQuantity.PointToScreen(New Point(20, -5)))
             Beep()
         End If
     End Sub
