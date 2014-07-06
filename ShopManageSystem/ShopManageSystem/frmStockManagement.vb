@@ -25,6 +25,17 @@ Public Class frmStockManagement
         End Try
     End Sub
 
+    Private Sub StockGV_CustomDrawEmptyForeground(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Base.CustomDrawEventArgs) Handles StockGV.CustomDrawEmptyForeground, ProductSearchGV.CustomDrawEmptyForeground
+        Dim view As DevExpress.XtraGrid.Views.Grid.GridView = sender
+
+        If (view.RowCount <> 0) Then Return
+
+        Dim drawFormat As New StringFormat
+
+        drawFormat.Alignment = drawFormat.LineAlignment = StringAlignment.Center
+        e.Graphics.DrawString("No data exists in this categories!", e.Appearance.Font, Brushes.DarkRed, New RectangleF(e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height), drawFormat)
+    End Sub
+
     'drawing row number
     Private Sub StockGV_CustomDrawRowIndicator(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventArgs) Handles StockGV.CustomDrawRowIndicator
         If e.Info.IsRowIndicator Then
@@ -66,6 +77,9 @@ Public Class frmStockManagement
 
                 'finally remove the rows from grid control, so that no repopulation is needed
                 StockGV.DeleteSelectedRows()
+
+                'refresh
+                fillProductSearchGV()
             End If
         Else
             XtraMessageBox.Show("Please select a record to perform this action!", "No data selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
