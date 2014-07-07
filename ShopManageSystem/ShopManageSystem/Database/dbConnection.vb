@@ -12,7 +12,7 @@ Module dbConnection
             databaseConn.Close()
         End If
 
-        databaseConn = New OleDbConnection("Provider=Microsoft.Ace.OLEDB.12.0;Data Source=shop_management_system.accdb;")
+        databaseConn = New OleDbConnection("Provider=Microsoft.Ace.OLEDB.12.0;Data Source=./Database/shop_management_system.accdb;")
 
         Try
             databaseConn.Open()
@@ -23,5 +23,5 @@ Module dbConnection
         Return databaseConn
     End Function
 
-    Public conn As New OleDbConnection("Provider=Microsoft.Ace.OLEDB.12.0;Data Source=shop_management_system.accdb")
+    Public conn As New OleDbConnection("Provider=Microsoft.Ace.OLEDB.12.0;Data Source=./Database/shop_management_system.accdb")
 End Module
