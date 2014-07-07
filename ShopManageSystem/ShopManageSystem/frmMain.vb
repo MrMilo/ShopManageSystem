@@ -29,10 +29,20 @@ Public Class frmMain
     End Sub
 
     Private Sub btnSideBar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSideBar.Click
-        If SidePanel.Visible = True Then
-            SidePanel.Visible = False
+        If mStock.Visible = True Then
+            mStock.Visible = False
+            mCustomer.Visible = False
+            mSupplier.Visible = False
+            mSales.Visible = False
+            mRestock.Visible = False
+            mReport.Visible = False
         Else
-            SidePanel.Visible = True
+            mStock.Visible = True
+            mCustomer.Visible = True
+            mSupplier.Visible = True
+            mSales.Visible = True
+            mRestock.Visible = True
+            mReport.Visible = True
         End If
     End Sub
 
@@ -111,7 +121,7 @@ Public Class frmMain
     '4 | Sales Order
     '5 | Restock Order
     '6 | Report
-    Private Sub btnStockManagement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnStockManagement.Click
+    Private Sub btnStockManagement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnStockManagement.Click, mStock.Click
         frmStockManagement.TopLevel = False
         frmStockManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
         frmStockManagement.Dock = DockStyle.Fill
@@ -121,7 +131,7 @@ Public Class frmMain
         TabControl.SelectedTabPageIndex = 1
     End Sub
 
-    Private Sub btnCustomer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCustomer.Click
+    Private Sub btnCustomer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCustomer.Click, mCustomer.Click
         frmCustomerManagement.TopLevel = False
         frmCustomerManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
         frmCustomerManagement.Dock = DockStyle.Fill
@@ -129,6 +139,16 @@ Public Class frmMain
         frmCustomerManagement.Show()
         TabControl.TabPages(2).PageVisible = True
         TabControl.SelectedTabPageIndex = 2
+    End Sub
+
+    Private Sub btnSupplier_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSupplier.Click, mSupplier.Click
+        frmSupplierManagement.TopLevel = False
+        frmSupplierManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+        frmSupplierManagement.Dock = DockStyle.Fill
+        TabControl.TabPages(3).Controls.Add(frmSupplierManagement)
+        frmSupplierManagement.Show()
+        TabControl.TabPages(3).PageVisible = True
+        TabControl.SelectedTabPageIndex = 3
     End Sub
 
     Private Sub TabControl_CloseButtonClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles TabControl.CloseButtonClick

@@ -105,22 +105,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Etc\ApplicationEvents.vb" />
-    <Compile Include="Cust_Module\frmEditCustomer.Designer.vb">
+    <Compile Include="Customer_Module\frmEditCustomer.Designer.vb">
       <DependentUpon>frmEditCustomer.vb</DependentUpon>
     </Compile>
-    <Compile Include="Cust_Module\frmEditCustomer.vb">
+    <Compile Include="Customer_Module\frmEditCustomer.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cust_Module\frmAddCustomer.Designer.vb">
+    <Compile Include="Customer_Module\frmAddCustomer.Designer.vb">
       <DependentUpon>frmAddCustomer.vb</DependentUpon>
     </Compile>
-    <Compile Include="Cust_Module\frmAddCustomer.vb">
+    <Compile Include="Customer_Module\frmAddCustomer.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cust_Module\frmCustomerManagement.Designer.vb">
+    <Compile Include="Customer_Module\frmCustomerManagement.Designer.vb">
       <DependentUpon>frmCustomerManagement.vb</DependentUpon>
     </Compile>
-    <Compile Include="Cust_Module\frmCustomerManagement.vb">
+    <Compile Include="Customer_Module\frmCustomerManagement.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Stock_Module\frmAddCategory.Designer.vb">
@@ -195,15 +195,33 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Supplier_Module\frmAddSupplier.Designer.vb">
+      <DependentUpon>frmAddSupplier.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier_Module\frmAddSupplier.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Supplier_Module\frmSupplierManagement.Designer.vb">
+      <DependentUpon>frmSupplierManagement.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier_Module\frmSupplierManagement.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Supplier_Module\frmEditSupplier.Designer.vb">
+      <DependentUpon>frmEditSupplier.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier_Module\frmEditSupplier.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Cust_Module\frmEditCustomer.resx">
+    <EmbeddedResource Include="Customer_Module\frmEditCustomer.resx">
       <DependentUpon>frmEditCustomer.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Cust_Module\frmAddCustomer.resx">
+    <EmbeddedResource Include="Customer_Module\frmAddCustomer.resx">
       <DependentUpon>frmAddCustomer.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Cust_Module\frmCustomerManagement.resx">
+    <EmbeddedResource Include="Customer_Module\frmCustomerManagement.resx">
       <DependentUpon>frmCustomerManagement.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Stock_Module\frmAddCategory.resx">
@@ -239,6 +257,15 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Supplier_Module\frmAddSupplier.resx">
+      <DependentUpon>frmAddSupplier.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Supplier_Module\frmSupplierManagement.resx">
+      <DependentUpon>frmSupplierManagement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Supplier_Module\frmEditSupplier.resx">
+      <DependentUpon>frmEditSupplier.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

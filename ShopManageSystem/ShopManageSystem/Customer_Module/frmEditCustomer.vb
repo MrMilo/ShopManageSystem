@@ -32,6 +32,7 @@ Public Class frmEditCustomer
             UpdateCustomer.Parameters.AddWithValue("cust_debt", txtDebt.Text)
             UpdateCustomer.Parameters.AddWithValue("cust_points", txtPoints.Text)
             UpdateCustomer.Parameters.AddWithValue("cust_note", txtNote.Text)
+            UpdateCustomer.Parameters.AddWithValue("cust_id", CurrentCustID)
 
             Try
                 UpdateCustomer.ExecuteNonQuery()

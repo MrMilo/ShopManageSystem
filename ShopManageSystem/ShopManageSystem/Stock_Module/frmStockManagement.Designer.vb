@@ -25,6 +25,7 @@ Partial Class frmStockManagement
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmStockManagement))
         Me.PanelTop = New System.Windows.Forms.Panel()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PopupContainerProduct = New DevExpress.XtraEditors.PopupContainerEdit()
         Me.PopupContainerControl_ProductSearch = New DevExpress.XtraEditors.PopupContainerControl()
         Me.ProductSearchDGV = New DevExpress.XtraGrid.GridControl()
@@ -48,8 +49,8 @@ Partial Class frmStockManagement
         Me.StockDGV = New DevExpress.XtraGrid.GridControl()
         Me.StockGV = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.btnAddNewCategory = New DevExpress.XtraEditors.SimpleButton()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PanelTop.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PopupContainerProduct.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PopupContainerControl_ProductSearch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PopupContainerControl_ProductSearch.SuspendLayout()
@@ -62,7 +63,6 @@ Partial Class frmStockManagement
         CType(Me.PopupContainerCategory.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.StockDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.StockGV, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelTop
@@ -78,6 +78,16 @@ Partial Class frmStockManagement
         Me.PanelTop.Size = New System.Drawing.Size(822, 50)
         Me.PanelTop.TabIndex = 4
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(14, 9)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(32, 32)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 10
+        Me.PictureBox1.TabStop = False
+        '
         'PopupContainerProduct
         '
         Me.PopupContainerProduct.Cursor = System.Windows.Forms.Cursors.IBeam
@@ -86,7 +96,7 @@ Partial Class frmStockManagement
         Me.PopupContainerProduct.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PopupContainerProduct.Properties.Appearance.Options.UseFont = True
         Me.PopupContainerProduct.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.PopupContainerProduct.Properties.NullValuePrompt = "Search with Model Name"
+        Me.PopupContainerProduct.Properties.NullValuePrompt = "Search by Model Name"
         Me.PopupContainerProduct.Properties.PopupControl = Me.PopupContainerControl_ProductSearch
         Me.PopupContainerProduct.Properties.PopupSizeable = False
         Me.PopupContainerProduct.Properties.ShowPopupCloseButton = False
@@ -301,16 +311,6 @@ Partial Class frmStockManagement
         Me.btnAddNewCategory.TabIndex = 0
         Me.btnAddNewCategory.Text = "New &Category"
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(14, 9)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(32, 32)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 10
-        Me.PictureBox1.TabStop = False
-        '
         'frmStockManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -328,6 +328,7 @@ Partial Class frmStockManagement
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.PanelTop.ResumeLayout(False)
         Me.PanelTop.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PopupContainerProduct.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PopupContainerControl_ProductSearch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PopupContainerControl_ProductSearch.ResumeLayout(False)
@@ -340,7 +341,6 @@ Partial Class frmStockManagement
         CType(Me.PopupContainerCategory.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.StockDGV, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.StockGV, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

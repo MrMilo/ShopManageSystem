@@ -28,6 +28,12 @@ Partial Class frmMain
         Me.MarqueeTimer = New System.Windows.Forms.Timer(Me.components)
         Me.btnSideBar = New System.Windows.Forms.Button()
         Me.SidePanel = New System.Windows.Forms.Panel()
+        Me.mReport = New System.Windows.Forms.Button()
+        Me.mRestock = New System.Windows.Forms.Button()
+        Me.mSales = New System.Windows.Forms.Button()
+        Me.mSupplier = New System.Windows.Forms.Button()
+        Me.mCustomer = New System.Windows.Forms.Button()
+        Me.mStock = New System.Windows.Forms.Button()
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ssVersion = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ssAnnouncement = New System.Windows.Forms.ToolStripStatusLabel()
@@ -59,6 +65,7 @@ Partial Class frmMain
         Me.TP4 = New DevExpress.XtraTab.XtraTabPage()
         Me.TP5 = New DevExpress.XtraTab.XtraTabPage()
         Me.TP6 = New DevExpress.XtraTab.XtraTabPage()
+        Me.SidePanel.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         CType(Me.pbSettings, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbReport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -94,10 +101,94 @@ Partial Class frmMain
         '
         Me.SidePanel.BackColor = System.Drawing.Color.FromArgb(CType(CType(2, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(179, Byte), Integer))
         Me.SidePanel.BackgroundImage = CType(resources.GetObject("SidePanel.BackgroundImage"), System.Drawing.Image)
+        Me.SidePanel.Controls.Add(Me.mReport)
+        Me.SidePanel.Controls.Add(Me.mRestock)
+        Me.SidePanel.Controls.Add(Me.mSales)
+        Me.SidePanel.Controls.Add(Me.mSupplier)
+        Me.SidePanel.Controls.Add(Me.mCustomer)
+        Me.SidePanel.Controls.Add(Me.mStock)
         Me.SidePanel.Location = New System.Drawing.Point(0, 117)
         Me.SidePanel.Name = "SidePanel"
         Me.SidePanel.Size = New System.Drawing.Size(50, 435)
         Me.SidePanel.TabIndex = 2
+        '
+        'mReport
+        '
+        Me.mReport.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.mReport.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.mReport.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.mReport.Image = CType(resources.GetObject("mReport.Image"), System.Drawing.Image)
+        Me.mReport.Location = New System.Drawing.Point(8, 241)
+        Me.mReport.Name = "mReport"
+        Me.mReport.Size = New System.Drawing.Size(35, 35)
+        Me.mReport.TabIndex = 33
+        Me.mReport.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.mReport.UseVisualStyleBackColor = False
+        '
+        'mRestock
+        '
+        Me.mRestock.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.mRestock.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.mRestock.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.mRestock.Image = CType(resources.GetObject("mRestock.Image"), System.Drawing.Image)
+        Me.mRestock.Location = New System.Drawing.Point(8, 194)
+        Me.mRestock.Name = "mRestock"
+        Me.mRestock.Size = New System.Drawing.Size(35, 35)
+        Me.mRestock.TabIndex = 33
+        Me.mRestock.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.mRestock.UseVisualStyleBackColor = False
+        '
+        'mSales
+        '
+        Me.mSales.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.mSales.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.mSales.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.mSales.Image = CType(resources.GetObject("mSales.Image"), System.Drawing.Image)
+        Me.mSales.Location = New System.Drawing.Point(8, 147)
+        Me.mSales.Name = "mSales"
+        Me.mSales.Size = New System.Drawing.Size(35, 35)
+        Me.mSales.TabIndex = 33
+        Me.mSales.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.mSales.UseVisualStyleBackColor = False
+        '
+        'mSupplier
+        '
+        Me.mSupplier.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.mSupplier.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.mSupplier.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.mSupplier.Image = CType(resources.GetObject("mSupplier.Image"), System.Drawing.Image)
+        Me.mSupplier.Location = New System.Drawing.Point(8, 100)
+        Me.mSupplier.Name = "mSupplier"
+        Me.mSupplier.Size = New System.Drawing.Size(35, 35)
+        Me.mSupplier.TabIndex = 33
+        Me.mSupplier.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.mSupplier.UseVisualStyleBackColor = False
+        '
+        'mCustomer
+        '
+        Me.mCustomer.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.mCustomer.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.mCustomer.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.mCustomer.Image = CType(resources.GetObject("mCustomer.Image"), System.Drawing.Image)
+        Me.mCustomer.Location = New System.Drawing.Point(8, 53)
+        Me.mCustomer.Name = "mCustomer"
+        Me.mCustomer.Size = New System.Drawing.Size(35, 35)
+        Me.mCustomer.TabIndex = 33
+        Me.mCustomer.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.mCustomer.UseVisualStyleBackColor = False
+        '
+        'mStock
+        '
+        Me.mStock.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.mStock.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.mStock.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.mStock.Image = CType(resources.GetObject("mStock.Image"), System.Drawing.Image)
+        Me.mStock.Location = New System.Drawing.Point(8, 6)
+        Me.mStock.Name = "mStock"
+        Me.mStock.Size = New System.Drawing.Size(35, 35)
+        Me.mStock.TabIndex = 33
+        Me.mStock.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.mStock.UseVisualStyleBackColor = False
         '
         'StatusStrip
         '
@@ -287,7 +378,7 @@ Partial Class frmMain
         Me.btnSearch.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSearch.Properties.Appearance.Options.UseFont = True
         Me.btnSearch.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, True, True, False, DevExpress.XtraEditors.ImageLocation.MiddleCenter, CType(resources.GetObject("btnSearch.Properties.Buttons"), System.Drawing.Image), New DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), SerializableAppearanceObject1, "", Nothing, Nothing, True)})
-        Me.btnSearch.Properties.NullValuePrompt = "Search anything here"
+        Me.btnSearch.Properties.NullValuePrompt = "Search by Model Name"
         Me.btnSearch.Size = New System.Drawing.Size(163, 22)
         Me.btnSearch.TabIndex = 6
         '
@@ -466,6 +557,7 @@ Partial Class frmMain
         Me.MaximizeBox = False
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.SidePanel.ResumeLayout(False)
         Me.StatusStrip.ResumeLayout(False)
         Me.StatusStrip.PerformLayout()
         CType(Me.pbSettings, System.ComponentModel.ISupportInitialize).EndInit()
@@ -517,4 +609,10 @@ Partial Class frmMain
     Friend WithEvents TP4 As DevExpress.XtraTab.XtraTabPage
     Friend WithEvents TP5 As DevExpress.XtraTab.XtraTabPage
     Friend WithEvents TP6 As DevExpress.XtraTab.XtraTabPage
+    Friend WithEvents mStock As System.Windows.Forms.Button
+    Friend WithEvents mReport As System.Windows.Forms.Button
+    Friend WithEvents mRestock As System.Windows.Forms.Button
+    Friend WithEvents mSales As System.Windows.Forms.Button
+    Friend WithEvents mSupplier As System.Windows.Forms.Button
+    Friend WithEvents mCustomer As System.Windows.Forms.Button
 End Class

@@ -33,7 +33,7 @@ Public Class frmCustomerManagement
 
             CustomerGV.Columns(0).Visible = False 'cust_id
 
-            CustomerGV.Columns(1).Caption = "Name"
+            CustomerGV.Columns(1).Caption = "Customer Name"
 
             CustomerGV.Columns(2).Caption = "Contact"
             CustomerGV.Columns(2).Width = 25
@@ -90,10 +90,21 @@ Public Class frmCustomerManagement
 
             CustomerSearchGV.Columns(0).Visible = False 'cust_id
 
-            CustomerSearchGV.Columns(1).Caption = "Name"
+            CustomerSearchGV.Columns(1).Caption = "Customer Name"
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
+    End Sub
+
+    Private Sub CustomerGV_CustomDrawEmptyForeground(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Base.CustomDrawEventArgs) Handles CustomerGV.CustomDrawEmptyForeground, CustomerSearchGV.CustomDrawEmptyForeground
+        Dim view As DevExpress.XtraGrid.Views.Grid.GridView = sender
+
+        If (view.RowCount <> 0) Then Return
+
+        Dim drawFormat As New StringFormat
+
+        drawFormat.Alignment = drawFormat.LineAlignment = StringAlignment.Center
+        e.Graphics.DrawString("No data exists here!", e.Appearance.Font, Brushes.DarkRed, New RectangleF(e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height), drawFormat)
     End Sub
 
     Private Sub ToolTipController_GetActiveObjectInfo(ByVal sender As Object, ByVal e As DevExpress.Utils.ToolTipControllerGetActiveObjectInfoEventArgs) Handles ToolTipController.GetActiveObjectInfo
@@ -264,18 +275,18 @@ Public Class frmCustomerManagement
         ElseIf CustomerGV.SelectedRowsCount = 0 Then
             XtraMessageBox.Show("Please select a record to perform this action!", "No data selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         Else
-            frmEditCustomer.CurrentCustID = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_id")
-            frmEditCustomer.txtCustomerName.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_name")
-            frmEditCustomer.txtContact.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_contact")
-            frmEditCustomer.txtAddress.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_address")
-            frmEditCustomer.txtEmail.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_email")
-            frmEditCustomer.txtFacebook.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_facebook")
-            frmEditCustomer.cboGroup.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_group")
-            frmEditCustomer.DateTimePicker.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_date_added")
-            frmEditCustomer.txtDebt.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_debt")
-            frmEditCustomer.txtOldDebt.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_debt") 'should calculate total debt instead
-            frmEditCustomer.txtPoints.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_points")
-            frmEditCustomer.txtNote.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_note")
+            frmEditCustomer.CurrentCustID = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_id").ToString
+            frmEditCustomer.txtCustomerName.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_name").ToString
+            frmEditCustomer.txtContact.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_contact").ToString
+            frmEditCustomer.txtAddress.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_address").ToString
+            frmEditCustomer.txtEmail.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_email").ToString
+            frmEditCustomer.txtFacebook.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_facebook").ToString
+            frmEditCustomer.cboGroup.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_group").ToString
+            frmEditCustomer.DateTimePicker.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_date_added").ToString
+            frmEditCustomer.txtDebt.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_debt").ToString
+            frmEditCustomer.txtOldDebt.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_debt").ToString 'should calculate total debt instead
+            frmEditCustomer.txtPoints.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_points").ToString
+            frmEditCustomer.txtNote.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_note").ToString
             frmEditCustomer.ShowDialog()
         End If
     End Sub
