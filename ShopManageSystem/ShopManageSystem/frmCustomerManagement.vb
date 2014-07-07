@@ -18,7 +18,7 @@ Public Class frmCustomerManagement
         CustomerDGV.DataSource = Nothing
 
         Try
-            Dim da As New OleDbDataAdapter("SELECT tblCustomer.cust_id, tblCustomer.cust_name, tblCustomer.cust_contact, tblCustomerGroup.custgroup_type, tblCustomer.cust_debt" _
+            Dim da As New OleDbDataAdapter("SELECT tblCustomer.cust_id, tblCustomer.cust_name, tblCustomer.cust_contact, tblCustomer.cust_address, tblCustomer.cust_email, tblCustomer.cust_facebook, tblCustomerGroup.custgroup_type, tblCustomer.cust_date_added, tblCustomer.cust_debt, tblCustomer.cust_points, tblCustomer.cust_note" _
                                            & " FROM tblCustomer INNER JOIN tblCustomerGroup ON tblCustomer.cust_group = tblCustomerGroup.custgroup_id", openConn())
 
             Dim dt As New DataTable
@@ -27,7 +27,7 @@ Public Class frmCustomerManagement
 
             CustomerDGV.DataSource = dt
 
-            For i = 1 To 4
+            For i = 0 To 9
                 CustomerGV.Columns(i).AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
             Next
 
@@ -38,19 +38,42 @@ Public Class frmCustomerManagement
             CustomerGV.Columns(2).Caption = "Contact"
             CustomerGV.Columns(2).Width = 25
 
-            CustomerGV.Columns(3).Caption = "Type"
-            CustomerGV.Columns(3).Width = 25
+            CustomerGV.Columns(3).Visible = False 'cust_address
+            CustomerGV.Columns(4).Visible = False 'cust_email
+            CustomerGV.Columns(5).Visible = False 'cust_facebook
 
-            CustomerGV.Columns(4).Caption = "Debt"
-            CustomerGV.Columns(4).Width = 30
-            CustomerGV.Columns(4).DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-            CustomerGV.Columns(4).DisplayFormat.FormatString = "c2"
-            CustomerGV.Columns(4).AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+            CustomerGV.Columns(6).Caption = "Type"
+            CustomerGV.Columns(6).Width = 25
+
+            CustomerGV.Columns(7).Visible = False 'cust_date_added
+
+            CustomerGV.Columns(8).Caption = "Debt"
+            CustomerGV.Columns(8).Width = 30
+            CustomerGV.Columns(8).DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+            CustomerGV.Columns(8).DisplayFormat.FormatString = "c2"
+
+            CustomerGV.Columns(9).Visible = False 'cust_points
+
+            CustomerGV.Columns(10).Visible = False 'cust_note
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
 
         CustomerGV.IndicatorWidth = 35
+
+        'calculate total debt
+        Dim CalDebtFromDB As New OleDbCommand("SELECT SUM(cust_debt) AS Customer_Deb FROM tblCustomer", conn)
+
+        Try
+            conn.Open()
+            lblDebt.Text = CalDebtFromDB.ExecuteScalar
+
+            lblDebt.Text = Format(lblDebt.Text, "Currency")
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            conn.Close()
+        End Try
     End Sub
 
     Public Sub fillSearchCustomerGV()
@@ -73,15 +96,62 @@ Public Class frmCustomerManagement
         End Try
     End Sub
 
+    Private Sub ToolTipController_GetActiveObjectInfo(ByVal sender As Object, ByVal e As DevExpress.Utils.ToolTipControllerGetActiveObjectInfoEventArgs) Handles ToolTipController.GetActiveObjectInfo
+        If Not e.SelectedControl Is CustomerDGV Then Return
+
+        Dim hitInfo As GridHitInfo = CustomerGV.CalcHitInfo(e.ControlMousePosition)
+
+        If hitInfo.InRow = False Then Return
+
+        Dim toolTipArgs As SuperToolTipSetupArgs = New SuperToolTipSetupArgs
+
+        Dim drCurrentRow As DataRow = CustomerGV.GetDataRow(hitInfo.RowHandle)
+        Dim ContentText As String = ""
+
+        If drCurrentRow(2).ToString.Length > 0 Then
+            ContentText = ContentText + vbNewLine + "<b><u>Contact</u></b>" & vbNewLine & drCurrentRow(2).ToString
+        End If
+
+        If drCurrentRow(3).ToString.Length > 0 Then
+            ContentText = ContentText + vbNewLine + "<b><u>Address</u></b>" & vbNewLine & drCurrentRow(3).ToString
+        End If
+
+        If drCurrentRow(4).ToString.Length > 0 Then
+            ContentText = ContentText + vbNewLine + "<b><u>Email</u></b>" & vbNewLine & drCurrentRow(4).ToString
+        End If
+
+        If drCurrentRow(5).ToString.Length > 0 Then
+            ContentText = ContentText + vbNewLine + "<b><u>Facebook</u></b>" & vbNewLine & drCurrentRow(5).ToString
+        End If
+
+        If drCurrentRow(7).ToString.Length > 0 Then
+            ContentText = ContentText + vbNewLine + "<b><u>Date Added</u></b>" & vbNewLine & drCurrentRow(7).ToString
+        End If
+
+        If drCurrentRow(9).ToString.Length > 0 Then
+            ContentText = ContentText + vbNewLine + "<b><u>Points</u></b>" & vbNewLine & drCurrentRow(9).ToString
+        End If
+
+        If drCurrentRow(10).ToString.Length > 0 Then
+            ContentText = ContentText + vbNewLine + "<b><u>Note</u></b>" & vbNewLine & drCurrentRow(10).ToString
+        End If
+
+
+        If drCurrentRow IsNot Nothing Then
+            toolTipArgs.Title.Text = drCurrentRow(1).ToString
+            toolTipArgs.Contents.Text = ContentText
+        End If
+
+        e.Info = New ToolTipControlInfo
+        e.Info.Object = hitInfo.HitTest.ToString() + hitInfo.RowHandle.ToString()
+        e.Info.ToolTipType = ToolTipType.SuperTip
+        e.Info.SuperTip = New SuperToolTip
+        e.Info.SuperTip.Setup(toolTipArgs)
+    End Sub
+
     Private Sub frmCustomerManagement_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         fillCustomerGV()
         fillSearchCustomerGV()
-
-        If lblDebt.Text <= 0 Then
-            lblDebt.ForeColor = Color.Green
-        Else
-            lblDebt.ForeColor = Color.DarkRed
-        End If
     End Sub
 
     Dim HideZeroDebtState As Integer = 0 '0 = no click ; 1 = click
@@ -185,6 +255,40 @@ Public Class frmCustomerManagement
             End If
         Else
             XtraMessageBox.Show("Please select a record to perform this action!", "No data selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End If
+    End Sub
+
+    Private Sub btnEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEdit.Click
+        If CustomerGV.SelectedRowsCount > 1 Then
+            XtraMessageBox.Show("You may only select one row of data!", "More than one data selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        ElseIf CustomerGV.SelectedRowsCount = 0 Then
+            XtraMessageBox.Show("Please select a record to perform this action!", "No data selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        Else
+            frmEditCustomer.CurrentCustID = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_id")
+            frmEditCustomer.txtCustomerName.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_name")
+            frmEditCustomer.txtContact.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_contact")
+            frmEditCustomer.txtAddress.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_address")
+            frmEditCustomer.txtEmail.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_email")
+            frmEditCustomer.txtFacebook.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_facebook")
+            frmEditCustomer.cboGroup.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_group")
+            frmEditCustomer.DateTimePicker.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_date_added")
+            frmEditCustomer.txtDebt.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_debt")
+            frmEditCustomer.txtOldDebt.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_debt") 'should calculate total debt instead
+            frmEditCustomer.txtPoints.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_points")
+            frmEditCustomer.txtNote.Text = CustomerGV.GetRowCellValue(CustomerGV.FocusedRowHandle, "cust_note")
+            frmEditCustomer.ShowDialog()
+        End If
+    End Sub
+
+    Private Sub btnNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNew.Click
+        frmAddCustomer.ShowDialog()
+    End Sub
+
+    Private Sub lblDebt_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles lblDebt.TextChanged
+        If lblDebt.Text <= 0 Then
+            lblDebt.ForeColor = Color.Green
+        Else
+            lblDebt.ForeColor = Color.DarkRed
         End If
     End Sub
 End Class

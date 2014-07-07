@@ -25,6 +25,7 @@ Partial Class frmCustomerManagement
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCustomerManagement))
         Me.PanelTop = New System.Windows.Forms.Panel()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PopupContainerCustomer = New DevExpress.XtraEditors.PopupContainerEdit()
         Me.PopupContainerControl_CustomerSearch = New DevExpress.XtraEditors.PopupContainerControl()
         Me.CustomerSearchDGV = New DevExpress.XtraGrid.GridControl()
@@ -34,6 +35,7 @@ Partial Class frmCustomerManagement
         Me.btnSearch = New DevExpress.XtraEditors.SimpleButton()
         Me.lblCustomerManagement = New DevExpress.XtraEditors.LabelControl()
         Me.PanelButton = New System.Windows.Forms.Panel()
+        Me.btnExport = New DevExpress.XtraEditors.SimpleButton()
         Me.lblDebt = New DevExpress.XtraEditors.LabelControl()
         Me.lblTotalDebt = New DevExpress.XtraEditors.LabelControl()
         Me.btnHideZeroDebt = New DevExpress.XtraEditors.SimpleButton()
@@ -43,8 +45,9 @@ Partial Class frmCustomerManagement
         Me.chkSelectAll = New DevExpress.XtraEditors.CheckEdit()
         Me.CustomerDGV = New DevExpress.XtraGrid.GridControl()
         Me.CustomerGV = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.btnExport = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnCRM = New System.Windows.Forms.Button()
         Me.PanelTop.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PopupContainerCustomer.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PopupContainerControl_CustomerSearch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PopupContainerControl_CustomerSearch.SuspendLayout()
@@ -59,6 +62,7 @@ Partial Class frmCustomerManagement
         'PanelTop
         '
         Me.PanelTop.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.PanelTop.Controls.Add(Me.PictureBox1)
         Me.PanelTop.Controls.Add(Me.PopupContainerCustomer)
         Me.PanelTop.Controls.Add(Me.lblCustomer)
         Me.PanelTop.Controls.Add(Me.btnSearch)
@@ -67,6 +71,16 @@ Partial Class frmCustomerManagement
         Me.PanelTop.Name = "PanelTop"
         Me.PanelTop.Size = New System.Drawing.Size(822, 50)
         Me.PanelTop.TabIndex = 4
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(11, 9)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(32, 32)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 11
+        Me.PictureBox1.TabStop = False
         '
         'PopupContainerCustomer
         '
@@ -112,6 +126,10 @@ Partial Class frmCustomerManagement
         Me.CustomerSearchGV.OptionsView.ShowGroupPanel = False
         Me.CustomerSearchGV.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
         '
+        'ToolTipController
+        '
+        Me.ToolTipController.AllowHtmlText = True
+        '
         'lblCustomer
         '
         Me.lblCustomer.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -133,7 +151,7 @@ Partial Class frmCustomerManagement
         'lblCustomerManagement
         '
         Me.lblCustomerManagement.Appearance.Font = New System.Drawing.Font("Open Sans", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCustomerManagement.Location = New System.Drawing.Point(14, 12)
+        Me.lblCustomerManagement.Location = New System.Drawing.Point(45, 12)
         Me.lblCustomerManagement.Name = "lblCustomerManagement"
         Me.lblCustomerManagement.Size = New System.Drawing.Size(189, 22)
         Me.lblCustomerManagement.TabIndex = 4
@@ -155,23 +173,32 @@ Partial Class frmCustomerManagement
         Me.PanelButton.Size = New System.Drawing.Size(822, 50)
         Me.PanelButton.TabIndex = 5
         '
+        'btnExport
+        '
+        Me.btnExport.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnExport.Location = New System.Drawing.Point(434, 13)
+        Me.btnExport.Name = "btnExport"
+        Me.btnExport.Size = New System.Drawing.Size(75, 23)
+        Me.btnExport.TabIndex = 15
+        Me.btnExport.Text = "E&xport"
+        '
         'lblDebt
         '
-        Me.lblDebt.Appearance.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDebt.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDebt.Appearance.ForeColor = System.Drawing.Color.Black
-        Me.lblDebt.Location = New System.Drawing.Point(769, 10)
+        Me.lblDebt.Location = New System.Drawing.Point(730, 16)
         Me.lblDebt.Name = "lblDebt"
-        Me.lblDebt.Size = New System.Drawing.Size(36, 23)
+        Me.lblDebt.Size = New System.Drawing.Size(25, 16)
         Me.lblDebt.TabIndex = 14
         Me.lblDebt.Text = "0.00"
         '
         'lblTotalDebt
         '
-        Me.lblTotalDebt.Appearance.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalDebt.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotalDebt.Appearance.ForeColor = System.Drawing.Color.Black
-        Me.lblTotalDebt.Location = New System.Drawing.Point(634, 10)
+        Me.lblTotalDebt.Location = New System.Drawing.Point(632, 16)
         Me.lblTotalDebt.Name = "lblTotalDebt"
-        Me.lblTotalDebt.Size = New System.Drawing.Size(104, 23)
+        Me.lblTotalDebt.Size = New System.Drawing.Size(71, 16)
         Me.lblTotalDebt.TabIndex = 11
         Me.lblTotalDebt.Text = "Total debt : "
         '
@@ -227,7 +254,7 @@ Partial Class frmCustomerManagement
         Me.CustomerDGV.Location = New System.Drawing.Point(-1, 97)
         Me.CustomerDGV.MainView = Me.CustomerGV
         Me.CustomerDGV.Name = "CustomerDGV"
-        Me.CustomerDGV.Size = New System.Drawing.Size(815, 246)
+        Me.CustomerDGV.Size = New System.Drawing.Size(815, 231)
         Me.CustomerDGV.TabIndex = 7
         Me.CustomerDGV.ToolTipController = Me.ToolTipController
         Me.CustomerDGV.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.CustomerGV})
@@ -243,20 +270,25 @@ Partial Class frmCustomerManagement
         Me.CustomerGV.OptionsView.ShowGroupPanel = False
         Me.CustomerGV.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
         '
-        'btnExport
+        'btnCRM
         '
-        Me.btnExport.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnExport.Location = New System.Drawing.Point(434, 13)
-        Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(75, 23)
-        Me.btnExport.TabIndex = 15
-        Me.btnExport.Text = "E&xport"
+        Me.btnCRM.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnCRM.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCRM.Image = CType(resources.GetObject("btnCRM.Image"), System.Drawing.Image)
+        Me.btnCRM.Location = New System.Drawing.Point(10, 337)
+        Me.btnCRM.Name = "btnCRM"
+        Me.btnCRM.Size = New System.Drawing.Size(136, 66)
+        Me.btnCRM.TabIndex = 10
+        Me.btnCRM.Text = "Customer Group"
+        Me.btnCRM.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnCRM.UseVisualStyleBackColor = True
         '
         'frmCustomerManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(819, 411)
+        Me.Controls.Add(Me.btnCRM)
         Me.Controls.Add(Me.PopupContainerControl_CustomerSearch)
         Me.Controls.Add(Me.CustomerDGV)
         Me.Controls.Add(Me.PanelButton)
@@ -266,6 +298,7 @@ Partial Class frmCustomerManagement
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.PanelTop.ResumeLayout(False)
         Me.PanelTop.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PopupContainerCustomer.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PopupContainerControl_CustomerSearch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PopupContainerControl_CustomerSearch.ResumeLayout(False)
@@ -299,4 +332,6 @@ Partial Class frmCustomerManagement
     Friend WithEvents lblTotalDebt As DevExpress.XtraEditors.LabelControl
     Friend WithEvents lblDebt As DevExpress.XtraEditors.LabelControl
     Friend WithEvents btnExport As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btnCRM As System.Windows.Forms.Button
+    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
 End Class

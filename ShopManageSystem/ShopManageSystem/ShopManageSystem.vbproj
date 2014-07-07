@@ -105,6 +105,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="frmEditCustomer.Designer.vb">
+      <DependentUpon>frmEditCustomer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmEditCustomer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddCustomer.Designer.vb">
+      <DependentUpon>frmAddCustomer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddCustomer.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmCustomerManagement.Designer.vb">
       <DependentUpon>frmCustomerManagement.vb</DependentUpon>
     </Compile>
@@ -185,6 +197,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmEditCustomer.resx">
+      <DependentUpon>frmEditCustomer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddCustomer.resx">
+      <DependentUpon>frmAddCustomer.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCustomerManagement.resx">
       <DependentUpon>frmCustomerManagement.vb</DependentUpon>
     </EmbeddedResource>

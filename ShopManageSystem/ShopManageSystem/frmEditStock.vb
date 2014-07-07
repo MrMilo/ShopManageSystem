@@ -95,6 +95,7 @@ Public Class frmEditStock
                 MsgBox(ex.Message)
             Finally
                 frmStockManagement.fillStockGV()
+                frmStockManagement.fillProductSearchGV()
             End Try
         End If
     End Sub

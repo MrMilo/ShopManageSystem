@@ -39,6 +39,7 @@ Partial Class frmStockManagement
         Me.chkSelectAll = New DevExpress.XtraEditors.CheckEdit()
         Me.PopupContainerCategory = New DevExpress.XtraEditors.PopupContainerEdit()
         Me.btnBuckChangeCat = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnExport = New DevExpress.XtraEditors.SimpleButton()
         Me.btnHideZeroStock = New DevExpress.XtraEditors.SimpleButton()
         Me.btnDelete = New DevExpress.XtraEditors.SimpleButton()
         Me.btnEdit = New DevExpress.XtraEditors.SimpleButton()
@@ -47,7 +48,7 @@ Partial Class frmStockManagement
         Me.StockDGV = New DevExpress.XtraGrid.GridControl()
         Me.StockGV = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.btnAddNewCategory = New DevExpress.XtraEditors.SimpleButton()
-        Me.btnExport = New DevExpress.XtraEditors.SimpleButton()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PanelTop.SuspendLayout()
         CType(Me.PopupContainerProduct.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PopupContainerControl_ProductSearch, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -61,11 +62,13 @@ Partial Class frmStockManagement
         CType(Me.PopupContainerCategory.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.StockDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.StockGV, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelTop
         '
         Me.PanelTop.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.PanelTop.Controls.Add(Me.PictureBox1)
         Me.PanelTop.Controls.Add(Me.PopupContainerProduct)
         Me.PanelTop.Controls.Add(Me.lblProduct)
         Me.PanelTop.Controls.Add(Me.btnSearch)
@@ -143,7 +146,7 @@ Partial Class frmStockManagement
         'lblStockManagement
         '
         Me.lblStockManagement.Appearance.Font = New System.Drawing.Font("Open Sans", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStockManagement.Location = New System.Drawing.Point(14, 12)
+        Me.lblStockManagement.Location = New System.Drawing.Point(48, 12)
         Me.lblStockManagement.Name = "lblStockManagement"
         Me.lblStockManagement.Size = New System.Drawing.Size(155, 22)
         Me.lblStockManagement.TabIndex = 4
@@ -214,6 +217,15 @@ Partial Class frmStockManagement
         Me.btnBuckChangeCat.Size = New System.Drawing.Size(115, 23)
         Me.btnBuckChangeCat.TabIndex = 0
         Me.btnBuckChangeCat.Text = "Change Category &To"
+        '
+        'btnExport
+        '
+        Me.btnExport.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnExport.Location = New System.Drawing.Point(395, 13)
+        Me.btnExport.Name = "btnExport"
+        Me.btnExport.Size = New System.Drawing.Size(89, 23)
+        Me.btnExport.TabIndex = 0
+        Me.btnExport.Text = "E&xport"
         '
         'btnHideZeroStock
         '
@@ -289,14 +301,15 @@ Partial Class frmStockManagement
         Me.btnAddNewCategory.TabIndex = 0
         Me.btnAddNewCategory.Text = "New &Category"
         '
-        'btnExport
+        'PictureBox1
         '
-        Me.btnExport.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnExport.Location = New System.Drawing.Point(395, 13)
-        Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(89, 23)
-        Me.btnExport.TabIndex = 0
-        Me.btnExport.Text = "E&xport"
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(14, 9)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(32, 32)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 10
+        Me.PictureBox1.TabStop = False
         '
         'frmStockManagement
         '
@@ -327,6 +340,7 @@ Partial Class frmStockManagement
         CType(Me.PopupContainerCategory.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.StockDGV, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.StockGV, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -354,4 +368,5 @@ Partial Class frmStockManagement
     Friend WithEvents ProductSearchDGV As DevExpress.XtraGrid.GridControl
     Friend WithEvents ProductSearchGV As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents btnExport As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
 End Class

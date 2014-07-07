@@ -90,17 +90,18 @@ Public Class frmAddStock
             Try
                 insertNewStock.ExecuteNonQuery()
                 XtraMessageBox.Show("Product has been added!", "Product added", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            Finally
+
                 txtModel.Text = ""
                 txtQuantity.Text = "0"
                 txtCost.Text = ""
                 txtPrice.Text = ""
                 txtDescription.Text = ""
                 txtModel.Focus()
-
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            Finally
                 frmStockManagement.fillStockGV()
+                frmStockManagement.fillProductSearchGV()
             End Try
         End If
     End Sub

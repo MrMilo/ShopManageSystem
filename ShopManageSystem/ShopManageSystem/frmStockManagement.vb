@@ -80,6 +80,7 @@ Public Class frmStockManagement
 
                 'refresh
                 fillProductSearchGV()
+                fillProductSearchGV()
             End If
         Else
             XtraMessageBox.Show("Please select a record to perform this action!", "No data selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -201,6 +202,7 @@ Public Class frmStockManagement
 
             'finally refresh gridview
             fillStockGV()
+            fillProductSearchGV()
         Else
             XtraMessageBox.Show("Please select a record to perform this action!", "No data selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
