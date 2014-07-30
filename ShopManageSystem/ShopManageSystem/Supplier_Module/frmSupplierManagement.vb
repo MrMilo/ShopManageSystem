@@ -291,4 +291,9 @@ Public Class frmSupplierManagement
             lblDebt.ForeColor = Color.DarkRed
         End If
     End Sub
+
+    Private Sub btnExport_Click(sender As System.Object, e As System.EventArgs) Handles btnExport.Click
+        SupplierDGV.ExportToXls("" & DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") & "_Supplier.xls")
+        XtraMessageBox.Show("The data has been successfully exported!" & vbNewLine & "You can find your file at : " & Application.StartupPath & "\" & DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") & "_Supplier", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
 End Class

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmCustomerManagement
+Partial Class frmSalesManagement
     Inherits DevExpress.XtraEditors.XtraForm
 
     'Form overrides dispose to clean up the component list.
@@ -23,13 +23,9 @@ Partial Class frmCustomerManagement
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCustomerManagement))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSalesManagement))
         Me.PanelTop = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.PopupContainerCustomer = New DevExpress.XtraEditors.PopupContainerEdit()
-        Me.PopupContainerControl_CustomerSearch = New DevExpress.XtraEditors.PopupContainerControl()
-        Me.CustomerSearchDGV = New DevExpress.XtraGrid.GridControl()
-        Me.CustomerSearchGV = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.ToolTipController = New DevExpress.Utils.ToolTipController(Me.components)
         Me.lblCustomer = New DevExpress.XtraEditors.LabelControl()
         Me.btnSearch = New DevExpress.XtraEditors.SimpleButton()
@@ -45,14 +41,8 @@ Partial Class frmCustomerManagement
         Me.chkSelectAll = New DevExpress.XtraEditors.CheckEdit()
         Me.CustomerDGV = New DevExpress.XtraGrid.GridControl()
         Me.CustomerGV = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.btnCustomerGroup = New DevExpress.XtraEditors.SimpleButton()
         Me.PanelTop.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PopupContainerCustomer.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PopupContainerControl_CustomerSearch, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PopupContainerControl_CustomerSearch.SuspendLayout()
-        CType(Me.CustomerSearchDGV, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.CustomerSearchGV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelButton.SuspendLayout()
         CType(Me.chkSelectAll.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CustomerDGV, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -63,7 +53,6 @@ Partial Class frmCustomerManagement
         '
         Me.PanelTop.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.PanelTop.Controls.Add(Me.PictureBox1)
-        Me.PanelTop.Controls.Add(Me.PopupContainerCustomer)
         Me.PanelTop.Controls.Add(Me.lblCustomer)
         Me.PanelTop.Controls.Add(Me.btnSearch)
         Me.PanelTop.Controls.Add(Me.lblCustomerManagement)
@@ -82,50 +71,6 @@ Partial Class frmCustomerManagement
         Me.PictureBox1.TabIndex = 11
         Me.PictureBox1.TabStop = False
         '
-        'PopupContainerCustomer
-        '
-        Me.PopupContainerCustomer.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.PopupContainerCustomer.Location = New System.Drawing.Point(532, 14)
-        Me.PopupContainerCustomer.Name = "PopupContainerCustomer"
-        Me.PopupContainerCustomer.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PopupContainerCustomer.Properties.Appearance.Options.UseFont = True
-        Me.PopupContainerCustomer.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.PopupContainerCustomer.Properties.NullValuePrompt = "Search by Customer Name"
-        Me.PopupContainerCustomer.Properties.PopupControl = Me.PopupContainerControl_CustomerSearch
-        Me.PopupContainerCustomer.Properties.PopupSizeable = False
-        Me.PopupContainerCustomer.Properties.ShowPopupCloseButton = False
-        Me.PopupContainerCustomer.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard
-        Me.PopupContainerCustomer.Size = New System.Drawing.Size(193, 22)
-        Me.PopupContainerCustomer.TabIndex = 10
-        '
-        'PopupContainerControl_CustomerSearch
-        '
-        Me.PopupContainerControl_CustomerSearch.Controls.Add(Me.CustomerSearchDGV)
-        Me.PopupContainerControl_CustomerSearch.Location = New System.Drawing.Point(252, 433)
-        Me.PopupContainerControl_CustomerSearch.Name = "PopupContainerControl_CustomerSearch"
-        Me.PopupContainerControl_CustomerSearch.Size = New System.Drawing.Size(193, 181)
-        Me.PopupContainerControl_CustomerSearch.TabIndex = 9
-        '
-        'CustomerSearchDGV
-        '
-        Me.CustomerSearchDGV.Location = New System.Drawing.Point(1, 1)
-        Me.CustomerSearchDGV.MainView = Me.CustomerSearchGV
-        Me.CustomerSearchDGV.Name = "CustomerSearchDGV"
-        Me.CustomerSearchDGV.Size = New System.Drawing.Size(194, 178)
-        Me.CustomerSearchDGV.TabIndex = 8
-        Me.CustomerSearchDGV.ToolTipController = Me.ToolTipController
-        Me.CustomerSearchDGV.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.CustomerSearchGV})
-        '
-        'CustomerSearchGV
-        '
-        Me.CustomerSearchGV.GridControl = Me.CustomerSearchDGV
-        Me.CustomerSearchGV.Name = "CustomerSearchGV"
-        Me.CustomerSearchGV.OptionsBehavior.Editable = False
-        Me.CustomerSearchGV.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.CustomerSearchGV.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never
-        Me.CustomerSearchGV.OptionsView.ShowGroupPanel = False
-        Me.CustomerSearchGV.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
-        '
         'ToolTipController
         '
         Me.ToolTipController.AllowHtmlText = True
@@ -133,29 +78,29 @@ Partial Class frmCustomerManagement
         'lblCustomer
         '
         Me.lblCustomer.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCustomer.Location = New System.Drawing.Point(425, 16)
+        Me.lblCustomer.Location = New System.Drawing.Point(460, 16)
         Me.lblCustomer.Name = "lblCustomer"
-        Me.lblCustomer.Size = New System.Drawing.Size(101, 16)
+        Me.lblCustomer.Size = New System.Drawing.Size(211, 16)
         Me.lblCustomer.TabIndex = 7
-        Me.lblCustomer.Text = "Customer Name :"
+        Me.lblCustomer.Text = "Receipt Number : MS20140731-0000"
         '
         'btnSearch
         '
         Me.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnSearch.Location = New System.Drawing.Point(731, 13)
+        Me.btnSearch.Location = New System.Drawing.Point(687, 13)
         Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(75, 23)
+        Me.btnSearch.Size = New System.Drawing.Size(119, 23)
         Me.btnSearch.TabIndex = 6
-        Me.btnSearch.Text = "&Search"
+        Me.btnSearch.Text = "&Check Old Sales"
         '
         'lblCustomerManagement
         '
         Me.lblCustomerManagement.Appearance.Font = New System.Drawing.Font("Open Sans", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCustomerManagement.Location = New System.Drawing.Point(45, 12)
         Me.lblCustomerManagement.Name = "lblCustomerManagement"
-        Me.lblCustomerManagement.Size = New System.Drawing.Size(189, 22)
+        Me.lblCustomerManagement.Size = New System.Drawing.Size(152, 22)
         Me.lblCustomerManagement.TabIndex = 4
-        Me.lblCustomerManagement.Text = "Customer Management"
+        Me.lblCustomerManagement.Text = "Sales Management"
         '
         'PanelButton
         '
@@ -270,37 +215,20 @@ Partial Class frmCustomerManagement
         Me.CustomerGV.OptionsView.ShowGroupPanel = False
         Me.CustomerGV.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
         '
-        'btnCustomerGroup
-        '
-        Me.btnCustomerGroup.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnCustomerGroup.Image = CType(resources.GetObject("btnCustomerGroup.Image"), System.Drawing.Image)
-        Me.btnCustomerGroup.Location = New System.Drawing.Point(10, 337)
-        Me.btnCustomerGroup.Name = "btnCustomerGroup"
-        Me.btnCustomerGroup.Size = New System.Drawing.Size(158, 66)
-        Me.btnCustomerGroup.TabIndex = 11
-        Me.btnCustomerGroup.Text = "Customer &Group"
-        '
-        'frmCustomerManagement
+        'frmSalesManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(819, 411)
-        Me.Controls.Add(Me.PopupContainerControl_CustomerSearch)
         Me.Controls.Add(Me.CustomerDGV)
         Me.Controls.Add(Me.PanelButton)
         Me.Controls.Add(Me.PanelTop)
-        Me.Controls.Add(Me.btnCustomerGroup)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Name = "frmCustomerManagement"
+        Me.Name = "frmSalesManagement"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.PanelTop.ResumeLayout(False)
         Me.PanelTop.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PopupContainerCustomer.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PopupContainerControl_CustomerSearch, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PopupContainerControl_CustomerSearch.ResumeLayout(False)
-        CType(Me.CustomerSearchDGV, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.CustomerSearchGV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelButton.ResumeLayout(False)
         Me.PanelButton.PerformLayout()
         CType(Me.chkSelectAll.Properties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -318,10 +246,6 @@ Partial Class frmCustomerManagement
     Friend WithEvents chkSelectAll As DevExpress.XtraEditors.CheckEdit
     Friend WithEvents ToolTipController As DevExpress.Utils.ToolTipController
     Friend WithEvents lblCustomer As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents PopupContainerCustomer As DevExpress.XtraEditors.PopupContainerEdit
-    Friend WithEvents PopupContainerControl_CustomerSearch As DevExpress.XtraEditors.PopupContainerControl
-    Friend WithEvents CustomerSearchDGV As DevExpress.XtraGrid.GridControl
-    Friend WithEvents CustomerSearchGV As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents btnHideZeroDebt As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnDelete As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnEdit As DevExpress.XtraEditors.SimpleButton
@@ -330,5 +254,4 @@ Partial Class frmCustomerManagement
     Friend WithEvents lblDebt As DevExpress.XtraEditors.LabelControl
     Friend WithEvents btnExport As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
-    Friend WithEvents btnCustomerGroup As DevExpress.XtraEditors.SimpleButton
 End Class

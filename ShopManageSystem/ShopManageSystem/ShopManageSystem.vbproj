@@ -104,6 +104,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customer_Module\frmCustomerGroupManagement.Designer.vb">
+      <DependentUpon>frmCustomerGroupManagement.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Customer_Module\frmCustomerGroupManagement.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Etc\ApplicationEvents.vb" />
     <Compile Include="Customer_Module\frmEditCustomer.Designer.vb">
       <DependentUpon>frmEditCustomer.vb</DependentUpon>
@@ -121,6 +127,12 @@
       <DependentUpon>frmCustomerManagement.vb</DependentUpon>
     </Compile>
     <Compile Include="Customer_Module\frmCustomerManagement.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sales_Module\frmSalesManagement.Designer.vb">
+      <DependentUpon>frmSalesManagement.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Sales_Module\frmSalesManagement.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Stock_Module\frmAddCategory.Designer.vb">
@@ -215,6 +227,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Customer_Module\frmCustomerGroupManagement.resx">
+      <DependentUpon>frmCustomerGroupManagement.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Customer_Module\frmEditCustomer.resx">
       <DependentUpon>frmEditCustomer.vb</DependentUpon>
     </EmbeddedResource>
@@ -223,6 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Customer_Module\frmCustomerManagement.resx">
       <DependentUpon>frmCustomerManagement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sales_Module\frmSalesManagement.resx">
+      <DependentUpon>frmSalesManagement.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Stock_Module\frmAddCategory.resx">
       <DependentUpon>frmAddCategory.vb</DependentUpon>

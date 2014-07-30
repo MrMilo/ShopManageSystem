@@ -4,7 +4,7 @@ Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
 Imports DevExpress.Utils
 
-Public Class frmCustomerManagement
+Public Class frmSalesManagement
     Inherits DevExpress.XtraEditors.XtraForm
 
     'drawing row number
@@ -104,7 +104,7 @@ Public Class frmCustomerManagement
         End Try
     End Sub
 
-    Private Sub CustomerGV_CustomDrawEmptyForeground(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Base.CustomDrawEventArgs) Handles CustomerGV.CustomDrawEmptyForeground, CustomerSearchGV.CustomDrawEmptyForeground
+    Private Sub CustomerGV_CustomDrawEmptyForeground(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Base.CustomDrawEventArgs) Handles CustomerGV.CustomDrawEmptyForeground
         Dim view As DevExpress.XtraGrid.Views.Grid.GridView = sender
 
         If (view.RowCount <> 0) Then Return
@@ -192,11 +192,11 @@ Public Class frmCustomerManagement
         PopupContainerCustomer.Focus()
     End Sub
 
-    Private Sub PopupContainerCustomer_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles PopupContainerCustomer.Click
+    Private Sub PopupContainerCustomer_Click(ByVal sender As Object, ByVal e As System.EventArgs)
         PopupContainerCustomer.SelectAll()
     End Sub
 
-    Private Sub PopupContainerCustomer_EditValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PopupContainerCustomer.EditValueChanged
+    Private Sub PopupContainerCustomer_EditValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
         PopupContainerCustomer.ShowPopup()
         CustomerSearchGV.ActiveFilter.NonColumnFilter = "[cust_name] LIKE '%" & PopupContainerCustomer.Text & "%'"
         PopupContainerCustomer.Focus()
@@ -207,7 +207,7 @@ Public Class frmCustomerManagement
         End If
     End Sub
 
-    Private Sub CustomerSearchGV_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles CustomerSearchGV.DoubleClick
+    Private Sub CustomerSearchGV_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs)
         If CustomerSearchGV.SelectedRowsCount = 0 Then
             XtraMessageBox.Show("Please select a record to perform this action!", "No data selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         Else
@@ -311,7 +311,7 @@ Public Class frmCustomerManagement
         End If
     End Sub
 
-    Private Sub btnCustomerGroup_Click(sender As System.Object, e As System.EventArgs) Handles btnCustomerGroup.Click
+    Private Sub btnCustomerGroup_Click(sender As System.Object, e As System.EventArgs)
         frmCustomerGroupManagement.ShowDialog()
     End Sub
 

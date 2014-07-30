@@ -80,7 +80,6 @@ Public Class frmStockManagement
 
                 'refresh
                 fillProductSearchGV()
-                fillProductSearchGV()
             End If
         Else
             XtraMessageBox.Show("Please select a record to perform this action!", "No data selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -239,7 +238,7 @@ Public Class frmStockManagement
     End Sub
 
     Dim HideZeroStockState As Integer = 0 '0 = no click ; 1 = click
-    Private Sub btnHideZeroStock_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHideZeroStock.Click, btnExport.Click
+    Private Sub btnHideZeroStock_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHideZeroStock.Click
         If HideZeroStockState = 0 Then
             HideZeroStockState = 1
             StockGV.ActiveFilter.NonColumnFilter = "[prod_quantity] > 0"
@@ -331,7 +330,7 @@ Public Class frmStockManagement
     End Sub
 
     Private Sub btnAddNewCategory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewCategory.Click
-        frmAddCategory.ShowDialog()
+        frmCustomerGroupManagement.ShowDialog()
     End Sub
 
     Private Sub PopupContainerProduct_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles PopupContainerProduct.Click
@@ -372,5 +371,14 @@ Public Class frmStockManagement
             StockGV.ClearColumnsFilter()
             ProductSearchGV.ClearColumnsFilter()
         End If
+    End Sub
+
+    Private Sub btnExport_Click(sender As System.Object, e As System.EventArgs) Handles btnExport.Click
+        StockGV.Columns(6).Visible = True
+
+        StockDGV.ExportToXls("" & DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") & "_Stock.xls")
+
+        StockGV.Columns(6).Visible = False
+        XtraMessageBox.Show("The data has been successfully exported!" & vbNewLine & "You can find your file at : " & Application.StartupPath & "\" & DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") & "_Stock.xls", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 End Class

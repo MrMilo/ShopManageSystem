@@ -1,5 +1,7 @@
 ﻿Imports System
 Imports System.Xml
+Imports DevExpress.XtraTab
+Imports DevExpress.XtraTab.ViewInfo
 
 Public Class frmMain
     Inherits DevExpress.XtraEditors.XtraForm
@@ -13,7 +15,7 @@ Public Class frmMain
         formClose(Nothing)
     End Sub
 
-    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MarqueeTimer.Tick
+    Private Sub MarqueeTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MarqueeTimer.Tick
         If sb.Length = 0 Then sb.Append(MarqueeText)
         If Direction Then
             sb.Insert(0, sb(sb.Length - 1))
@@ -151,7 +153,20 @@ Public Class frmMain
         TabControl.SelectedTabPageIndex = 3
     End Sub
 
+    Private Sub btnSalesOrder_Click(sender As System.Object, e As System.EventArgs) Handles btnSalesOrder.Click, mSales.Click
+        frmSalesManagement.TopLevel = False
+        frmSalesManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+        frmSalesManagement.Dock = DockStyle.Fill
+        TabControl.TabPages(4).Controls.Add(frmSalesManagement)
+        frmSalesManagement.Show()
+        TabControl.TabPages(4).PageVisible = True
+        TabControl.SelectedTabPageIndex = 4
+    End Sub
+
     Private Sub TabControl_CloseButtonClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles TabControl.CloseButtonClick
-        TabControl.SelectedTabPage.PageVisible = False
+        'TabControl.SelectedTabPage.PageVisible = False
+        Dim tabControl As XtraTabControl = TryCast(sender, XtraTabControl)
+        Dim arg As ClosePageButtonEventArgs = TryCast(e, ClosePageButtonEventArgs)
+        TryCast(arg.Page, XtraTabPage).PageVisible = False
     End Sub
 End Class
