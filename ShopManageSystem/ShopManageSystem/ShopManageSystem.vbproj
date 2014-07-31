@@ -129,6 +129,18 @@
     <Compile Include="Customer_Module\frmCustomerManagement.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Sales_Module\frmEditSalesItem.Designer.vb">
+      <DependentUpon>frmEditSalesItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Sales_Module\frmEditSalesItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sales_Module\frmAddSalesItem.Designer.vb">
+      <DependentUpon>frmAddSalesItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Sales_Module\frmAddSalesItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Sales_Module\frmSalesManagement.Designer.vb">
       <DependentUpon>frmSalesManagement.vb</DependentUpon>
     </Compile>
@@ -238,6 +250,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Customer_Module\frmCustomerManagement.resx">
       <DependentUpon>frmCustomerManagement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sales_Module\frmEditSalesItem.resx">
+      <DependentUpon>frmEditSalesItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sales_Module\frmAddSalesItem.resx">
+      <DependentUpon>frmAddSalesItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sales_Module\frmSalesManagement.resx">
       <DependentUpon>frmSalesManagement.vb</DependentUpon>
