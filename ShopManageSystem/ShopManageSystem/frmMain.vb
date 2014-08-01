@@ -124,49 +124,129 @@ Public Class frmMain
     '5 | Restock Order
     '6 | Report
     Private Sub btnStockManagement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnStockManagement.Click, mStock.Click
-        frmStockManagement.TopLevel = False
-        frmStockManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
-        frmStockManagement.Dock = DockStyle.Fill
-        TabControl.TabPages(1).Controls.Add(frmStockManagement)
-        frmStockManagement.Show()
-        TabControl.TabPages(1).PageVisible = True
-        TabControl.SelectedTabPageIndex = 1
+        Dim Found As Boolean = False
+        For pno As Integer = 0 To TabControl.TabPages.Count - 1
+            If TabControl.TabPages(pno).Text = "Stock Management" Then
+                Found = True
+                TabControl.SelectedTabPageIndex = pno
+                Exit For
+            End If
+        Next
+
+        If Not Found Then
+            Dim TabPageResult As New XtraTabPage
+            TabPageResult.Text = "Stock Management"
+            TabControl.TabPages.Add(TabPageResult)
+
+            frmStockManagement.TopLevel = False
+            frmStockManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            frmStockManagement.Dock = DockStyle.Fill
+            TabPageResult.Controls.Add(frmStockManagement)
+            frmStockManagement.Show()
+            TabControl.SelectedTabPage = TabPageResult
+        End If
     End Sub
 
     Private Sub btnCustomer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCustomer.Click, mCustomer.Click
-        frmCustomerManagement.TopLevel = False
-        frmCustomerManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
-        frmCustomerManagement.Dock = DockStyle.Fill
-        TabControl.TabPages(2).Controls.Add(frmCustomerManagement)
-        frmCustomerManagement.Show()
-        TabControl.TabPages(2).PageVisible = True
-        TabControl.SelectedTabPageIndex = 2
+        Dim Found As Boolean = False
+        For pno As Integer = 0 To TabControl.TabPages.Count - 1
+            If TabControl.TabPages(pno).Text = "Customer" Then
+                Found = True
+                TabControl.SelectedTabPageIndex = pno
+                Exit For
+            End If
+        Next
+
+        If Not Found Then
+            Dim TabPageResult As New XtraTabPage
+            TabPageResult.Text = "Customer"
+            TabControl.TabPages.Add(TabPageResult)
+
+            frmCustomerManagement.TopLevel = False
+            frmCustomerManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            frmCustomerManagement.Dock = DockStyle.Fill
+            TabPageResult.Controls.Add(frmCustomerManagement)
+            frmCustomerManagement.Show()
+            TabControl.SelectedTabPage = TabPageResult
+        End If
     End Sub
 
     Private Sub btnSupplier_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSupplier.Click, mSupplier.Click
-        frmSupplierManagement.TopLevel = False
-        frmSupplierManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
-        frmSupplierManagement.Dock = DockStyle.Fill
-        TabControl.TabPages(3).Controls.Add(frmSupplierManagement)
-        frmSupplierManagement.Show()
-        TabControl.TabPages(3).PageVisible = True
-        TabControl.SelectedTabPageIndex = 3
+        Dim Found As Boolean = False
+        For pno As Integer = 0 To TabControl.TabPages.Count - 1
+            If TabControl.TabPages(pno).Text = "Supplier" Then
+                Found = True
+                TabControl.SelectedTabPageIndex = pno
+                Exit For
+            End If
+        Next
+
+        If Not Found Then
+            Dim TabPageResult As New XtraTabPage
+            TabPageResult.Text = "Supplier"
+            TabControl.TabPages.Add(TabPageResult)
+
+            frmSupplierManagement.TopLevel = False
+            frmSupplierManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            frmSupplierManagement.Dock = DockStyle.Fill
+            TabPageResult.Controls.Add(frmSupplierManagement)
+            frmSupplierManagement.Show()
+            TabControl.SelectedTabPage = TabPageResult
+        End If
     End Sub
 
     Private Sub btnSalesOrder_Click(sender As System.Object, e As System.EventArgs) Handles btnSalesOrder.Click, mSales.Click
-        frmSalesManagement.TopLevel = False
-        frmSalesManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
-        frmSalesManagement.Dock = DockStyle.Fill
-        TabControl.TabPages(4).Controls.Add(frmSalesManagement)
-        frmSalesManagement.Show()
-        TabControl.TabPages(4).PageVisible = True
-        TabControl.SelectedTabPageIndex = 4
+        Dim Found As Boolean = False
+        For pno As Integer = 0 To TabControl.TabPages.Count - 1
+            If TabControl.TabPages(pno).Text = "Sales Order" Then
+                Found = True
+                TabControl.SelectedTabPageIndex = pno
+                Exit For
+            End If
+        Next
+
+        If Not Found Then
+            Dim TabPageResult As New XtraTabPage
+            TabPageResult.Text = "Sales Order"
+            TabControl.TabPages.Add(TabPageResult)
+
+            frmSalesManagement.TopLevel = False
+            frmSalesManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            frmSalesManagement.Dock = DockStyle.Fill
+            TabPageResult.Controls.Add(frmSalesManagement)
+            frmSalesManagement.Show()
+            TabControl.SelectedTabPage = TabPageResult
+        End If
+    End Sub
+
+    Private Sub btnRestockOrder_Click(sender As System.Object, e As System.EventArgs) Handles btnRestockOrder.Click, mRestock.Click
+        Dim Found As Boolean = False
+        For pno As Integer = 0 To TabControl.TabPages.Count - 1
+            If TabControl.TabPages(pno).Text = "Restock Order" Then
+                Found = True
+                TabControl.SelectedTabPageIndex = pno
+                Exit For
+            End If
+        Next
+
+        If Not Found Then
+            Dim TabPageResult As New XtraTabPage
+            TabPageResult.Text = "Restock Order"
+            TabControl.TabPages.Add(TabPageResult)
+
+            frmRestockManagement.TopLevel = False
+            frmRestockManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            frmRestockManagement.Dock = DockStyle.Fill
+            TabPageResult.Controls.Add(frmRestockManagement)
+            frmRestockManagement.Show()
+            TabControl.SelectedTabPage = TabPageResult
+        End If
     End Sub
 
     Private Sub TabControl_CloseButtonClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles TabControl.CloseButtonClick
         'TabControl.SelectedTabPage.PageVisible = False
         Dim tabControl As XtraTabControl = TryCast(sender, XtraTabControl)
         Dim arg As ClosePageButtonEventArgs = TryCast(e, ClosePageButtonEventArgs)
-        TryCast(arg.Page, XtraTabPage).PageVisible = False
+        TryCast(arg.Page, XtraTabPage).Dispose()
     End Sub
 End Class

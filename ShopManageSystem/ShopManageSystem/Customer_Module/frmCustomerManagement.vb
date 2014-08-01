@@ -316,6 +316,10 @@ Public Class frmCustomerManagement
     End Sub
 
     Private Sub btnExport_Click(sender As System.Object, e As System.EventArgs) Handles btnExport.Click
+        If (Not System.IO.Directory.Exists(".\CustomerExport")) Then
+            System.IO.Directory.CreateDirectory(".\CustomerExport")
+        End If
+
         CustomerGV.Columns(3).Visible = True 'cust_address
         CustomerGV.Columns(4).Visible = True 'cust_email
         CustomerGV.Columns(5).Visible = True 'cust_facebook
@@ -323,7 +327,7 @@ Public Class frmCustomerManagement
         CustomerGV.Columns(9).Visible = True 'cust_points
         CustomerGV.Columns(10).Visible = True 'cust_note
 
-        CustomerDGV.ExportToXls("" & DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") & "_Customer.xls")
+        CustomerDGV.ExportToXls(".\CustomerExport\" & DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") & "_Customer.xls")
 
         CustomerGV.Columns(3).Visible = False 'cust_address
         CustomerGV.Columns(4).Visible = False 'cust_email
@@ -331,6 +335,6 @@ Public Class frmCustomerManagement
         CustomerGV.Columns(7).Visible = False 'cust_date_added
         CustomerGV.Columns(9).Visible = False 'cust_points
         CustomerGV.Columns(10).Visible = False 'cust_note
-        XtraMessageBox.Show("The data has been successfully exported!" & vbNewLine & "You can find your file at : " & Application.StartupPath & "\" & DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") & "_Customer.xls", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        XtraMessageBox.Show("The data has been successfully exported!" & vbNewLine & "You can find your file at : " & Application.StartupPath & "\CustomerExport\" & DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") & "_Customer.xls", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 End Class

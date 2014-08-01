@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmSalesManagement
+Partial Class frmRestockManagement
     Inherits DevExpress.XtraEditors.XtraForm
 
     'Form overrides dispose to clean up the component list.
@@ -23,7 +23,7 @@ Partial Class frmSalesManagement
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSalesManagement))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmRestockManagement))
         Me.PanelTop = New System.Windows.Forms.Panel()
         Me.lblReceiptNumber = New DevExpress.XtraEditors.LabelControl()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
@@ -32,10 +32,10 @@ Partial Class frmSalesManagement
         Me.ToolTipController = New DevExpress.Utils.ToolTipController(Me.components)
         Me.lblCustomerManagement = New DevExpress.XtraEditors.LabelControl()
         Me.PanelButton = New System.Windows.Forms.Panel()
-        Me.PopupContainerCustomer = New DevExpress.XtraEditors.PopupContainerEdit()
-        Me.PopupContainerControl_CustomerSearch = New DevExpress.XtraEditors.PopupContainerControl()
-        Me.CustomerSearchDGV = New DevExpress.XtraGrid.GridControl()
-        Me.CustomerSearchGV = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.PopupContainerSupplier = New DevExpress.XtraEditors.PopupContainerEdit()
+        Me.PopupContainerControl_SupplierSearch = New DevExpress.XtraEditors.PopupContainerControl()
+        Me.SupplierSearchDGV = New DevExpress.XtraGrid.GridControl()
+        Me.SupplierSearchGV = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.DateTimePicker = New System.Windows.Forms.DateTimePicker()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
@@ -63,11 +63,11 @@ Partial Class frmSalesManagement
         Me.PanelTop.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelButton.SuspendLayout()
-        CType(Me.PopupContainerCustomer.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PopupContainerControl_CustomerSearch, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PopupContainerControl_CustomerSearch.SuspendLayout()
-        CType(Me.CustomerSearchDGV, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.CustomerSearchGV, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PopupContainerSupplier.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PopupContainerControl_SupplierSearch, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PopupContainerControl_SupplierSearch.SuspendLayout()
+        CType(Me.SupplierSearchDGV, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SupplierSearchGV, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SalesDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SalesGV, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TotalSalesDGV, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -98,7 +98,7 @@ Partial Class frmSalesManagement
         Me.lblReceiptNumber.Name = "lblReceiptNumber"
         Me.lblReceiptNumber.Size = New System.Drawing.Size(107, 16)
         Me.lblReceiptNumber.TabIndex = 12
-        Me.lblReceiptNumber.Text = "SM20140731-0000"
+        Me.lblReceiptNumber.Text = "RM20140731-0000"
         '
         'PictureBox1
         '
@@ -140,14 +140,14 @@ Partial Class frmSalesManagement
         Me.lblCustomerManagement.Appearance.Font = New System.Drawing.Font("Open Sans", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCustomerManagement.Location = New System.Drawing.Point(45, 12)
         Me.lblCustomerManagement.Name = "lblCustomerManagement"
-        Me.lblCustomerManagement.Size = New System.Drawing.Size(152, 22)
+        Me.lblCustomerManagement.Size = New System.Drawing.Size(174, 22)
         Me.lblCustomerManagement.TabIndex = 4
-        Me.lblCustomerManagement.Text = "Sales Management"
+        Me.lblCustomerManagement.Text = "Restock Management"
         '
         'PanelButton
         '
         Me.PanelButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PanelButton.Controls.Add(Me.PopupContainerCustomer)
+        Me.PanelButton.Controls.Add(Me.PopupContainerSupplier)
         Me.PanelButton.Controls.Add(Me.DateTimePicker)
         Me.PanelButton.Controls.Add(Me.LabelControl2)
         Me.PanelButton.Controls.Add(Me.LabelControl1)
@@ -156,51 +156,51 @@ Partial Class frmSalesManagement
         Me.PanelButton.Size = New System.Drawing.Size(822, 50)
         Me.PanelButton.TabIndex = 5
         '
-        'PopupContainerCustomer
+        'PopupContainerSupplier
         '
-        Me.PopupContainerCustomer.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PopupContainerCustomer.Location = New System.Drawing.Point(82, 15)
-        Me.PopupContainerCustomer.Name = "PopupContainerCustomer"
-        Me.PopupContainerCustomer.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PopupContainerCustomer.Properties.Appearance.Options.UseFont = True
-        Me.PopupContainerCustomer.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.PopupContainerCustomer.Properties.NullValuePrompt = "Search by Customer Name"
-        Me.PopupContainerCustomer.Properties.NullValuePromptShowForEmptyValue = True
-        Me.PopupContainerCustomer.Properties.PopupControl = Me.PopupContainerControl_CustomerSearch
-        Me.PopupContainerCustomer.Properties.PopupSizeable = False
-        Me.PopupContainerCustomer.Properties.ShowPopupCloseButton = False
-        Me.PopupContainerCustomer.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard
-        Me.PopupContainerCustomer.Size = New System.Drawing.Size(193, 22)
-        Me.PopupContainerCustomer.TabIndex = 16
-        Me.PopupContainerCustomer.ToolTipController = Me.ToolTipController
+        Me.PopupContainerSupplier.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.PopupContainerSupplier.Location = New System.Drawing.Point(74, 15)
+        Me.PopupContainerSupplier.Name = "PopupContainerSupplier"
+        Me.PopupContainerSupplier.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PopupContainerSupplier.Properties.Appearance.Options.UseFont = True
+        Me.PopupContainerSupplier.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.PopupContainerSupplier.Properties.NullValuePrompt = "Search by Supplier Name"
+        Me.PopupContainerSupplier.Properties.NullValuePromptShowForEmptyValue = True
+        Me.PopupContainerSupplier.Properties.PopupControl = Me.PopupContainerControl_SupplierSearch
+        Me.PopupContainerSupplier.Properties.PopupSizeable = False
+        Me.PopupContainerSupplier.Properties.ShowPopupCloseButton = False
+        Me.PopupContainerSupplier.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard
+        Me.PopupContainerSupplier.Size = New System.Drawing.Size(193, 22)
+        Me.PopupContainerSupplier.TabIndex = 16
+        Me.PopupContainerSupplier.ToolTipController = Me.ToolTipController
         '
-        'PopupContainerControl_CustomerSearch
+        'PopupContainerControl_SupplierSearch
         '
-        Me.PopupContainerControl_CustomerSearch.Controls.Add(Me.CustomerSearchDGV)
-        Me.PopupContainerControl_CustomerSearch.Location = New System.Drawing.Point(356, 457)
-        Me.PopupContainerControl_CustomerSearch.Name = "PopupContainerControl_CustomerSearch"
-        Me.PopupContainerControl_CustomerSearch.Size = New System.Drawing.Size(193, 181)
-        Me.PopupContainerControl_CustomerSearch.TabIndex = 14
+        Me.PopupContainerControl_SupplierSearch.Controls.Add(Me.SupplierSearchDGV)
+        Me.PopupContainerControl_SupplierSearch.Location = New System.Drawing.Point(356, 457)
+        Me.PopupContainerControl_SupplierSearch.Name = "PopupContainerControl_SupplierSearch"
+        Me.PopupContainerControl_SupplierSearch.Size = New System.Drawing.Size(193, 181)
+        Me.PopupContainerControl_SupplierSearch.TabIndex = 14
         '
-        'CustomerSearchDGV
+        'SupplierSearchDGV
         '
-        Me.CustomerSearchDGV.Location = New System.Drawing.Point(1, 1)
-        Me.CustomerSearchDGV.MainView = Me.CustomerSearchGV
-        Me.CustomerSearchDGV.Name = "CustomerSearchDGV"
-        Me.CustomerSearchDGV.Size = New System.Drawing.Size(194, 178)
-        Me.CustomerSearchDGV.TabIndex = 8
-        Me.CustomerSearchDGV.ToolTipController = Me.ToolTipController
-        Me.CustomerSearchDGV.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.CustomerSearchGV})
+        Me.SupplierSearchDGV.Location = New System.Drawing.Point(1, 1)
+        Me.SupplierSearchDGV.MainView = Me.SupplierSearchGV
+        Me.SupplierSearchDGV.Name = "SupplierSearchDGV"
+        Me.SupplierSearchDGV.Size = New System.Drawing.Size(194, 178)
+        Me.SupplierSearchDGV.TabIndex = 8
+        Me.SupplierSearchDGV.ToolTipController = Me.ToolTipController
+        Me.SupplierSearchDGV.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.SupplierSearchGV})
         '
-        'CustomerSearchGV
+        'SupplierSearchGV
         '
-        Me.CustomerSearchGV.GridControl = Me.CustomerSearchDGV
-        Me.CustomerSearchGV.Name = "CustomerSearchGV"
-        Me.CustomerSearchGV.OptionsBehavior.Editable = False
-        Me.CustomerSearchGV.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.CustomerSearchGV.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never
-        Me.CustomerSearchGV.OptionsView.ShowGroupPanel = False
-        Me.CustomerSearchGV.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
+        Me.SupplierSearchGV.GridControl = Me.SupplierSearchDGV
+        Me.SupplierSearchGV.Name = "SupplierSearchGV"
+        Me.SupplierSearchGV.OptionsBehavior.Editable = False
+        Me.SupplierSearchGV.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.SupplierSearchGV.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never
+        Me.SupplierSearchGV.OptionsView.ShowGroupPanel = False
+        Me.SupplierSearchGV.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
         '
         'DateTimePicker
         '
@@ -226,9 +226,9 @@ Partial Class frmSalesManagement
         Me.LabelControl1.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelControl1.Location = New System.Drawing.Point(12, 18)
         Me.LabelControl1.Name = "LabelControl1"
-        Me.LabelControl1.Size = New System.Drawing.Size(64, 16)
+        Me.LabelControl1.Size = New System.Drawing.Size(56, 16)
         Me.LabelControl1.TabIndex = 13
-        Me.LabelControl1.Text = "Customer :"
+        Me.LabelControl1.Text = "Supplier :"
         '
         'btnDelete
         '
@@ -305,7 +305,7 @@ Partial Class frmSalesManagement
         'btnClear
         '
         Me.btnClear.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnClear.Location = New System.Drawing.Point(719, 376)
+        Me.btnClear.Location = New System.Drawing.Point(720, 376)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(75, 23)
         Me.btnClear.TabIndex = 13
@@ -314,7 +314,7 @@ Partial Class frmSalesManagement
         'btnPlaceSales
         '
         Me.btnPlaceSales.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnPlaceSales.Location = New System.Drawing.Point(617, 376)
+        Me.btnPlaceSales.Location = New System.Drawing.Point(619, 376)
         Me.btnPlaceSales.Name = "btnPlaceSales"
         Me.btnPlaceSales.Size = New System.Drawing.Size(75, 23)
         Me.btnPlaceSales.TabIndex = 13
@@ -332,11 +332,11 @@ Partial Class frmSalesManagement
         'LabelControl4
         '
         Me.LabelControl4.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl4.Location = New System.Drawing.Point(12, 339)
+        Me.LabelControl4.Location = New System.Drawing.Point(15, 339)
         Me.LabelControl4.Name = "LabelControl4"
-        Me.LabelControl4.Size = New System.Drawing.Size(103, 16)
+        Me.LabelControl4.Size = New System.Drawing.Size(100, 16)
         Me.LabelControl4.TabIndex = 18
-        Me.LabelControl4.Text = "Discounted Price :"
+        Me.LabelControl4.Text = "Discounted Cost :"
         '
         'ShapeContainer1
         '
@@ -433,7 +433,7 @@ Partial Class frmSalesManagement
         'btnPayment
         '
         Me.btnPayment.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnPayment.Location = New System.Drawing.Point(611, 335)
+        Me.btnPayment.Location = New System.Drawing.Point(611, 336)
         Me.btnPayment.Name = "btnPayment"
         Me.btnPayment.Size = New System.Drawing.Size(75, 23)
         Me.btnPayment.TabIndex = 26
@@ -442,13 +442,13 @@ Partial Class frmSalesManagement
         'btnExport
         '
         Me.btnExport.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnExport.Location = New System.Drawing.Point(515, 376)
+        Me.btnExport.Location = New System.Drawing.Point(518, 376)
         Me.btnExport.Name = "btnExport"
         Me.btnExport.Size = New System.Drawing.Size(75, 23)
         Me.btnExport.TabIndex = 27
         Me.btnExport.Text = "E&xport"
         '
-        'frmSalesManagement
+        'frmRestockManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -463,7 +463,7 @@ Partial Class frmSalesManagement
         Me.Controls.Add(Me.txtNote)
         Me.Controls.Add(Me.LabelControl4)
         Me.Controls.Add(Me.LabelControl3)
-        Me.Controls.Add(Me.PopupContainerControl_CustomerSearch)
+        Me.Controls.Add(Me.PopupContainerControl_SupplierSearch)
         Me.Controls.Add(Me.btnPlaceSales)
         Me.Controls.Add(Me.btnClear)
         Me.Controls.Add(Me.btnDelete)
@@ -475,18 +475,18 @@ Partial Class frmSalesManagement
         Me.Controls.Add(Me.PanelTop)
         Me.Controls.Add(Me.ShapeContainer1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Name = "frmSalesManagement"
+        Me.Name = "frmRestockManagement"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.PanelTop.ResumeLayout(False)
         Me.PanelTop.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelButton.ResumeLayout(False)
         Me.PanelButton.PerformLayout()
-        CType(Me.PopupContainerCustomer.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PopupContainerControl_CustomerSearch, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PopupContainerControl_CustomerSearch.ResumeLayout(False)
-        CType(Me.CustomerSearchDGV, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.CustomerSearchGV, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PopupContainerSupplier.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PopupContainerControl_SupplierSearch, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PopupContainerControl_SupplierSearch.ResumeLayout(False)
+        CType(Me.SupplierSearchDGV, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SupplierSearchGV, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SalesDGV, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SalesGV, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TotalSalesDGV, System.ComponentModel.ISupportInitialize).EndInit()
@@ -517,10 +517,10 @@ Partial Class frmSalesManagement
     Friend WithEvents DateTimePicker As System.Windows.Forms.DateTimePicker
     Friend WithEvents LabelControl2 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents PopupContainerCustomer As DevExpress.XtraEditors.PopupContainerEdit
-    Friend WithEvents PopupContainerControl_CustomerSearch As DevExpress.XtraEditors.PopupContainerControl
-    Friend WithEvents CustomerSearchDGV As DevExpress.XtraGrid.GridControl
-    Friend WithEvents CustomerSearchGV As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents PopupContainerSupplier As DevExpress.XtraEditors.PopupContainerEdit
+    Friend WithEvents PopupContainerControl_SupplierSearch As DevExpress.XtraEditors.PopupContainerControl
+    Friend WithEvents SupplierSearchDGV As DevExpress.XtraGrid.GridControl
+    Friend WithEvents SupplierSearchGV As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents btnClear As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnPlaceSales As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents LabelControl3 As DevExpress.XtraEditors.LabelControl

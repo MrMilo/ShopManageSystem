@@ -374,11 +374,15 @@ Public Class frmStockManagement
     End Sub
 
     Private Sub btnExport_Click(sender As System.Object, e As System.EventArgs) Handles btnExport.Click
+        If (Not System.IO.Directory.Exists(".\StockExport")) Then
+            System.IO.Directory.CreateDirectory(".\StockExport")
+        End If
+
         StockGV.Columns(6).Visible = True
 
-        StockDGV.ExportToXls("" & DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") & "_Stock.xls")
+        StockDGV.ExportToXls(".\StockExport\" & DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") & "_Stock.xls")
 
         StockGV.Columns(6).Visible = False
-        XtraMessageBox.Show("The data has been successfully exported!" & vbNewLine & "You can find your file at : " & Application.StartupPath & "\" & DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") & "_Stock.xls", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        XtraMessageBox.Show("The data has been successfully exported!" & vbNewLine & "You can find your file at : " & Application.StartupPath & "\StockExport\" & DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") & "_Stock.xls", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 End Class

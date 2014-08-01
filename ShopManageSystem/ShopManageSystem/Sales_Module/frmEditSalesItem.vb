@@ -48,6 +48,8 @@ Public Class frmEditSalesItem
 
             CurrentStockQty = StockGV.GetRowCellValue(StockGV.FocusedRowHandle, "prod_quantity")
 
+            txtTotalPrice.Text = ProductPrice * Val(txtUnit.Text)
+
             PopupContainerProduct.ClosePopup()
         End If
     End Sub

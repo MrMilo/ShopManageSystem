@@ -1,7 +1,7 @@
 ﻿Imports System.Data.OleDb
 Imports DevExpress.XtraEditors
 
-Public Class frmAddSalesItem
+Public Class frmAddRestockItem
     Inherits DevExpress.XtraEditors.XtraForm
 
     Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
@@ -24,7 +24,17 @@ Public Class frmAddSalesItem
     End Sub
 
     Private Sub PopupContainerProduct_EditValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PopupContainerProduct.EditValueChanged
-        PopupContainerProduct.ShowPopup()
+        If StockGV.RowCount = 0 Then
+            txtCategory.Text = ""
+            txtPricePerUnit.Text = ""
+            txtTotalPrice.Text = ""
+            txtDescription.Text = ""
+            PopupContainerProduct.ClosePopup()
+            CurrentPID = 0
+        Else
+            PopupContainerProduct.ShowPopup()
+        End If
+
         StockGV.ActiveFilter.NonColumnFilter = "[prod_model] LIKE '%" & PopupContainerProduct.Text & "%'"
         PopupContainerProduct.Focus()
 
@@ -33,7 +43,7 @@ Public Class frmAddSalesItem
         End If
     End Sub
 
-    Dim ProductPrice As Integer = 0
+    Dim ProductCost As Integer = 0
     Private Sub StockGV_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles StockGV.DoubleClick
         If StockGV.SelectedRowsCount = 0 Then
             XtraMessageBox.Show("Please select a record to perform this action!", "No data selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -41,14 +51,14 @@ Public Class frmAddSalesItem
             CurrentPID = StockGV.GetRowCellValue(StockGV.FocusedRowHandle, "prod_id")
             PopupContainerProduct.Text = StockGV.GetRowCellValue(StockGV.FocusedRowHandle, "prod_model")
             txtCategory.Text = StockGV.GetRowCellValue(StockGV.FocusedRowHandle, "cat_name")
-            txtPricePerUnit.Text = StockGV.GetRowCellValue(StockGV.FocusedRowHandle, "prod_price")
-            txtTotalPrice.Text = StockGV.GetRowCellValue(StockGV.FocusedRowHandle, "prod_price")
-            ProductPrice = StockGV.GetRowCellValue(StockGV.FocusedRowHandle, "prod_price")
+            txtPricePerUnit.Text = StockGV.GetRowCellValue(StockGV.FocusedRowHandle, "prod_cost")
+            txtTotalPrice.Text = StockGV.GetRowCellValue(StockGV.FocusedRowHandle, "prod_cost")
+            ProductCost = StockGV.GetRowCellValue(StockGV.FocusedRowHandle, "prod_cost")
             txtDescription.Text = StockGV.GetRowCellValue(StockGV.FocusedRowHandle, "prod_model")
 
             CurrentStockQty = StockGV.GetRowCellValue(StockGV.FocusedRowHandle, "prod_quantity")
 
-            txtTotalPrice.Text = ProductPrice * txtUnit.Text
+            txtTotalPrice.Text = Val(txtUnit.Text) * ProductCost
 
             PopupContainerProduct.ClosePopup()
         End If
@@ -97,17 +107,10 @@ Public Class frmAddSalesItem
         fillStockGV()
     End Sub
 
-    Private Sub txtUnit_EditValueChanged(sender As System.Object, e As System.EventArgs) Handles txtUnit.EditValueChanged
-        If txtUnit.Text > CurrentStockQty And CurrentPID <> 0 Then
-            txtUnit.ToolTipController.ShowHint("WARNING : You only have " & CurrentStockQty & " stock left!", DevExpress.Utils.ToolTipLocation.BottomRight, txtUnit.PointToScreen(New Point(20, 10)))
-        End If
-        txtTotalPrice.Text = Val(txtUnit.Text) * ProductPrice
-    End Sub
-
     Private Sub txtPricePerUnit_EditValueChanged(sender As System.Object, e As System.EventArgs) Handles txtPricePerUnit.EditValueChanged
-        ProductPrice = txtPricePerUnit.Text
+        ProductCost = txtPricePerUnit.Text
 
-        txtTotalPrice.Text = Val(txtUnit.Text) * ProductPrice
+        txtTotalPrice.Text = Val(txtUnit.Text) * ProductCost
     End Sub
 
 
@@ -135,56 +138,64 @@ Public Class frmAddSalesItem
     'dt.Columns.Add("Model Name")
     'dt.Columns.Add("Category")
     'dt.Columns.Add("Unit")
-    'dt.Columns.Add("Price/Unit")
+    'dt.Columns.Add("Cost/Unit")
     'dt.Columns.Add("Total")
     'dt.Columns.Add("Description")
     'dt.Columns.Add("CHECKPOINT")
     Private Sub btnAdd_Click(sender As System.Object, e As System.EventArgs) Handles btnAdd.Click
         Dim CurrentSalesEmptyRow As Integer = 1
-        For i = 0 To frmSalesManagement.SalesGV.RowCount - 1
-            If frmSalesManagement.SalesGV.GetRowCellValue(i, "CHECKPOINT") = "TAKEN" Then
+        For i = 0 To frmRestockManagement.SalesGV.RowCount - 1
+            If frmRestockManagement.SalesGV.GetRowCellValue(i, "CHECKPOINT") = "TAKEN" Then
                 CurrentSalesEmptyRow = CurrentSalesEmptyRow + 1
             End If
         Next
 
         If CurrentSalesEmptyRow > 6 Then
-            frmSalesManagement.SalesGV.AddNewRow()
+            frmRestockManagement.SalesGV.AddNewRow()
 
-            Dim rowHandle As Integer = frmSalesManagement.SalesGV.GetRowHandle(frmSalesManagement.SalesGV.DataRowCount)
+            Dim rowHandle As Integer = frmRestockManagement.SalesGV.GetRowHandle(frmRestockManagement.SalesGV.DataRowCount)
 
-            If frmSalesManagement.SalesGV.IsNewItemRow(rowHandle) Then
-                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "ProductID", DBNull.Value)
-                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Model Name", DBNull.Value)
-                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Category", DBNull.Value)
-                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Unit", DBNull.Value)
-                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Price/Unit", DBNull.Value)
-                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Total", DBNull.Value)
-                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Description", DBNull.Value)
-                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "CHECKPOINT", "EMPTY")
+            If frmRestockManagement.SalesGV.IsNewItemRow(rowHandle) Then
+                frmRestockManagement.SalesGV.SetRowCellValue(rowHandle, "ProductID", "")
+                frmRestockManagement.SalesGV.SetRowCellValue(rowHandle, "Model Name", DBNull.Value)
+                frmRestockManagement.SalesGV.SetRowCellValue(rowHandle, "Category", DBNull.Value)
+                frmRestockManagement.SalesGV.SetRowCellValue(rowHandle, "Unit", DBNull.Value)
+                frmRestockManagement.SalesGV.SetRowCellValue(rowHandle, "Cost/Unit", DBNull.Value)
+                frmRestockManagement.SalesGV.SetRowCellValue(rowHandle, "Total", DBNull.Value)
+                frmRestockManagement.SalesGV.SetRowCellValue(rowHandle, "Description", DBNull.Value)
+                frmRestockManagement.SalesGV.SetRowCellValue(rowHandle, "CHECKPOINT", "EMPTY")
             End If
         End If
 
-        If PopupContainerProduct.Text.Length > 0 And CurrentPID > 0 Then
-            For i = 0 To frmSalesManagement.SalesGV.RowCount - 1
-                If frmSalesManagement.SalesGV.GetRowCellValue(i, "CHECKPOINT") = "EMPTY" Then
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "ProductID", CurrentPID)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Model Name", PopupContainerProduct.Text)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Category", txtCategory.Text)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Unit", txtUnit.Text)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Price/Unit", txtPricePerUnit.Text)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Total", txtTotalPrice.Text)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Description", txtDescription.Text)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "CHECKPOINT", "TAKEN") 'taken
+        If PopupContainerProduct.Text.Length > 0 Then
+            For i = 0 To frmRestockManagement.SalesGV.RowCount - 1
+                If frmRestockManagement.SalesGV.GetRowCellValue(i, "CHECKPOINT") = "EMPTY" Then
+                    If CurrentPID = 0 Then
+                        frmRestockManagement.SalesGV.SetRowCellValue(i, "ProductID", "INSERT")
+                    Else
+                        frmRestockManagement.SalesGV.SetRowCellValue(i, "ProductID", CurrentPID)
+                    End If
+                    frmRestockManagement.SalesGV.SetRowCellValue(i, "Model Name", PopupContainerProduct.Text)
+                    frmRestockManagement.SalesGV.SetRowCellValue(i, "Category", txtCategory.Text)
+                    frmRestockManagement.SalesGV.SetRowCellValue(i, "Unit", txtUnit.Text)
+                    frmRestockManagement.SalesGV.SetRowCellValue(i, "Cost/Unit", txtPricePerUnit.Text)
+                    frmRestockManagement.SalesGV.SetRowCellValue(i, "Total", txtTotalPrice.Text)
+                    frmRestockManagement.SalesGV.SetRowCellValue(i, "Description", txtDescription.Text)
+                    frmRestockManagement.SalesGV.SetRowCellValue(i, "CHECKPOINT", "TAKEN") 'taken
 
                     Exit For 'exit loop
                 End If
             Next
 
-            frmSalesManagement.fillTotalSales()
+            frmRestockManagement.fillTotalSales()
 
             Me.Dispose()
         Else
-            PopupContainerProduct.ToolTipController.ShowHint("You must select a product to add!", DevExpress.Utils.ToolTipLocation.BottomRight, PopupContainerProduct.PointToScreen(New Point(20, -20)))
+            PopupContainerProduct.ToolTipController.ShowHint("Model name cannot be empty!", DevExpress.Utils.ToolTipLocation.BottomRight, PopupContainerProduct.PointToScreen(New Point(20, -20)))
         End If
+    End Sub
+
+    Private Sub txtUnit_EditValueChanged(sender As System.Object, e As System.EventArgs) Handles txtUnit.EditValueChanged
+        txtTotalPrice.Text = Val(txtUnit.Text) * ProductCost
     End Sub
 End Class
