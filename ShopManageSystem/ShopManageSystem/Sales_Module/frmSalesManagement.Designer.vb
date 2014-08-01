@@ -29,8 +29,8 @@ Partial Class frmSalesManagement
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.lblCustomer = New DevExpress.XtraEditors.LabelControl()
         Me.btnOldSalesReport = New DevExpress.XtraEditors.SimpleButton()
-        Me.lblCustomerManagement = New DevExpress.XtraEditors.LabelControl()
         Me.ToolTipController = New DevExpress.Utils.ToolTipController(Me.components)
+        Me.lblCustomerManagement = New DevExpress.XtraEditors.LabelControl()
         Me.PanelButton = New System.Windows.Forms.Panel()
         Me.PopupContainerCustomer = New DevExpress.XtraEditors.PopupContainerEdit()
         Me.PopupContainerControl_CustomerSearch = New DevExpress.XtraEditors.PopupContainerControl()
@@ -58,6 +58,7 @@ Partial Class frmSalesManagement
         Me.LabelControl5 = New DevExpress.XtraEditors.LabelControl()
         Me.txtPayment = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl6 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl7 = New DevExpress.XtraEditors.LabelControl()
         Me.PanelTop.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelButton.SuspendLayout()
@@ -124,7 +125,14 @@ Partial Class frmSalesManagement
         Me.btnOldSalesReport.Name = "btnOldSalesReport"
         Me.btnOldSalesReport.Size = New System.Drawing.Size(119, 23)
         Me.btnOldSalesReport.TabIndex = 6
-        Me.btnOldSalesReport.Text = "&Check Old Sales"
+        Me.btnOldSalesReport.Text = "&Check Sales History"
+        Me.btnOldSalesReport.ToolTipController = Me.ToolTipController
+        '
+        'ToolTipController
+        '
+        Me.ToolTipController.AllowHtmlText = True
+        Me.ToolTipController.Rounded = True
+        Me.ToolTipController.ShowBeak = True
         '
         'lblCustomerManagement
         '
@@ -134,10 +142,6 @@ Partial Class frmSalesManagement
         Me.lblCustomerManagement.Size = New System.Drawing.Size(152, 22)
         Me.lblCustomerManagement.TabIndex = 4
         Me.lblCustomerManagement.Text = "Sales Management"
-        '
-        'ToolTipController
-        '
-        Me.ToolTipController.AllowHtmlText = True
         '
         'PanelButton
         '
@@ -160,6 +164,7 @@ Partial Class frmSalesManagement
         Me.PopupContainerCustomer.Properties.Appearance.Options.UseFont = True
         Me.PopupContainerCustomer.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.PopupContainerCustomer.Properties.NullValuePrompt = "Search by Customer Name"
+        Me.PopupContainerCustomer.Properties.NullValuePromptShowForEmptyValue = True
         Me.PopupContainerCustomer.Properties.PopupControl = Me.PopupContainerControl_CustomerSearch
         Me.PopupContainerCustomer.Properties.PopupSizeable = False
         Me.PopupContainerCustomer.Properties.ShowPopupCloseButton = False
@@ -266,6 +271,8 @@ Partial Class frmSalesManagement
         Me.SalesGV.OptionsBehavior.Editable = False
         Me.SalesGV.OptionsCustomization.AllowColumnMoving = False
         Me.SalesGV.OptionsCustomization.AllowColumnResizing = False
+        Me.SalesGV.OptionsCustomization.AllowFilter = False
+        Me.SalesGV.OptionsCustomization.AllowSort = False
         Me.SalesGV.OptionsView.ColumnAutoWidth = False
         Me.SalesGV.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never
         Me.SalesGV.OptionsView.ShowGroupPanel = False
@@ -349,30 +356,44 @@ Partial Class frmSalesManagement
         '
         'txtNote
         '
+        Me.txtNote.EditValue = ""
         Me.txtNote.Location = New System.Drawing.Point(125, 297)
         Me.txtNote.Name = "txtNote"
         Me.txtNote.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNote.Properties.Appearance.Options.UseFont = True
+        Me.txtNote.Properties.NullValuePrompt = "Write some note for this sales order..."
+        Me.txtNote.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtNote.Size = New System.Drawing.Size(670, 22)
         Me.txtNote.TabIndex = 20
         '
         'txtDiscountedPrice
         '
+        Me.txtDiscountedPrice.EditValue = "RM000000.00"
         Me.txtDiscountedPrice.Location = New System.Drawing.Point(125, 336)
         Me.txtDiscountedPrice.Name = "txtDiscountedPrice"
         Me.txtDiscountedPrice.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDiscountedPrice.Properties.Appearance.Options.UseFont = True
+        Me.txtDiscountedPrice.Properties.Mask.BeepOnError = True
+        Me.txtDiscountedPrice.Properties.Mask.EditMask = "$000000.00"
+        Me.txtDiscountedPrice.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtDiscountedPrice.Properties.Mask.UseMaskAsDisplayFormat = True
         Me.txtDiscountedPrice.Size = New System.Drawing.Size(110, 22)
         Me.txtDiscountedPrice.TabIndex = 20
         '
         'txtDiscountRate
         '
+        Me.txtDiscountRate.EditValue = "000"
         Me.txtDiscountRate.Location = New System.Drawing.Point(337, 336)
         Me.txtDiscountRate.Name = "txtDiscountRate"
         Me.txtDiscountRate.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDiscountRate.Properties.Appearance.Options.UseFont = True
+        Me.txtDiscountRate.Properties.Mask.BeepOnError = True
+        Me.txtDiscountRate.Properties.Mask.EditMask = "000.000000"
+        Me.txtDiscountRate.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtDiscountRate.Properties.Mask.UseMaskAsDisplayFormat = True
         Me.txtDiscountRate.Size = New System.Drawing.Size(110, 22)
         Me.txtDiscountRate.TabIndex = 22
+        Me.txtDiscountRate.ToolTipController = Me.ToolTipController
         '
         'LabelControl5
         '
@@ -385,10 +406,15 @@ Partial Class frmSalesManagement
         '
         'txtPayment
         '
+        Me.txtPayment.EditValue = "RM000000.00"
         Me.txtPayment.Location = New System.Drawing.Point(685, 336)
         Me.txtPayment.Name = "txtPayment"
         Me.txtPayment.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPayment.Properties.Appearance.Options.UseFont = True
+        Me.txtPayment.Properties.Mask.BeepOnError = True
+        Me.txtPayment.Properties.Mask.EditMask = "$000000.00"
+        Me.txtPayment.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtPayment.Properties.Mask.UseMaskAsDisplayFormat = True
         Me.txtPayment.Size = New System.Drawing.Size(110, 22)
         Me.txtPayment.TabIndex = 24
         '
@@ -401,11 +427,21 @@ Partial Class frmSalesManagement
         Me.LabelControl6.TabIndex = 23
         Me.LabelControl6.Text = "Payment :"
         '
+        'LabelControl7
+        '
+        Me.LabelControl7.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl7.Location = New System.Drawing.Point(449, 339)
+        Me.LabelControl7.Name = "LabelControl7"
+        Me.LabelControl7.Size = New System.Drawing.Size(12, 16)
+        Me.LabelControl7.TabIndex = 25
+        Me.LabelControl7.Text = "%"
+        '
         'frmSalesManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(819, 411)
+        Me.Controls.Add(Me.LabelControl7)
         Me.Controls.Add(Me.txtPayment)
         Me.Controls.Add(Me.LabelControl6)
         Me.Controls.Add(Me.txtDiscountRate)
@@ -484,4 +520,5 @@ Partial Class frmSalesManagement
     Friend WithEvents LabelControl5 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtPayment As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl6 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelControl7 As DevExpress.XtraEditors.LabelControl
 End Class

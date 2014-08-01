@@ -104,6 +104,8 @@ Public Class frmAddSalesItem
 
     Private Sub txtPricePerUnit_EditValueChanged(sender As System.Object, e As System.EventArgs) Handles txtPricePerUnit.EditValueChanged
         ProductPrice = txtPricePerUnit.Text
+
+        txtTotalPrice.Text = Val(txtUnit.Text) * ProductPrice
     End Sub
 
 
@@ -136,6 +138,30 @@ Public Class frmAddSalesItem
     'dt.Columns.Add("Description")
     'dt.Columns.Add("CHECKPOINT")
     Private Sub btnAdd_Click(sender As System.Object, e As System.EventArgs) Handles btnAdd.Click
+        Dim CurrentSalesEmptyRow As Integer = 1
+        For i = 0 To frmSalesManagement.SalesGV.RowCount - 1
+            If frmSalesManagement.SalesGV.GetRowCellValue(i, "CHECKPOINT") = "TAKEN" Then
+                CurrentSalesEmptyRow = CurrentSalesEmptyRow + 1
+            End If
+        Next
+
+        If CurrentSalesEmptyRow > 6 Then
+            frmSalesManagement.SalesGV.AddNewRow()
+
+            Dim rowHandle As Integer = frmSalesManagement.SalesGV.GetRowHandle(frmSalesManagement.SalesGV.DataRowCount)
+
+            If frmSalesManagement.SalesGV.IsNewItemRow(rowHandle) Then
+                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "ProductID", DBNull.Value)
+                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Model Name", DBNull.Value)
+                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Category", DBNull.Value)
+                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Unit", DBNull.Value)
+                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Price/Unit", DBNull.Value)
+                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Total", DBNull.Value)
+                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Description", DBNull.Value)
+                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "CHECKPOINT", "EMPTY")
+            End If
+        End If
+
         If PopupContainerProduct.Text.Length > 0 And CurrentPID > 0 Then
             For i = 0 To frmSalesManagement.SalesGV.RowCount - 1
                 If frmSalesManagement.SalesGV.GetRowCellValue(i, "CHECKPOINT") = "EMPTY" Then
@@ -148,11 +174,13 @@ Public Class frmAddSalesItem
                     frmSalesManagement.SalesGV.SetRowCellValue(i, "Description", txtDescription.Text)
                     frmSalesManagement.SalesGV.SetRowCellValue(i, "CHECKPOINT", "TAKEN") 'taken
 
-                    Me.Dispose()
-
                     Exit For 'exit loop
                 End If
             Next
+
+            frmSalesManagement.fillTotalSales()
+
+            Me.Dispose()
         Else
             PopupContainerProduct.ToolTipController.ShowHint("You must select a product to add!", DevExpress.Utils.ToolTipLocation.BottomRight, PopupContainerProduct.PointToScreen(New Point(20, -20)))
         End If

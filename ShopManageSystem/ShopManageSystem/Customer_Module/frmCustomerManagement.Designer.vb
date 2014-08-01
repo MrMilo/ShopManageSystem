@@ -91,6 +91,7 @@ Partial Class frmCustomerManagement
         Me.PopupContainerCustomer.Properties.Appearance.Options.UseFont = True
         Me.PopupContainerCustomer.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.PopupContainerCustomer.Properties.NullValuePrompt = "Search by Customer Name"
+        Me.PopupContainerCustomer.Properties.NullValuePromptShowForEmptyValue = True
         Me.PopupContainerCustomer.Properties.PopupControl = Me.PopupContainerControl_CustomerSearch
         Me.PopupContainerCustomer.Properties.PopupSizeable = False
         Me.PopupContainerCustomer.Properties.ShowPopupCloseButton = False

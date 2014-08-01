@@ -90,7 +90,7 @@ Partial Class frmStockManagement
         '
         'PopupContainerProduct
         '
-        Me.PopupContainerProduct.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.PopupContainerProduct.Cursor = System.Windows.Forms.Cursors.Hand
         Me.PopupContainerProduct.Location = New System.Drawing.Point(532, 14)
         Me.PopupContainerProduct.Name = "PopupContainerProduct"
         Me.PopupContainerProduct.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
