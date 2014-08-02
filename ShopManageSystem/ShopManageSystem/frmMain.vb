@@ -219,29 +219,29 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub btnRestockOrder_Click(sender As System.Object, e As System.EventArgs) Handles btnRestockOrder.Click, mRestock.Click
-        Dim Found As Boolean = False
-        For pno As Integer = 0 To TabControl.TabPages.Count - 1
-            If TabControl.TabPages(pno).Text = "Restock Order" Then
-                Found = True
-                TabControl.SelectedTabPageIndex = pno
-                Exit For
-            End If
-        Next
+    'Private Sub btnRestockOrder_Click(sender As System.Object, e As System.EventArgs) Handles btnRestockOrder.Click, mRestock.Click
+    '    Dim Found As Boolean = False
+    '    For pno As Integer = 0 To TabControl.TabPages.Count - 1
+    '        If TabControl.TabPages(pno).Text = "Restock Order" Then
+    '            Found = True
+    '            TabControl.SelectedTabPageIndex = pno
+    '            Exit For
+    '        End If
+    '    Next
 
-        If Not Found Then
-            Dim TabPageResult As New XtraTabPage
-            TabPageResult.Text = "Restock Order"
-            TabControl.TabPages.Add(TabPageResult)
+    '    If Not Found Then
+    '        Dim TabPageResult As New XtraTabPage
+    '        TabPageResult.Text = "Restock Order"
+    '        TabControl.TabPages.Add(TabPageResult)
 
-            frmRestockManagement.TopLevel = False
-            frmRestockManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
-            frmRestockManagement.Dock = DockStyle.Fill
-            TabPageResult.Controls.Add(frmRestockManagement)
-            frmRestockManagement.Show()
-            TabControl.SelectedTabPage = TabPageResult
-        End If
-    End Sub
+    '        frmRestockManagement.TopLevel = False
+    '        frmRestockManagement.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+    '        frmRestockManagement.Dock = DockStyle.Fill
+    '        TabPageResult.Controls.Add(frmRestockManagement)
+    '        frmRestockManagement.Show()
+    '        TabControl.SelectedTabPage = TabPageResult
+    '    End If
+    'End Sub
 
     Private Sub TabControl_CloseButtonClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles TabControl.CloseButtonClick
         'TabControl.SelectedTabPage.PageVisible = False

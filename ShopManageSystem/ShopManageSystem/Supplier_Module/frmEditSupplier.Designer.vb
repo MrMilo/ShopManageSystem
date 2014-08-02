@@ -289,8 +289,9 @@ Partial Class frmEditSupplier
         'DateTimePicker
         '
         Me.DateTimePicker.CalendarFont = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateTimePicker.CustomFormat = "dd/MM/yyyy"
         Me.DateTimePicker.Enabled = False
-        Me.DateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DateTimePicker.Location = New System.Drawing.Point(143, 105)
         Me.DateTimePicker.Name = "DateTimePicker"
         Me.DateTimePicker.Size = New System.Drawing.Size(130, 21)

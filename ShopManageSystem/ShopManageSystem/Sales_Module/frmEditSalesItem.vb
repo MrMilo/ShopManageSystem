@@ -142,14 +142,21 @@ Public Class frmEditSalesItem
         If PopupContainerProduct.Text.Length > 0 And CurrentPID > 0 Then
             For i = 0 To frmSalesManagement.SalesGV.RowCount - 1
                 If frmSalesManagement.SalesGV.GetRowCellValue(i, "CHECKPOINT") = "EDIT" Then
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "ProductID", CurrentPID)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Model Name", PopupContainerProduct.Text)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Category", txtCategory.Text)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Unit", txtUnit.Text)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Price/Unit", txtPricePerUnit.Text)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Total", txtTotalPrice.Text)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Description", txtDescription.Text)
+                    frmSalesManagement.SalesGV.SetRowCellValue(i, "prod_id", CurrentPID)
+                    frmSalesManagement.SalesGV.SetRowCellValue(i, "prod_model", PopupContainerProduct.Text)
+                    frmSalesManagement.SalesGV.SetRowCellValue(i, "cat_name", txtCategory.Text)
+                    frmSalesManagement.SalesGV.SetRowCellValue(i, "item_quantity", txtUnit.Text)
+                    If frmSalesManagement.Mode = 0 Then
+                        frmSalesManagement.SalesGV.SetRowCellValue(i, "item_price", txtPricePerUnit.Text)
+                        frmSalesManagement.SalesGV.SetRowCellValue(i, "item_total_price", txtTotalPrice.Text)
+                    Else
+                        frmSalesManagement.SalesGV.SetRowCellValue(i, "item_price", txtPricePerUnit.Text.ToString.Substring(2)) 'lol
+                        frmSalesManagement.SalesGV.SetRowCellValue(i, "item_total_price", txtTotalPrice.Text.ToString.Substring(2))
+                    End If
+                    frmSalesManagement.SalesGV.SetRowCellValue(i, "prod_description", txtDescription.Text)
                     frmSalesManagement.SalesGV.SetRowCellValue(i, "CHECKPOINT", "TAKEN") 'taken
+
+                    frmSalesManagement.fillTotalSales()
 
                     Me.Dispose()
 

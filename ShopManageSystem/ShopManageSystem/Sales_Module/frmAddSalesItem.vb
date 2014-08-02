@@ -153,13 +153,13 @@ Public Class frmAddSalesItem
             Dim rowHandle As Integer = frmSalesManagement.SalesGV.GetRowHandle(frmSalesManagement.SalesGV.DataRowCount)
 
             If frmSalesManagement.SalesGV.IsNewItemRow(rowHandle) Then
-                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "ProductID", DBNull.Value)
-                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Model Name", DBNull.Value)
-                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Category", DBNull.Value)
-                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Unit", DBNull.Value)
-                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Price/Unit", DBNull.Value)
-                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Total", DBNull.Value)
-                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "Description", DBNull.Value)
+                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "prod_id", DBNull.Value)
+                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "prod_model", DBNull.Value)
+                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "cat_name", DBNull.Value)
+                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "item_quantity", DBNull.Value)
+                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "item_price", DBNull.Value)
+                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "item_total_price", DBNull.Value)
+                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "prod_description", DBNull.Value)
                 frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "CHECKPOINT", "EMPTY")
             End If
         End If
@@ -167,13 +167,18 @@ Public Class frmAddSalesItem
         If PopupContainerProduct.Text.Length > 0 And CurrentPID > 0 Then
             For i = 0 To frmSalesManagement.SalesGV.RowCount - 1
                 If frmSalesManagement.SalesGV.GetRowCellValue(i, "CHECKPOINT") = "EMPTY" Then
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "ProductID", CurrentPID)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Model Name", PopupContainerProduct.Text)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Category", txtCategory.Text)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Unit", txtUnit.Text)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Price/Unit", txtPricePerUnit.Text)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Total", txtTotalPrice.Text)
-                    frmSalesManagement.SalesGV.SetRowCellValue(i, "Description", txtDescription.Text)
+                    frmSalesManagement.SalesGV.SetRowCellValue(i, "prod_id", CurrentPID)
+                    frmSalesManagement.SalesGV.SetRowCellValue(i, "prod_model", PopupContainerProduct.Text)
+                    frmSalesManagement.SalesGV.SetRowCellValue(i, "cat_name", txtCategory.Text)
+                    frmSalesManagement.SalesGV.SetRowCellValue(i, "item_quantity", txtUnit.Text)
+                    If frmSalesManagement.Mode = 0 Then
+                        frmSalesManagement.SalesGV.SetRowCellValue(i, "item_price", txtPricePerUnit.Text)
+                        frmSalesManagement.SalesGV.SetRowCellValue(i, "item_total_price", txtTotalPrice.Text)
+                    Else
+                        frmSalesManagement.SalesGV.SetRowCellValue(i, "item_price", txtPricePerUnit.Text.ToString.Substring(2))
+                        frmSalesManagement.SalesGV.SetRowCellValue(i, "item_total_price", txtTotalPrice.Text.ToString.Substring(2))
+                    End If
+                    frmSalesManagement.SalesGV.SetRowCellValue(i, "prod_description", txtDescription.Text)
                     frmSalesManagement.SalesGV.SetRowCellValue(i, "CHECKPOINT", "TAKEN") 'taken
 
                     Exit For 'exit loop

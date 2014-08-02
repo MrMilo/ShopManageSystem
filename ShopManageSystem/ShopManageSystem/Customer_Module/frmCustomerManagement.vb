@@ -115,6 +115,16 @@ Public Class frmCustomerManagement
         e.Graphics.DrawString("No data exists here!", e.Appearance.Font, Brushes.DarkRed, New RectangleF(e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height), drawFormat)
     End Sub
 
+    Private Sub CustomerGV_RowStyle(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs) Handles CustomerGV.RowStyle
+        Dim view As GridView = sender
+        If (e.RowHandle >= 0) Then
+            Dim debt As Integer = view.GetRowCellDisplayText(e.RowHandle, view.Columns("cust_debt"))
+            If debt < 0 Then
+                e.Appearance.ForeColor = Color.DarkRed
+            End If
+        End If
+    End Sub
+
     Private Sub ToolTipController_GetActiveObjectInfo(ByVal sender As Object, ByVal e As DevExpress.Utils.ToolTipControllerGetActiveObjectInfoEventArgs) Handles ToolTipController.GetActiveObjectInfo
         If Not e.SelectedControl Is CustomerDGV Then Return
 
@@ -277,7 +287,7 @@ Public Class frmCustomerManagement
         End If
     End Sub
 
-    Private Sub btnEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEdit.Click
+    Private Sub btnEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEdit.Click, CustomerGV.DoubleClick
         If CustomerGV.SelectedRowsCount > 1 Then
             XtraMessageBox.Show("You may only select one row of data!", "More than one data selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         ElseIf CustomerGV.SelectedRowsCount = 0 Then
@@ -304,7 +314,7 @@ Public Class frmCustomerManagement
     End Sub
 
     Private Sub lblDebt_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles lblDebt.TextChanged
-        If lblDebt.Text <= 0 Then
+        If lblDebt.Text >= 0 Then
             lblDebt.ForeColor = Color.Green
         Else
             lblDebt.ForeColor = Color.DarkRed

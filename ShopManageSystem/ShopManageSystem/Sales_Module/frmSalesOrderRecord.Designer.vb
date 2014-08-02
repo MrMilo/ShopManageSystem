@@ -27,28 +27,28 @@ Partial Class frmSalesOrderRecord
         Me.PanelTop = New System.Windows.Forms.Panel()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
-        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
-        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
-        Me.TextEdit1 = New DevExpress.XtraEditors.TextEdit()
+        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
+        Me.btnSearch = New DevExpress.XtraEditors.SimpleButton()
+        Me.txtSearch = New DevExpress.XtraEditors.TextEdit()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.lblCustomerManagement = New DevExpress.XtraEditors.LabelControl()
         Me.ToolTipController = New DevExpress.Utils.ToolTipController(Me.components)
         Me.PanelButton = New System.Windows.Forms.Panel()
         Me.btnExport = New DevExpress.XtraEditors.SimpleButton()
-        Me.btnNew = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnClose = New DevExpress.XtraEditors.SimpleButton()
         Me.btnEdit = New DevExpress.XtraEditors.SimpleButton()
         Me.btnDelete = New DevExpress.XtraEditors.SimpleButton()
-        Me.SalesDGV = New DevExpress.XtraGrid.GridControl()
-        Me.SalesGV = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.SalesOrderRecordDGV = New DevExpress.XtraGrid.GridControl()
+        Me.SalesOrderRecordGV = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.TotalSalesDGV = New DevExpress.XtraGrid.GridControl()
         Me.TotalSalesGV = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.PanelTop.SuspendLayout()
-        CType(Me.TextEdit1.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtSearch.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelButton.SuspendLayout()
-        CType(Me.SalesDGV, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.SalesGV, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SalesOrderRecordDGV, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SalesOrderRecordGV, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TotalSalesDGV, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TotalSalesGV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -58,10 +58,10 @@ Partial Class frmSalesOrderRecord
         Me.PanelTop.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.PanelTop.Controls.Add(Me.LabelControl1)
         Me.PanelTop.Controls.Add(Me.LabelControl2)
-        Me.PanelTop.Controls.Add(Me.DateTimePicker2)
         Me.PanelTop.Controls.Add(Me.DateTimePicker1)
-        Me.PanelTop.Controls.Add(Me.SimpleButton1)
-        Me.PanelTop.Controls.Add(Me.TextEdit1)
+        Me.PanelTop.Controls.Add(Me.DateTimePicker2)
+        Me.PanelTop.Controls.Add(Me.btnSearch)
+        Me.PanelTop.Controls.Add(Me.txtSearch)
         Me.PanelTop.Controls.Add(Me.PictureBox1)
         Me.PanelTop.Controls.Add(Me.lblCustomerManagement)
         Me.PanelTop.Location = New System.Drawing.Point(-1, -1)
@@ -87,43 +87,43 @@ Partial Class frmSalesOrderRecord
         Me.LabelControl2.TabIndex = 31
         Me.LabelControl2.Text = "To"
         '
-        'DateTimePicker2
-        '
-        Me.DateTimePicker2.CustomFormat = "dd/MM/yyyy"
-        Me.DateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DateTimePicker2.Location = New System.Drawing.Point(506, 15)
-        Me.DateTimePicker2.Name = "DateTimePicker2"
-        Me.DateTimePicker2.Size = New System.Drawing.Size(101, 21)
-        Me.DateTimePicker2.TabIndex = 30
-        '
         'DateTimePicker1
         '
         Me.DateTimePicker1.CustomFormat = "dd/MM/yyyy"
         Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DateTimePicker1.Location = New System.Drawing.Point(626, 15)
+        Me.DateTimePicker1.Location = New System.Drawing.Point(506, 15)
         Me.DateTimePicker1.Name = "DateTimePicker1"
         Me.DateTimePicker1.Size = New System.Drawing.Size(101, 21)
-        Me.DateTimePicker1.TabIndex = 29
+        Me.DateTimePicker1.TabIndex = 30
         '
-        'SimpleButton1
+        'DateTimePicker2
         '
-        Me.SimpleButton1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.SimpleButton1.Location = New System.Drawing.Point(733, 14)
-        Me.SimpleButton1.Name = "SimpleButton1"
-        Me.SimpleButton1.Size = New System.Drawing.Size(75, 23)
-        Me.SimpleButton1.TabIndex = 28
-        Me.SimpleButton1.Text = "&Search"
+        Me.DateTimePicker2.CustomFormat = "dd/MM/yyyy"
+        Me.DateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DateTimePicker2.Location = New System.Drawing.Point(626, 15)
+        Me.DateTimePicker2.Name = "DateTimePicker2"
+        Me.DateTimePicker2.Size = New System.Drawing.Size(101, 21)
+        Me.DateTimePicker2.TabIndex = 29
         '
-        'TextEdit1
+        'btnSearch
         '
-        Me.TextEdit1.Location = New System.Drawing.Point(223, 14)
-        Me.TextEdit1.Name = "TextEdit1"
-        Me.TextEdit1.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextEdit1.Properties.Appearance.Options.UseFont = True
-        Me.TextEdit1.Properties.NullValuePrompt = "Search by any keyword"
-        Me.TextEdit1.Properties.NullValuePromptShowForEmptyValue = True
-        Me.TextEdit1.Size = New System.Drawing.Size(236, 22)
-        Me.TextEdit1.TabIndex = 12
+        Me.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSearch.Location = New System.Drawing.Point(733, 14)
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(75, 23)
+        Me.btnSearch.TabIndex = 28
+        Me.btnSearch.Text = "&Search"
+        '
+        'txtSearch
+        '
+        Me.txtSearch.Location = New System.Drawing.Point(223, 14)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSearch.Properties.Appearance.Options.UseFont = True
+        Me.txtSearch.Properties.NullValuePrompt = "Search by customer, receipt or remark"
+        Me.txtSearch.Properties.NullValuePromptShowForEmptyValue = True
+        Me.txtSearch.Size = New System.Drawing.Size(236, 22)
+        Me.txtSearch.TabIndex = 12
         '
         'PictureBox1
         '
@@ -154,7 +154,7 @@ Partial Class frmSalesOrderRecord
         '
         Me.PanelButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PanelButton.Controls.Add(Me.btnExport)
-        Me.PanelButton.Controls.Add(Me.btnNew)
+        Me.PanelButton.Controls.Add(Me.btnClose)
         Me.PanelButton.Controls.Add(Me.btnEdit)
         Me.PanelButton.Controls.Add(Me.btnDelete)
         Me.PanelButton.Location = New System.Drawing.Point(-1, 48)
@@ -171,14 +171,14 @@ Partial Class frmSalesOrderRecord
         Me.btnExport.TabIndex = 27
         Me.btnExport.Text = "E&xport"
         '
-        'btnNew
+        'btnClose
         '
-        Me.btnNew.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnNew.Location = New System.Drawing.Point(10, 13)
-        Me.btnNew.Name = "btnNew"
-        Me.btnNew.Size = New System.Drawing.Size(75, 23)
-        Me.btnNew.TabIndex = 11
-        Me.btnNew.Text = "&Close"
+        Me.btnClose.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnClose.Location = New System.Drawing.Point(10, 13)
+        Me.btnClose.Name = "btnClose"
+        Me.btnClose.Size = New System.Drawing.Size(75, 23)
+        Me.btnClose.TabIndex = 11
+        Me.btnClose.Text = "&Close"
         '
         'btnEdit
         '
@@ -198,29 +198,29 @@ Partial Class frmSalesOrderRecord
         Me.btnDelete.TabIndex = 13
         Me.btnDelete.Text = "&Delete"
         '
-        'SalesDGV
+        'SalesOrderRecordDGV
         '
-        Me.SalesDGV.Location = New System.Drawing.Point(-1, 97)
-        Me.SalesDGV.MainView = Me.SalesGV
-        Me.SalesDGV.Name = "SalesDGV"
-        Me.SalesDGV.Size = New System.Drawing.Size(815, 295)
-        Me.SalesDGV.TabIndex = 7
-        Me.SalesDGV.ToolTipController = Me.ToolTipController
-        Me.SalesDGV.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.SalesGV})
+        Me.SalesOrderRecordDGV.Location = New System.Drawing.Point(-1, 97)
+        Me.SalesOrderRecordDGV.MainView = Me.SalesOrderRecordGV
+        Me.SalesOrderRecordDGV.Name = "SalesOrderRecordDGV"
+        Me.SalesOrderRecordDGV.Size = New System.Drawing.Size(815, 295)
+        Me.SalesOrderRecordDGV.TabIndex = 7
+        Me.SalesOrderRecordDGV.ToolTipController = Me.ToolTipController
+        Me.SalesOrderRecordDGV.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.SalesOrderRecordGV})
         '
-        'SalesGV
+        'SalesOrderRecordGV
         '
-        Me.SalesGV.GridControl = Me.SalesDGV
-        Me.SalesGV.Name = "SalesGV"
-        Me.SalesGV.OptionsBehavior.Editable = False
-        Me.SalesGV.OptionsCustomization.AllowColumnMoving = False
-        Me.SalesGV.OptionsCustomization.AllowColumnResizing = False
-        Me.SalesGV.OptionsCustomization.AllowFilter = False
-        Me.SalesGV.OptionsCustomization.AllowSort = False
-        Me.SalesGV.OptionsView.ColumnAutoWidth = False
-        Me.SalesGV.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never
-        Me.SalesGV.OptionsView.ShowGroupPanel = False
-        Me.SalesGV.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
+        Me.SalesOrderRecordGV.GridControl = Me.SalesOrderRecordDGV
+        Me.SalesOrderRecordGV.Name = "SalesOrderRecordGV"
+        Me.SalesOrderRecordGV.OptionsBehavior.Editable = False
+        Me.SalesOrderRecordGV.OptionsCustomization.AllowColumnMoving = False
+        Me.SalesOrderRecordGV.OptionsCustomization.AllowColumnResizing = False
+        Me.SalesOrderRecordGV.OptionsCustomization.AllowFilter = False
+        Me.SalesOrderRecordGV.OptionsCustomization.AllowSort = False
+        Me.SalesOrderRecordGV.OptionsView.ColumnAutoWidth = False
+        Me.SalesOrderRecordGV.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never
+        Me.SalesOrderRecordGV.OptionsView.ShowGroupPanel = False
+        Me.SalesOrderRecordGV.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always
         '
         'TotalSalesDGV
         '
@@ -249,19 +249,20 @@ Partial Class frmSalesOrderRecord
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(819, 411)
         Me.Controls.Add(Me.TotalSalesDGV)
-        Me.Controls.Add(Me.SalesDGV)
+        Me.Controls.Add(Me.SalesOrderRecordDGV)
         Me.Controls.Add(Me.PanelButton)
         Me.Controls.Add(Me.PanelTop)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmSalesOrderRecord"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.PanelTop.ResumeLayout(False)
         Me.PanelTop.PerformLayout()
-        CType(Me.TextEdit1.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtSearch.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelButton.ResumeLayout(False)
-        CType(Me.SalesDGV, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.SalesGV, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SalesOrderRecordDGV, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SalesOrderRecordGV, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TotalSalesDGV, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TotalSalesGV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -270,20 +271,20 @@ Partial Class frmSalesOrderRecord
     Friend WithEvents PanelTop As System.Windows.Forms.Panel
     Friend WithEvents lblCustomerManagement As DevExpress.XtraEditors.LabelControl
     Friend WithEvents PanelButton As System.Windows.Forms.Panel
-    Friend WithEvents SalesDGV As DevExpress.XtraGrid.GridControl
-    Friend WithEvents SalesGV As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents SalesOrderRecordDGV As DevExpress.XtraGrid.GridControl
+    Friend WithEvents SalesOrderRecordGV As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents ToolTipController As DevExpress.Utils.ToolTipController
     Friend WithEvents btnDelete As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnEdit As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents btnNew As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btnClose As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents TotalSalesDGV As DevExpress.XtraGrid.GridControl
     Friend WithEvents TotalSalesGV As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents btnExport As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents SimpleButton1 As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents TextEdit1 As DevExpress.XtraEditors.TextEdit
-    Friend WithEvents DateTimePicker1 As System.Windows.Forms.DateTimePicker
+    Friend WithEvents btnSearch As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents txtSearch As DevExpress.XtraEditors.TextEdit
     Friend WithEvents DateTimePicker2 As System.Windows.Forms.DateTimePicker
+    Friend WithEvents DateTimePicker1 As System.Windows.Forms.DateTimePicker
     Friend WithEvents LabelControl2 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
 End Class
