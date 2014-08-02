@@ -129,6 +129,30 @@
     <Compile Include="Customer_Module\frmCustomerManagement.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Restock_Module\frmEditRestockItem.Designer.vb">
+      <DependentUpon>frmEditRestockItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Restock_Module\frmEditRestockItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Restock_Module\frmRestockManagement.Designer.vb">
+      <DependentUpon>frmRestockManagement.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Restock_Module\frmRestockManagement.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Restock_Module\frmAddRestockItem.Designer.vb">
+      <DependentUpon>frmAddRestockItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Restock_Module\frmAddRestockItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Restock_Module\frmRestockOrderRecord.Designer.vb">
+      <DependentUpon>frmRestockOrderRecord.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Restock_Module\frmRestockOrderRecord.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Sales_Module\frmSalesOrderRecord.Designer.vb">
       <DependentUpon>frmSalesOrderRecord.vb</DependentUpon>
     </Compile>
@@ -256,6 +280,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Customer_Module\frmCustomerManagement.resx">
       <DependentUpon>frmCustomerManagement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Restock_Module\frmEditRestockItem.resx">
+      <DependentUpon>frmEditRestockItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Restock_Module\frmRestockManagement.resx">
+      <DependentUpon>frmRestockManagement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Restock_Module\frmAddRestockItem.resx">
+      <DependentUpon>frmAddRestockItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Restock_Module\frmRestockOrderRecord.resx">
+      <DependentUpon>frmRestockOrderRecord.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sales_Module\frmSalesOrderRecord.resx">
       <DependentUpon>frmSalesOrderRecord.vb</DependentUpon>

@@ -5,14 +5,14 @@ Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
 Imports DevExpress.Utils
 Imports DevExpress.XtraTab
 
-Public Class frmSalesManagement
+Public Class frmRestockManagement
     Inherits DevExpress.XtraEditors.XtraForm
 
     Public Mode As Integer = 0 '0 = add, 1 = edit
     Public RecordID As Integer = 0 're-retrieve information
     Public Sub fillOldSalesInformation() 'customer, receipt number, etc.
-        Dim da As New OleDbDataAdapter("SELECT tblCustomer.cust_id, tblCustomer.cust_name, tblSalesRecord.record_date, tblSalesRecord.record_number, tblSalesRecord.discount_on_sales, tblSalesRecord.sales_amount, tblSalesRecord.sales_payment_made" _
-                                        & " FROM tblSalesRecord INNER JOIN tblCustomer ON tblSalesRecord.cust_id = tblCustomer.cust_id WHERE tblSalesRecord.record_id = ?", conn)
+        Dim da As New OleDbDataAdapter("SELECT tblSupplier.supp_id, tblSupplier.supp_name, tblSalesRecord.record_date, tblSalesRecord.record_number, tblSalesRecord.discount_on_sales, tblSalesRecord.sales_amount, tblSalesRecord.sales_payment_made" _
+                                        & " FROM tblSalesRecord INNER JOIN tblSupplier ON tblSalesRecord.cust_id = tblSupplier.supp_id WHERE tblSalesRecord.record_id = ?", conn)
         da.SelectCommand.Parameters.AddWithValue("record_id", RecordID)
 
         Dim ds As New DataSet
@@ -226,7 +226,7 @@ Public Class frmSalesManagement
         CustomerSearchDGV.DataSource = Nothing
 
         Try
-            Dim da As New OleDbDataAdapter("SELECT tblCustomer.cust_id, tblCustomer.cust_name FROM tblCustomer", openConn())
+            Dim da As New OleDbDataAdapter("SELECT tblSupplier.supp_id, tblSupplier.supp_name FROM tblSupplier", openConn())
 
             Dim dt As New DataTable
 
@@ -236,7 +236,7 @@ Public Class frmSalesManagement
 
             CustomerSearchGV.Columns(0).Visible = False 'cust_id
 
-            CustomerSearchGV.Columns(1).Caption = "Customer Name"
+            CustomerSearchGV.Columns(1).Caption = "Supplier Name"
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -259,7 +259,7 @@ Public Class frmSalesManagement
             conn.Close()
         End Try
 
-        lblReceiptNumber.Text = "SM" & DateTimePicker.Value.ToString("ddMMyyyy") & "-" & Format(ReceiptNumber, "0000")
+        lblReceiptNumber.Text = "RM" & DateTimePicker.Value.ToString("ddMMyyyy") & "-" & Format(ReceiptNumber, "0000")
     End Sub
 
     Public Sub ClearAll()
@@ -335,7 +335,7 @@ Public Class frmSalesManagement
         Else
             PopupContainerCustomer.ShowPopup()
         End If
-        CustomerSearchGV.ActiveFilter.NonColumnFilter = "[cust_name] LIKE '%" & PopupContainerCustomer.Text & "%'"
+        CustomerSearchGV.ActiveFilter.NonColumnFilter = "[supp_name] LIKE '%" & PopupContainerCustomer.Text & "%'"
         PopupContainerCustomer.Focus()
 
         If PopupContainerCustomer.Text.Length = 0 Then
@@ -348,43 +348,43 @@ Public Class frmSalesManagement
         If CustomerSearchGV.SelectedRowsCount = 0 Then
             XtraMessageBox.Show("Please select a record to perform this action!", "No data selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         Else
-            CurrentCID = CustomerSearchGV.GetRowCellValue(CustomerSearchGV.FocusedRowHandle, "cust_id")
-            PopupContainerCustomer.Text = CustomerSearchGV.GetRowCellValue(CustomerSearchGV.FocusedRowHandle, "cust_name")
+            CurrentCID = CustomerSearchGV.GetRowCellValue(CustomerSearchGV.FocusedRowHandle, "supp_id")
+            PopupContainerCustomer.Text = CustomerSearchGV.GetRowCellValue(CustomerSearchGV.FocusedRowHandle, "supp_name")
             PopupContainerCustomer.ClosePopup()
         End If
     End Sub
 
     Private Sub SalesDGV_DoubleClick(sender As System.Object, e As System.EventArgs) Handles SalesDGV.DoubleClick
         If SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "CHECKPOINT") = "EMPTY" Then
-            frmAddSalesItem.ShowDialog()
+            frmAddRestockItem.ShowDialog()
         Else
-            frmEditSalesItem.ProductModelName = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "prod_model")
-            frmEditSalesItem.CurrentPID = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "prod_id")
-            frmEditSalesItem.txtCategory.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "cat_name")
-            frmEditSalesItem.txtUnit.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "item_quantity")
-            frmEditSalesItem.txtPricePerUnit.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "item_price")
-            frmEditSalesItem.txtTotalPrice.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "item_total_price")
-            frmEditSalesItem.txtDescription.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "prod_description")
+            frmEditRestockItem.ProductModelName = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "prod_model")
+            frmEditRestockItem.CurrentPID = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "prod_id")
+            frmEditRestockItem.txtCategory.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "cat_name")
+            frmEditRestockItem.txtUnit.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "item_quantity")
+            frmEditRestockItem.txtPricePerUnit.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "item_price")
+            frmEditRestockItem.txtTotalPrice.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "item_total_price")
+            frmEditRestockItem.txtDescription.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "prod_description")
             SalesGV.SetRowCellValue(SalesGV.FocusedRowHandle, "CHECKPOINT", "EDIT")
-            frmEditSalesItem.ShowDialog()
+            frmEditRestockItem.ShowDialog()
         End If
     End Sub
 
     Private Sub btnNew_Click(sender As System.Object, e As System.EventArgs) Handles btnNew.Click
-        frmAddSalesItem.ShowDialog()
+        frmAddRestockItem.ShowDialog()
     End Sub
 
     Private Sub btnEdit_Click(sender As System.Object, e As System.EventArgs) Handles btnEdit.Click
         If SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "CHECKPOINT") = "TAKEN" Then
-            frmEditSalesItem.ProductModelName = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "prod_model")
-            frmEditSalesItem.CurrentPID = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "prod_id")
-            frmEditSalesItem.txtCategory.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "cat_name")
-            frmEditSalesItem.txtUnit.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "item_quantity")
-            frmEditSalesItem.txtPricePerUnit.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "item_price")
-            frmEditSalesItem.txtTotalPrice.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "item_total_price")
-            frmEditSalesItem.txtDescription.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "prod_description")
+            frmEditRestockItem.ProductModelName = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "prod_model")
+            frmEditRestockItem.CurrentPID = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "prod_id")
+            frmEditRestockItem.txtCategory.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "cat_name")
+            frmEditRestockItem.txtUnit.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "item_quantity")
+            frmEditRestockItem.txtPricePerUnit.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "item_price")
+            frmEditRestockItem.txtTotalPrice.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "item_total_price")
+            frmEditRestockItem.txtDescription.Text = SalesGV.GetRowCellValue(SalesGV.FocusedRowHandle, "prod_description")
             SalesGV.SetRowCellValue(SalesGV.FocusedRowHandle, "CHECKPOINT", "EDIT")
-            frmEditSalesItem.ShowDialog()
+            frmEditRestockItem.ShowDialog()
         Else
             XtraMessageBox.Show("The selected row doesn't have a data for edit!", "Empty row", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
@@ -395,9 +395,9 @@ Public Class frmSalesManagement
             For j = 0 To SalesGV.RowCount - 1
                 If SalesGV.GetRowCellValue(j, "CHECKPOINT") = "TAKEN" Then 'contain data
                     If CurrentCID = 0 Then 'new customer
-                        Dim InsertNewCustomer As New OleDbCommand("INSERT INTO tblCustomer (cust_name, cust_date_added) VALUES (?,?)", conn)
-                        InsertNewCustomer.Parameters.AddWithValue("cust_name", PopupContainerCustomer.Text)
-                        InsertNewCustomer.Parameters.AddWithValue("cust_date_added", DateTime.Now.ToString("dd/MM/yyyy"))
+                        Dim InsertNewCustomer As New OleDbCommand("INSERT INTO tblSupplier (supp_name, supp_date_added) VALUES (?,?)", conn)
+                        InsertNewCustomer.Parameters.AddWithValue("supp_name", PopupContainerCustomer.Text)
+                        InsertNewCustomer.Parameters.AddWithValue("supp_date_added", DateTime.Now.ToString("dd/MM/yyyy"))
 
                         Try
                             conn.Open()
@@ -408,7 +408,7 @@ Public Class frmSalesManagement
                             conn.Close()
                         End Try
 
-                        Dim GetNewCustomerID As New OleDbCommand("SELECT MAX(cust_id) FROM tblCustomer", conn)
+                        Dim GetNewCustomerID As New OleDbCommand("SELECT MAX(supp_id) FROM tblSupplier", conn)
 
                         Try
                             conn.Open()
@@ -422,10 +422,10 @@ Public Class frmSalesManagement
 
                     For k = 0 To SalesGV.RowCount - 1
                         If SalesGV.GetRowCellValue(k, "prod_id") = 0 And SalesGV.GetRowCellValue(k, "CHECKPOINT") = "TAKEN" Then 'need to get new id
-                            Dim InsertSalesItemRecord As New OleDbCommand("INSERT INTO tblProduct (prod_model, prod_quantity, prod_price) VALUES (?, ?, ?)", conn)
+                            Dim InsertSalesItemRecord As New OleDbCommand("INSERT INTO tblProduct (prod_model, prod_quantity, prod_cost) VALUES (?, ?, ?)", conn)
                             InsertSalesItemRecord.Parameters.AddWithValue("prod_model", SalesGV.GetRowCellValue(k, "prod_model"))
                             InsertSalesItemRecord.Parameters.AddWithValue("prod_quantity", 0 - SalesGV.GetRowCellValue(k, "item_quantity"))
-                            InsertSalesItemRecord.Parameters.AddWithValue("prod_price", SalesGV.GetRowCellValue(k, "item_price"))
+                            InsertSalesItemRecord.Parameters.AddWithValue("prod_cost", SalesGV.GetRowCellValue(k, "item_price"))
 
                             Try
                                 conn.Open()
@@ -450,7 +450,7 @@ Public Class frmSalesManagement
                     Next
 
                     If Mode = 0 Then 'add
-                        Dim InsertSalesRecord As New OleDbCommand("INSERT INTO tblSalesRecord (record_date, record_number, cust_id, discount_on_sales, sales_amount, sales_payment_made, sales_remark, sales_type) VALUES (?, ?, ?, ?, ?, ?, ?, 0)", conn)
+                        Dim InsertSalesRecord As New OleDbCommand("INSERT INTO tblSalesRecord (record_date, record_number, cust_id, discount_on_sales, sales_amount, sales_payment_made, sales_remark, sales_type) VALUES (?, ?, ?, ?, ?, ?, ?, 1)", conn)
                         InsertSalesRecord.Parameters.AddWithValue("record_date", DateTimePicker.Text)
                         InsertSalesRecord.Parameters.AddWithValue("record_number", lblReceiptNumber.Text)
                         InsertSalesRecord.Parameters.AddWithValue("cust_id", CurrentCID)
@@ -492,13 +492,13 @@ Public Class frmSalesManagement
                             End If
                         Next
 
-                        Dim UpdateCustomerDebt As New OleDbCommand("UPDATE tblCustomer SET cust_debt = cust_debt + ? WHERE cust_id = ?", conn)
+                        Dim UpdateCustomerDebt As New OleDbCommand("UPDATE tblSupplier SET supp_debt = supp_debt + ? WHERE supp_id = ?", conn)
                         If txtDiscountRate.Text > 0 Or txtDiscountedPrice.Text > 0 Then
-                            UpdateCustomerDebt.Parameters.AddWithValue("cust_debt", CInt(txtPayment.Text) - CInt(txtDiscountedPrice.Text))
+                            UpdateCustomerDebt.Parameters.AddWithValue("supp_debt", CInt(txtPayment.Text) - CInt(txtDiscountedPrice.Text))
                         Else
-                            UpdateCustomerDebt.Parameters.AddWithValue("cust_debt", Val(txtPayment.Text) - TotalSalesGV.GetRowCellValue(0, "Total"))
+                            UpdateCustomerDebt.Parameters.AddWithValue("supp_debt", Val(txtPayment.Text) - TotalSalesGV.GetRowCellValue(0, "Total"))
                         End If
-                        UpdateCustomerDebt.Parameters.AddWithValue("cust_id", CurrentCID)
+                        UpdateCustomerDebt.Parameters.AddWithValue("supp_id", CurrentCID)
 
                         Try
                             conn.Open()
@@ -509,9 +509,9 @@ Public Class frmSalesManagement
                             conn.Close()
                         End Try
 
-                        btnOldSalesReport.ToolTipController.ShowHint("You can always check the sales history here!", DevExpress.Utils.ToolTipLocation.TopLeft, btnOldSalesReport.PointToScreen(New Point(20, -5)))
+                        btnOldSalesReport.ToolTipController.ShowHint("You can always check the restock history here!", DevExpress.Utils.ToolTipLocation.TopLeft, btnOldSalesReport.PointToScreen(New Point(20, -5)))
 
-                        XtraMessageBox.Show("You had successfully recorded this sales order!", "Sales added", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        XtraMessageBox.Show("You had successfully recorded this restock order!", "Restock order added", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                         ClearAll()
 
@@ -577,7 +577,7 @@ Public Class frmSalesManagement
 
                         btnOldSalesReport.ToolTipController.ShowHint("You can always check the sales history here!", DevExpress.Utils.ToolTipLocation.TopLeft, btnOldSalesReport.PointToScreen(New Point(20, -5)))
 
-                        XtraMessageBox.Show("You had successfully edited this sales order!", "Sales edited", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        XtraMessageBox.Show("You had successfully edited this restock order!", "Sales edited", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                         ClearAll()
 
@@ -647,15 +647,15 @@ Public Class frmSalesManagement
     End Sub
 
     Private Sub btnExport_Click(sender As System.Object, e As System.EventArgs) Handles btnExport.Click
-        If (Not System.IO.Directory.Exists(".\SalesExport")) Then
-            System.IO.Directory.CreateDirectory(".\SalesExport")
+        If (Not System.IO.Directory.Exists(".\RestockExport")) Then
+            System.IO.Directory.CreateDirectory(".\RestockExport")
         End If
 
-        SalesDGV.ExportToXls(".\SalesExport\" & lblReceiptNumber.Text & "_Sales.xls")
-        XtraMessageBox.Show("The data has been successfully exported!" & vbNewLine & "You can find your file at : " & Application.StartupPath & "\SalesExport\" & lblReceiptNumber.Text & "_Sales.xls", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        SalesDGV.ExportToXls(".\RestockExport\" & lblReceiptNumber.Text & "_Restock.xls")
+        XtraMessageBox.Show("The data has been successfully exported!" & vbNewLine & "You can find your file at : " & Application.StartupPath & "\RestockExport\" & lblReceiptNumber.Text & "_Restock.xls", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
     Private Sub btnOldSalesReport_Click(sender As System.Object, e As System.EventArgs) Handles btnOldSalesReport.Click
-        frmSalesOrderRecord.ShowDialog()
+        frmRestockOrderRecord.ShowDialog()
     End Sub
 End Class

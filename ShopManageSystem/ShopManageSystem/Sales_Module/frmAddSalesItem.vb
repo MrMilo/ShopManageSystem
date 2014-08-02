@@ -24,7 +24,19 @@ Public Class frmAddSalesItem
     End Sub
 
     Private Sub PopupContainerProduct_EditValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PopupContainerProduct.EditValueChanged
-        PopupContainerProduct.ShowPopup()
+        If StockGV.RowCount = 0 Then
+            PopupContainerProduct.ClosePopup()
+
+            txtCategory.Text = ""
+            txtPricePerUnit.Text = ""
+            txtTotalPrice.Text = ""
+            txtDescription.Text = ""
+
+            CurrentPID = 0
+        Else
+            PopupContainerProduct.ShowPopup()
+        End If
+
         StockGV.ActiveFilter.NonColumnFilter = "[prod_model] LIKE '%" & PopupContainerProduct.Text & "%'"
         PopupContainerProduct.Focus()
 
@@ -153,7 +165,7 @@ Public Class frmAddSalesItem
             Dim rowHandle As Integer = frmSalesManagement.SalesGV.GetRowHandle(frmSalesManagement.SalesGV.DataRowCount)
 
             If frmSalesManagement.SalesGV.IsNewItemRow(rowHandle) Then
-                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "prod_id", DBNull.Value)
+                frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "prod_id", 0)
                 frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "prod_model", DBNull.Value)
                 frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "cat_name", DBNull.Value)
                 frmSalesManagement.SalesGV.SetRowCellValue(rowHandle, "item_quantity", DBNull.Value)
@@ -164,7 +176,7 @@ Public Class frmAddSalesItem
             End If
         End If
 
-        If PopupContainerProduct.Text.Length > 0 And CurrentPID > 0 Then
+        If PopupContainerProduct.Text.Length > 0 Then
             For i = 0 To frmSalesManagement.SalesGV.RowCount - 1
                 If frmSalesManagement.SalesGV.GetRowCellValue(i, "CHECKPOINT") = "EMPTY" Then
                     frmSalesManagement.SalesGV.SetRowCellValue(i, "prod_id", CurrentPID)

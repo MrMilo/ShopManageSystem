@@ -285,7 +285,7 @@ Public Class frmSupplierManagement
     End Sub
 
     Private Sub lblDebt_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles lblDebt.TextChanged
-        If lblDebt.Text <= 0 Then
+        If lblDebt.Text >= 0 Then
             lblDebt.ForeColor = Color.Green
         Else
             lblDebt.ForeColor = Color.DarkRed
@@ -299,5 +299,15 @@ Public Class frmSupplierManagement
 
         SupplierDGV.ExportToXls(".\SupplierExport\" & DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") & "_Supplier.xls")
         XtraMessageBox.Show("The data has been successfully exported!" & vbNewLine & "You can find your file at : " & Application.StartupPath & "\SupplierExport\" & DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") & "_Supplier", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+
+    Private Sub SupplierGV_RowStyle(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs) Handles SupplierGV.RowStyle
+        Dim view As GridView = sender
+        If (e.RowHandle >= 0) Then
+            Dim debt As Integer = view.GetRowCellDisplayText(e.RowHandle, view.Columns("supp_debt"))
+            If debt < 0 Then
+                e.Appearance.ForeColor = Color.DarkRed
+            End If
+        End If
     End Sub
 End Class
