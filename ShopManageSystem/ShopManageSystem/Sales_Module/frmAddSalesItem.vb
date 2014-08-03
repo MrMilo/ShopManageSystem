@@ -199,6 +199,10 @@ Public Class frmAddSalesItem
 
             frmSalesManagement.fillTotalSales()
 
+            If frmSalesManagement.txtDiscountRate.Text > 0 Then
+                frmSalesManagement.txtDiscountedPrice.Text = frmSalesManagement.TotalSalesGV.GetRowCellValue(0, "Total") - (frmSalesManagement.TotalSalesGV.GetRowCellValue(0, "Total") * (CDbl(frmSalesManagement.txtDiscountRate.Text) / 100))
+            End If
+
             Me.Dispose()
         Else
             PopupContainerProduct.ToolTipController.ShowHint("You must select a product to add!", DevExpress.Utils.ToolTipLocation.BottomRight, PopupContainerProduct.PointToScreen(New Point(20, -20)))

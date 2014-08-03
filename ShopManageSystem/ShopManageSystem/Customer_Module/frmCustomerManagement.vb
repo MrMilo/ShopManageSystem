@@ -245,6 +245,8 @@ Public Class frmCustomerManagement
     End Sub
 
     Private Sub btnDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
+        Dim HaveSalesCustomer As Integer = 0
+
         If CustomerGV.SelectedRowsCount > 0 Then 'confirm yes no
             Dim dialogResult = XtraMessageBox.Show("Are you sure you want to delete the selected data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
@@ -261,23 +263,42 @@ Public Class frmCustomerManagement
                 For I = 0 To Rows.Count - 1
                     Dim Row As DataRow = CType(Rows(I), DataRow)
 
-                    Dim deleteCustomer As New OleDbCommand("DELETE FROM tblCustomer WHERE cust_id = ?", conn)
-                    deleteCustomer.Parameters.AddWithValue("cust_id", Row("cust_id"))
+                    Dim VerifyCustomerHaveSales As New OleDbCommand("SELECT * FROM tblSalesRecord WHERE cust_id = ?", conn)
+                    VerifyCustomerHaveSales.Parameters.AddWithValue("cust_id", Row("cust_id"))
 
                     Try
                         conn.Open()
-                        deleteCustomer.ExecuteNonQuery()
+                        Dim sdr As OleDbDataReader = VerifyCustomerHaveSales.ExecuteReader()
+
+                        If sdr.Read = False Then
+                            Dim deleteCustomer As New OleDbCommand("DELETE FROM tblCustomer WHERE cust_id = ?", conn)
+                            deleteCustomer.Parameters.AddWithValue("cust_id", Row("cust_id"))
+
+                            Try
+                                deleteCustomer.ExecuteNonQuery()
+                            Catch ex As Exception
+                                MsgBox(ex.Message)
+                            Finally
+                                deleteCustomer.Parameters.Clear()
+                            End Try
+                        Else
+                            HaveSalesCustomer = 1
+                        End If
                     Catch ex As Exception
                         MsgBox(ex.Message)
                     Finally
                         conn.Close()
-                        deleteCustomer.Parameters.Clear()
+                        VerifyCustomerHaveSales.Parameters.Clear()
                     End Try
                 Next
-                XtraMessageBox.Show("The selected data has been deleted", "Data Deleted", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
 
-                'finally remove the rows from grid control, so that no repopulation is needed
-                CustomerGV.DeleteSelectedRows()
+                If HaveSalesCustomer = 1 Then
+                    XtraMessageBox.Show("The selected data has been deleted" & vbNewLine & "WARNING : You may not delete a customer that already binded with sales!", "Data Deleted", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                Else
+                    XtraMessageBox.Show("The selected data has been deleted", "Data Deleted", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                End If
+
+                fillSearchCustomerGV()
 
                 'refresh
                 fillCustomerGV()

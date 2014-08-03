@@ -13,11 +13,29 @@ Public Class frmLogin
     Private Sub frmLogin_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         RemoveHandler cboUser.SelectedIndexChanged, AddressOf cboUser_SelectedIndexChanged 'to prevent selected index change function execute immediately, we'll need to remove the handler first
 
-        fillAdminCombobox(cboUser) 'populate admin username into combobox
+
+        fillAdminCombobox() 'populate admin username into combobox
 
         AddHandler cboUser.SelectedIndexChanged, AddressOf cboUser_SelectedIndexChanged
 
         CheckPasswordExist()
+    End Sub
+
+    Public Sub fillAdminCombobox()
+        Dim da As New OleDbDataAdapter("SELECT admin_username, admin_id FROM tblAdmin", conn)
+        Dim dt As New DataTable
+
+        Try
+            conn.Open()
+            da.Fill(dt)
+            cboUser.DataSource = dt
+            cboUser.DisplayMember = "admin_username"
+            cboUser.ValueMember = "admin_id"
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            conn.Close()
+        End Try
     End Sub
 
     Dim PasswordNotSet As Integer = 0
@@ -29,15 +47,24 @@ Public Class frmLogin
         If cboUser.SelectedIndex = -1 Then 'does not select anything
             XtraMessageBox.Show("Please select an admin to proceed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         ElseIf PasswordNotSet = 1 Then
-            Dim ValidateAccount As New OleDbCommand("SELECT * FROM tblAdmin WHERE admin_id = ? AND admin_username = ? AND admin_password = ?", openConn())
+            Dim ValidateAccount As New OleDbCommand("SELECT * FROM tblAdmin WHERE admin_id = ? AND admin_username = ? AND admin_password = ?", conn)
             ValidateAccount.Parameters.AddWithValue("admin_id", cboUser.SelectedValue)
             ValidateAccount.Parameters.AddWithValue("admin_username", cboUser.Text)
             ValidateAccount.Parameters.AddWithValue("admin_password", txtPassword.Text.GetHashCode)
 
             Try
+                conn.Open()
                 Dim sdr As OleDbDataReader = ValidateAccount.ExecuteReader()
 
                 If (sdr.Read() = True) Then 'account okay
+                    Dim GetPermission As New OleDbCommand("SELECT user_permission FROM tblAdmin WHERE admin_id = ?", conn)
+                    GetPermission.Parameters.AddWithValue("admin_id", cboUser.SelectedValue)
+                    Try
+                        frmMain.Permission = GetPermission.ExecuteScalar
+                    Catch ex As Exception
+                        MsgBox(ex.Message)
+                    End Try
+
                     XtraMessageBox.Show("Welcome to Shop Management System!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
                     frmMain.LoggedInUsername = cboUser.Text
                     Me.Hide()
@@ -47,8 +74,21 @@ Public Class frmLogin
                 End If
             Catch ex As Exception
                 MsgBox(ex.Message)
+            Finally
+                conn.Close()
             End Try
         Else
+            Dim GetPermission As New OleDbCommand("SELECT user_permission FROM tblAdmin WHERE admin_id = ?", conn)
+            GetPermission.Parameters.AddWithValue("admin_id", cboUser.SelectedValue)
+            Try
+                conn.Open()
+                frmMain.Permission = GetPermission.ExecuteScalar
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            Finally
+                conn.Close()
+            End Try
+
             XtraMessageBox.Show("Welcome to Shop Management System!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             frmMain.LoggedInUsername = cboUser.Text
             Me.Hide()

@@ -10,9 +10,12 @@ Public Class frmMain
     Dim Direction As Boolean = False 'true = left to right, false = right to left
 
     Public LoggedInUsername As String = "Guest"
+    Public Permission As String = "1,1,1,1,1,1,1,1"
 
     Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        formClose(Nothing)
+        frmLogin.Show()
+        frmLogin.fillAdminCombobox()
+        Me.Dispose()
     End Sub
 
     Private Sub MarqueeTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MarqueeTimer.Tick
@@ -55,6 +58,8 @@ Public Class frmMain
         Dim ShopName As XmlNode = xd.SelectSingleNode("/ShopData/ShopBasicConfig")
         MarqueeText = "Welcome to [" & ShopName.ChildNodes(0).InnerText & "], current user : " & LoggedInUsername & "   "
 
+        MarqueeTimer.Enabled = True
+
         lblVersion.BackColor = Color.Transparent
         lblVersion.Text = "v1.0.0.0"
 
@@ -73,6 +78,55 @@ Public Class frmMain
         lblAssistant.BackColor = Color.Transparent
 
         TabControl.TabPages(0).ShowCloseButton = DevExpress.Utils.DefaultBoolean.False 'always hide home close button
+
+        DoPermissionCheck()
+    End Sub
+
+    Public Sub DoPermissionCheck()
+        Dim strArr() As String
+        strArr = Permission.Split(",")
+
+        If strArr(0) = 0 Then
+            mStock.Enabled = False
+            btnStockManagement.Enabled = False
+        End If
+
+        If strArr(1) = 0 Then
+            mCustomer.Enabled = False
+            btnCustomer.Enabled = False
+        End If
+
+        If strArr(2) = 0 Then
+            mSupplier.Enabled = False
+            btnSupplier.Enabled = False
+        End If
+
+        If strArr(3) = 0 Then
+            mSales.Enabled = False
+            btnSalesOrder.Enabled = False
+        End If
+
+        If strArr(4) = 0 Then
+            mRestock.Enabled = False
+            btnRestockOrder.Enabled = False
+        End If
+
+        If strArr(5) = 0 Then
+            mReport.Enabled = False
+            btnReport.Enabled = False
+            pbReport.Enabled = False
+            lblReporting.Enabled = False
+        End If
+
+        If strArr(6) = 0 Then
+            pbSettings.Enabled = False
+            lblSetting.Enabled = False
+        End If
+
+        If strArr(7) = 0 Then
+            pbAssistant.Enabled = False
+            lblAssistant.Enabled = False
+        End If
     End Sub
 
     Private Sub pbHome_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles pbHome.MouseUp, pbHome.MouseHover
@@ -243,10 +297,93 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub btnReport_Click(sender As System.Object, e As System.EventArgs) Handles btnReport.Click, mReport.Click, pbReport.Click
+        Dim Found As Boolean = False
+        For pno As Integer = 0 To TabControl.TabPages.Count - 1
+            If TabControl.TabPages(pno).Text = "Reporting" Then
+                Found = True
+                TabControl.SelectedTabPageIndex = pno
+                Exit For
+            End If
+        Next
+
+        If Not Found Then
+            Dim TabPageResult As New XtraTabPage
+            TabPageResult.Text = "Reporting"
+            TabControl.TabPages.Add(TabPageResult)
+
+            frmReporting.TopLevel = False
+            frmReporting.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            frmReporting.Dock = DockStyle.Fill
+            TabPageResult.Controls.Add(frmReporting)
+            frmReporting.Show()
+            TabControl.SelectedTabPage = TabPageResult
+        End If
+    End Sub
+
     Private Sub TabControl_CloseButtonClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles TabControl.CloseButtonClick
         'TabControl.SelectedTabPage.PageVisible = False
         Dim tabControl As XtraTabControl = TryCast(sender, XtraTabControl)
         Dim arg As ClosePageButtonEventArgs = TryCast(e, ClosePageButtonEventArgs)
         TryCast(arg.Page, XtraTabPage).Dispose()
+    End Sub
+
+    Private Sub pbHome_Click_1(sender As System.Object, e As System.EventArgs) Handles pbHome.Click
+        TabControl.SelectedTabPageIndex = 0
+    End Sub
+
+    Private Sub pbAssistant_Click_1(sender As System.Object, e As System.EventArgs) Handles pbAssistant.Click
+        frmAssistant.ShowDialog()
+    End Sub
+
+    Private Sub pbSettings_Click_1(sender As System.Object, e As System.EventArgs) Handles pbSettings.Click
+        Dim Found As Boolean = False
+        For pno As Integer = 0 To TabControl.TabPages.Count - 1
+            If TabControl.TabPages(pno).Text = "System Setting" Then
+                Found = True
+                TabControl.SelectedTabPageIndex = pno
+                Exit For
+            End If
+        Next
+
+        If Not Found Then
+            Dim TabPageResult As New XtraTabPage
+            TabPageResult.Text = "System Setting"
+            TabControl.TabPages.Add(TabPageResult)
+
+            frmSetting.TopLevel = False
+            frmSetting.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            frmSetting.Dock = DockStyle.Fill
+            TabPageResult.Controls.Add(frmSetting)
+            frmSetting.Show()
+            TabControl.SelectedTabPage = TabPageResult
+        End If
+    End Sub
+
+    Private Sub btnSearch_ButtonClick(sender As System.Object, e As System.EventArgs) Handles btnSearch.ButtonClick
+        Dim Found As Boolean = False
+        For pno As Integer = 0 To TabControl.TabPages.Count - 1
+            If TabControl.TabPages(pno).Text = "Search" Then
+                Found = True
+                TabControl.SelectedTabPageIndex = pno
+                Exit For
+            End If
+        Next
+
+        If Not Found Then
+            Dim TabPageResult As New XtraTabPage
+            TabPageResult.Text = "Search"
+            TabControl.TabPages.Add(TabPageResult)
+
+            frmStockSearch.TopLevel = False
+            frmStockSearch.FormBorderStyle = Windows.Forms.FormBorderStyle.None
+            frmStockSearch.Dock = DockStyle.Fill
+            TabPageResult.Controls.Add(frmStockSearch)
+            frmStockSearch.Show()
+            TabControl.SelectedTabPage = TabPageResult
+        End If
+
+        frmStockSearch.StringToSearch = "%" & btnSearch.Text & "%"
+        frmStockSearch.fillStockGV()
     End Sub
 End Class

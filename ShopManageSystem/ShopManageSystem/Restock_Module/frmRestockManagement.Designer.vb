@@ -318,7 +318,7 @@ Partial Class frmRestockManagement
         Me.btnPlaceSales.Name = "btnPlaceSales"
         Me.btnPlaceSales.Size = New System.Drawing.Size(75, 23)
         Me.btnPlaceSales.TabIndex = 13
-        Me.btnPlaceSales.Text = "&Place Sales"
+        Me.btnPlaceSales.Text = "&Place Order"
         '
         'LabelControl3
         '

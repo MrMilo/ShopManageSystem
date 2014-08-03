@@ -203,7 +203,7 @@ Public Class frmCustomerGroupManagement
                 Next
 
                 If ContainDefaultData > 0 Then
-                    XtraMessageBox.Show("The selected data has been deleted" & vbNewLine & "You may not delete 'Normal' customer group!", "Data Deleted", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                    XtraMessageBox.Show("The selected data has been deleted" & vbNewLine & "WARNING : You may not delete 'Normal' customer group!", "Data Deleted", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
                 Else
                     XtraMessageBox.Show("The selected data has been deleted", "Data Deleted", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
                 End If

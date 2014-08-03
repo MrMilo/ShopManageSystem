@@ -12,20 +12,6 @@ Module Library
         End If
     End Sub
 
-    Public Sub fillAdminCombobox(ByVal sender As Object)
-        Dim da As New OleDbDataAdapter("SELECT admin_username, admin_level FROM tblAdmin", openConn())
-        Dim dt As New DataTable
-
-        Try
-            da.Fill(dt)
-            sender.DataSource = dt
-            sender.DisplayMember = "admin_username"
-            sender.ValueMember = "admin_level"
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
-
     Public Sub fillTreeView(ByVal Key As String, ByVal Txt As String, ByVal N As TreeNode, ByVal sender As Object)
         Dim TN As TreeNode
 

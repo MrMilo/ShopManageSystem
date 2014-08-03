@@ -80,7 +80,7 @@ Partial Class frmSetUp
         Me.LabelControl1.Size = New System.Drawing.Size(459, 16)
         Me.LabelControl1.TabIndex = 3
         Me.LabelControl1.Text = "Please fill in your basic detail, the information are required to use the softwar" & _
-            "e :"
+    "e :"
         '
         'txtContactNumber
         '
@@ -144,7 +144,7 @@ Partial Class frmSetUp
         Me.lblEmailWarning.Size = New System.Drawing.Size(541, 16)
         Me.lblEmailWarning.TabIndex = 10
         Me.lblEmailWarning.Text = "Please fill in your email address (THIS IS IMPORTANT!), password recovery will be" & _
-            " sent here :"
+    " sent here :"
         '
         'btnConfirm
         '
@@ -192,6 +192,7 @@ Partial Class frmSetUp
         Me.Controls.Add(Me.lblShopName)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.ShapeContainer1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "frmSetUp"

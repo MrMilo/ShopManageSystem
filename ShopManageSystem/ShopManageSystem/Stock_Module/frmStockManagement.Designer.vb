@@ -49,6 +49,7 @@ Partial Class frmStockManagement
         Me.StockDGV = New DevExpress.XtraGrid.GridControl()
         Me.StockGV = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.btnAddNewCategory = New DevExpress.XtraEditors.SimpleButton()
+        Me.MenuStrip = New System.Windows.Forms.MenuStrip()
         Me.PanelTop.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PopupContainerProduct.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -311,6 +312,14 @@ Partial Class frmStockManagement
         Me.btnAddNewCategory.TabIndex = 0
         Me.btnAddNewCategory.Text = "New &Category"
         '
+        'MenuStrip
+        '
+        Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip.Name = "MenuStrip"
+        Me.MenuStrip.Size = New System.Drawing.Size(819, 24)
+        Me.MenuStrip.TabIndex = 10
+        Me.MenuStrip.Text = "MenuStrip1"
+        '
         'frmStockManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -323,7 +332,9 @@ Partial Class frmStockManagement
         Me.Controls.Add(Me.tvCategory)
         Me.Controls.Add(Me.PanelButton)
         Me.Controls.Add(Me.PanelTop)
+        Me.Controls.Add(Me.MenuStrip)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MainMenuStrip = Me.MenuStrip
         Me.Name = "frmStockManagement"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.PanelTop.ResumeLayout(False)
@@ -342,6 +353,7 @@ Partial Class frmStockManagement
         CType(Me.StockDGV, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.StockGV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents PanelTop As System.Windows.Forms.Panel
@@ -369,4 +381,5 @@ Partial Class frmStockManagement
     Friend WithEvents ProductSearchGV As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents btnExport As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents MenuStrip As System.Windows.Forms.MenuStrip
 End Class

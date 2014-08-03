@@ -226,7 +226,7 @@ Public Class frmSalesManagement
         CustomerSearchDGV.DataSource = Nothing
 
         Try
-            Dim da As New OleDbDataAdapter("SELECT tblCustomer.cust_id, tblCustomer.cust_name FROM tblCustomer", openConn())
+            Dim da As New OleDbDataAdapter("SELECT tblCustomer.cust_id, tblCustomer.cust_name, tblCustomerGroup.custgroup_discount_rate FROM tblCustomer INNER JOIN tblCustomerGroup ON tblCustomer.cust_group = tblCustomerGroup.custgroup_id", openConn())
 
             Dim dt As New DataTable
 
@@ -237,6 +237,8 @@ Public Class frmSalesManagement
             CustomerSearchGV.Columns(0).Visible = False 'cust_id
 
             CustomerSearchGV.Columns(1).Caption = "Customer Name"
+
+            CustomerSearchGV.Columns(2).Visible = False 'rate
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -350,6 +352,7 @@ Public Class frmSalesManagement
         Else
             CurrentCID = CustomerSearchGV.GetRowCellValue(CustomerSearchGV.FocusedRowHandle, "cust_id")
             PopupContainerCustomer.Text = CustomerSearchGV.GetRowCellValue(CustomerSearchGV.FocusedRowHandle, "cust_name")
+            txtDiscountRate.Text = CustomerSearchGV.GetRowCellValue(CustomerSearchGV.FocusedRowHandle, "custgroup_discount_rate")
             PopupContainerCustomer.ClosePopup()
         End If
     End Sub
@@ -436,30 +439,26 @@ Public Class frmSalesManagement
                                 conn.Close()
                                 InsertSalesItemRecord.Parameters.Clear()
                             End Try
-                        End If
 
-                        Dim GetNewPID As New OleDbCommand("SELECT MAX(prod_id) FROM tblProduct", conn)
-                        Try
-                            conn.Open()
-                            SalesGV.SetRowCellValue(k, "prod_id", GetNewPID.ExecuteScalar)
-                        Catch ex As Exception
-                            MsgBox(ex.Message)
-                        Finally
-                            conn.Close()
-                        End Try
+                            Dim GetNewPID As New OleDbCommand("SELECT MAX(prod_id) FROM tblProduct", conn)
+                            Try
+                                conn.Open()
+                                SalesGV.SetRowCellValue(k, "prod_id", GetNewPID.ExecuteScalar)
+                            Catch ex As Exception
+                                MsgBox(ex.Message)
+                            Finally
+                                conn.Close()
+                            End Try
+                        End If
                     Next
 
                     If Mode = 0 Then 'add
-                        Dim InsertSalesRecord As New OleDbCommand("INSERT INTO tblSalesRecord (record_date, record_number, cust_id, discount_on_sales, sales_amount, sales_payment_made, sales_remark, sales_type) VALUES (?, ?, ?, ?, ?, ?, ?, 0)", conn)
+                        Dim InsertSalesRecord As New OleDbCommand("INSERT INTO tblSalesRecord (record_date, record_number, cust_id, discount_on_sales, sales_amount, sales_payment_made, sales_remark, sales_type, sales_note) VALUES (?, ?, ?, ?, ?, ?, ?, 0, 'Sales Income')", conn)
                         InsertSalesRecord.Parameters.AddWithValue("record_date", DateTimePicker.Text)
                         InsertSalesRecord.Parameters.AddWithValue("record_number", lblReceiptNumber.Text)
                         InsertSalesRecord.Parameters.AddWithValue("cust_id", CurrentCID)
                         InsertSalesRecord.Parameters.AddWithValue("discount_on_sales", txtDiscountRate.Text)
-                        If txtDiscountRate.Text > 0 Or txtDiscountedPrice.Text > 0 Then
-                            InsertSalesRecord.Parameters.AddWithValue("sales_amount", txtDiscountedPrice.Text)
-                        Else
-                            InsertSalesRecord.Parameters.AddWithValue("sales_amount", TotalSalesGV.GetRowCellValue(0, "Total"))
-                        End If
+                        InsertSalesRecord.Parameters.AddWithValue("sales_amount", CDbl(TotalSalesGV.GetRowCellValue(0, "Total")))
                         InsertSalesRecord.Parameters.AddWithValue("sales_payment_made", txtPayment.Text)
                         InsertSalesRecord.Parameters.AddWithValue("sales_remark", txtNote.Text)
 
@@ -472,120 +471,155 @@ Public Class frmSalesManagement
                             conn.Close()
                         End Try
 
-                        For i = 0 To SalesGV.RowCount - 1
-                            If SalesGV.GetRowCellValue(i, "CHECKPOINT") = "TAKEN" Then
-                                Dim InsertSalesItemRecord As New OleDbCommand("INSERT INTO tblSalesItemRecord (prod_id, record_id, item_quantity, item_price, item_total_price) VALUES (?, (DMax('record_id', 'tblSalesRecord')), ?, ?, ?)", conn)
-                                InsertSalesItemRecord.Parameters.AddWithValue("prod_id", SalesGV.GetRowCellValue(i, "prod_id"))
-                                InsertSalesItemRecord.Parameters.AddWithValue("item_quantity", SalesGV.GetRowCellValue(i, "item_quantity"))
-                                InsertSalesItemRecord.Parameters.AddWithValue("item_price", SalesGV.GetRowCellValue(i, "item_price"))
-                                InsertSalesItemRecord.Parameters.AddWithValue("item_total_price", SalesGV.GetRowCellValue(i, "item_total_price"))
+                    For i = 0 To SalesGV.RowCount - 1
+                        If SalesGV.GetRowCellValue(i, "CHECKPOINT") = "TAKEN" Then
+                            Dim InsertSalesItemRecord As New OleDbCommand("INSERT INTO tblSalesItemRecord (prod_id, record_id, item_quantity, item_price, item_total_price) VALUES (?, (DMax('record_id', 'tblSalesRecord')), ?, ?, ?)", conn)
+                            InsertSalesItemRecord.Parameters.AddWithValue("prod_id", SalesGV.GetRowCellValue(i, "prod_id"))
+                            InsertSalesItemRecord.Parameters.AddWithValue("item_quantity", SalesGV.GetRowCellValue(i, "item_quantity"))
+                            InsertSalesItemRecord.Parameters.AddWithValue("item_price", SalesGV.GetRowCellValue(i, "item_price"))
+                            InsertSalesItemRecord.Parameters.AddWithValue("item_total_price", SalesGV.GetRowCellValue(i, "item_total_price"))
 
-                                Try
-                                    conn.Open()
-                                    InsertSalesItemRecord.ExecuteNonQuery()
-                                Catch ex As Exception
-                                    MsgBox(ex.Message)
-                                Finally
-                                    conn.Close()
-                                    InsertSalesItemRecord.Parameters.Clear()
-                                End Try
-                            End If
-                        Next
-
-                        Dim UpdateCustomerDebt As New OleDbCommand("UPDATE tblCustomer SET cust_debt = cust_debt + ? WHERE cust_id = ?", conn)
-                        If txtDiscountRate.Text > 0 Or txtDiscountedPrice.Text > 0 Then
-                            UpdateCustomerDebt.Parameters.AddWithValue("cust_debt", CInt(txtPayment.Text) - CInt(txtDiscountedPrice.Text))
-                        Else
-                            UpdateCustomerDebt.Parameters.AddWithValue("cust_debt", Val(txtPayment.Text) - TotalSalesGV.GetRowCellValue(0, "Total"))
+                            Try
+                                conn.Open()
+                                InsertSalesItemRecord.ExecuteNonQuery()
+                            Catch ex As Exception
+                                MsgBox(ex.Message)
+                            Finally
+                                conn.Close()
+                                InsertSalesItemRecord.Parameters.Clear()
+                            End Try
                         End If
-                        UpdateCustomerDebt.Parameters.AddWithValue("cust_id", CurrentCID)
+                    Next
 
-                        Try
-                            conn.Open()
-                            UpdateCustomerDebt.ExecuteNonQuery()
-                        Catch ex As Exception
-                            MsgBox(ex.Message)
-                        Finally
-                            conn.Close()
-                        End Try
+                    Dim CalculateDebt As New OleDbCommand("SELECT SUM((sales_amount - (sales_amount * (discount_on_sales/100))) - sales_payment_made) AS totalDebt FROM tblSalesRecord WHERE sales_type = 0 GROUP BY cust_id = ?", conn)
+                    CalculateDebt.Parameters.AddWithValue("cust_id", CurrentCID)
+                    Dim debt As Double = 0
+                    Try
+                        conn.Open()
+                        debt = CalculateDebt.ExecuteScalar
+                    Catch ex As Exception
+                        MsgBox(ex.Message)
+                    Finally
+                        conn.Close()
+                        CalculateDebt.Parameters.Clear()
+                    End Try
 
-                        btnOldSalesReport.ToolTipController.ShowHint("You can always check the sales history here!", DevExpress.Utils.ToolTipLocation.TopLeft, btnOldSalesReport.PointToScreen(New Point(20, -5)))
 
-                        XtraMessageBox.Show("You had successfully recorded this sales order!", "Sales added", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Dim UpdateCustomerDebt As New OleDbCommand("UPDATE tblCustomer SET cust_debt = ? WHERE cust_id = ?", conn)
 
-                        ClearAll()
+                    UpdateCustomerDebt.Parameters.AddWithValue("cust_debt", debt)
+                    UpdateCustomerDebt.Parameters.AddWithValue("cust_id", CurrentCID)
 
-                        Exit For 'exit straight
-                    Else
-                        'update
-                        Dim DeleteSalesItemRecord As New OleDbCommand("DELETE * FROM tblSalesItemRecord WHERE record_id = ?", conn)
-                        DeleteSalesItemRecord.Parameters.AddWithValue("record_id", RecordID)
+                    Try
+                        conn.Open()
+                        UpdateCustomerDebt.ExecuteNonQuery()
+                    Catch ex As Exception
+                        MsgBox(ex.Message)
+                    Finally
+                        conn.Close()
+                    End Try
 
-                        Try
-                            conn.Open()
-                            DeleteSalesItemRecord.ExecuteNonQuery()
-                        Catch ex As Exception
-                            MsgBox(ex.Message)
-                        Finally
-                            conn.Close()
-                            DeleteSalesItemRecord.Parameters.Clear()
-                        End Try
+                    btnOldSalesReport.ToolTipController.ShowHint("You can always check the sales history here!", DevExpress.Utils.ToolTipLocation.TopLeft, btnOldSalesReport.PointToScreen(New Point(20, -5)))
 
-                        For i = 0 To SalesGV.RowCount - 1
-                            If SalesGV.GetRowCellValue(i, "CHECKPOINT") = "TAKEN" Then
-                                Dim InsertSalesItemRecord As New OleDbCommand("INSERT INTO tblSalesItemRecord (prod_id, record_id, item_quantity, item_price, item_total_price) VALUES (?, ?, ?, ?, ?)", conn)
-                                InsertSalesItemRecord.Parameters.AddWithValue("prod_id", SalesGV.GetRowCellValue(i, "prod_id"))
-                                InsertSalesItemRecord.Parameters.AddWithValue("record_id", RecordID)
-                                InsertSalesItemRecord.Parameters.AddWithValue("item_quantity", SalesGV.GetRowCellValue(i, "item_quantity"))
-                                InsertSalesItemRecord.Parameters.AddWithValue("item_price", SalesGV.GetRowCellValue(i, "item_price"))
-                                InsertSalesItemRecord.Parameters.AddWithValue("item_total_price", SalesGV.GetRowCellValue(i, "item_total_price"))
+                    XtraMessageBox.Show("You had successfully recorded this sales order!", "Sales added", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                                Try
-                                    conn.Open()
-                                    InsertSalesItemRecord.ExecuteNonQuery()
-                                Catch ex As Exception
-                                    MsgBox(ex.Message)
-                                Finally
-                                    conn.Close()
-                                    InsertSalesItemRecord.Parameters.Clear()
-                                End Try
-                            End If
-                        Next
+                    ClearAll()
 
-                        Dim UpdateSalesRecord As New OleDbCommand("UPDATE tblSalesRecord SET record_date = ?, record_number = ?, cust_id = ?, discount_on_sales = ?, sales_amount = ?, sales_payment_made = ?, sales_remark = ? WHERE record_id = ?", conn)
-                        UpdateSalesRecord.Parameters.AddWithValue("record_date", DateTimePicker.Text)
-                        UpdateSalesRecord.Parameters.AddWithValue("record_number", lblReceiptNumber.Text)
-                        UpdateSalesRecord.Parameters.AddWithValue("cust_id", CurrentCID)
-                        UpdateSalesRecord.Parameters.AddWithValue("discount_on_sales", txtDiscountRate.Text)
-                        If txtDiscountRate.Text > 0 Or txtDiscountedPrice.Text > 0 Then
-                            UpdateSalesRecord.Parameters.AddWithValue("sales_amount", txtDiscountedPrice.Text)
-                        Else
-                            UpdateSalesRecord.Parameters.AddWithValue("sales_amount", TotalSalesGV.GetRowCellValue(0, "Total"))
-                        End If
-                        UpdateSalesRecord.Parameters.AddWithValue("sales_payment_made", txtPayment.Text)
-                        UpdateSalesRecord.Parameters.AddWithValue("sales_remark", txtNote.Text)
-                        UpdateSalesRecord.Parameters.AddWithValue("record_id", RecordID)
-
-                        Try
-                            conn.Open()
-                            UpdateSalesRecord.ExecuteNonQuery()
-                        Catch ex As Exception
-                            MsgBox(ex.Message)
-                        Finally
-                            conn.Close()
-                        End Try
-
-                        btnOldSalesReport.ToolTipController.ShowHint("You can always check the sales history here!", DevExpress.Utils.ToolTipLocation.TopLeft, btnOldSalesReport.PointToScreen(New Point(20, -5)))
-
-                        XtraMessageBox.Show("You had successfully edited this sales order!", "Sales edited", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                        ClearAll()
-
-                        Exit For
-                    End If
+                    Exit For 'exit straight
                 Else
-                    XtraMessageBox.Show("Please add some items to place sales!", "No data", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    'update
+                    Dim DeleteSalesItemRecord As New OleDbCommand("DELETE * FROM tblSalesItemRecord WHERE record_id = ?", conn)
+                    DeleteSalesItemRecord.Parameters.AddWithValue("record_id", RecordID)
+
+                    Try
+                        conn.Open()
+                        DeleteSalesItemRecord.ExecuteNonQuery()
+                    Catch ex As Exception
+                        MsgBox(ex.Message)
+                    Finally
+                        conn.Close()
+                        DeleteSalesItemRecord.Parameters.Clear()
+                    End Try
+
+                    For i = 0 To SalesGV.RowCount - 1
+                        If SalesGV.GetRowCellValue(i, "CHECKPOINT") = "TAKEN" Then
+                            Dim InsertSalesItemRecord As New OleDbCommand("INSERT INTO tblSalesItemRecord (prod_id, record_id, item_quantity, item_price, item_total_price) VALUES (?, ?, ?, ?, ?)", conn)
+                            InsertSalesItemRecord.Parameters.AddWithValue("prod_id", SalesGV.GetRowCellValue(i, "prod_id"))
+                            InsertSalesItemRecord.Parameters.AddWithValue("record_id", RecordID)
+                            InsertSalesItemRecord.Parameters.AddWithValue("item_quantity", SalesGV.GetRowCellValue(i, "item_quantity"))
+                            InsertSalesItemRecord.Parameters.AddWithValue("item_price", SalesGV.GetRowCellValue(i, "item_price"))
+                            InsertSalesItemRecord.Parameters.AddWithValue("item_total_price", SalesGV.GetRowCellValue(i, "item_total_price"))
+
+                            Try
+                                conn.Open()
+                                InsertSalesItemRecord.ExecuteNonQuery()
+                            Catch ex As Exception
+                                MsgBox(ex.Message)
+                            Finally
+                                conn.Close()
+                                InsertSalesItemRecord.Parameters.Clear()
+                            End Try
+                        End If
+                    Next
+
+                    Dim UpdateSalesRecord As New OleDbCommand("UPDATE tblSalesRecord SET record_date = ?, record_number = ?, cust_id = ?, discount_on_sales = ?, sales_amount = ?, sales_payment_made = ?, sales_remark = ? WHERE record_id = ?", conn)
+                    UpdateSalesRecord.Parameters.AddWithValue("record_date", DateTimePicker.Text)
+                    UpdateSalesRecord.Parameters.AddWithValue("record_number", lblReceiptNumber.Text)
+                    UpdateSalesRecord.Parameters.AddWithValue("cust_id", CurrentCID)
+                    UpdateSalesRecord.Parameters.AddWithValue("discount_on_sales", CInt(txtDiscountRate.Text))
+                    UpdateSalesRecord.Parameters.AddWithValue("sales_amount", CDbl(TotalSalesGV.GetRowCellValue(0, "Total")))
+                    UpdateSalesRecord.Parameters.AddWithValue("sales_payment_made", CInt(txtPayment.Text))
+                    UpdateSalesRecord.Parameters.AddWithValue("sales_remark", txtNote.Text)
+                    UpdateSalesRecord.Parameters.AddWithValue("record_id", RecordID)
+
+                    Try
+                        conn.Open()
+                        UpdateSalesRecord.ExecuteNonQuery()
+                    Catch ex As Exception
+                        MsgBox(ex.Message)
+                    Finally
+                        conn.Close()
+                    End Try
+
+                    Dim CalculateDebt As New OleDbCommand("SELECT SUM((sales_amount - (sales_amount * (discount_on_sales/100))) - sales_payment_made) AS totalDebt FROM tblSalesRecord WHERE sales_type = 0 GROUP BY cust_id = ?", conn)
+                    CalculateDebt.Parameters.AddWithValue("cust_id", CurrentCID)
+                    Dim debt As Double = 0
+                    Try
+                        conn.Open()
+                        debt = CalculateDebt.ExecuteScalar
+                    Catch ex As Exception
+                        MsgBox(ex.Message)
+                    Finally
+                        conn.Close()
+                        CalculateDebt.Parameters.Clear()
+                    End Try
+
+
+                    Dim UpdateCustomerDebt As New OleDbCommand("UPDATE tblCustomer SET cust_debt = ? WHERE cust_id = ?", conn)
+
+                    UpdateCustomerDebt.Parameters.AddWithValue("cust_debt", debt)
+                    UpdateCustomerDebt.Parameters.AddWithValue("cust_id", CurrentCID)
+
+                    Try
+                        conn.Open()
+                        UpdateCustomerDebt.ExecuteNonQuery()
+                    Catch ex As Exception
+                        MsgBox(ex.Message)
+                    Finally
+                        conn.Close()
+                    End Try
+
+                    btnOldSalesReport.ToolTipController.ShowHint("You can always check the sales history here!", DevExpress.Utils.ToolTipLocation.TopLeft, btnOldSalesReport.PointToScreen(New Point(20, -5)))
+
+                    XtraMessageBox.Show("You had successfully edited this sales order!", "Sales edited", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    ClearAll()
+
                     Exit For
+                End If
+                Else
+                XtraMessageBox.Show("Please add some items to place sales!", "No data", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                Exit For
                 End If
             Next
         Else

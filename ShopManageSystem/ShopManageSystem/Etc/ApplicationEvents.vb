@@ -48,6 +48,10 @@ Namespace My
                     .WriteString("noreply@milostudio.net")
                     .WriteEndElement()
 
+                    .WriteStartElement("ContactNumber")
+                    .WriteString("000-0000000")
+                    .WriteEndElement()
+
                     .WriteEndElement()
                     'End of ShopBasicConfig
 

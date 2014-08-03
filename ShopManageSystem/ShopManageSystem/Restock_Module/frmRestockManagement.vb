@@ -49,7 +49,7 @@ Public Class frmRestockManagement
         Mode = 1
         ClearAll()
         btnClear.Text = "&Cancel"
-        btnPlaceSales.Text = "&Update Sales"
+        btnPlaceSales.Text = "&Update Order"
 
         Dim da As New OleDbDataAdapter("SELECT tblProduct.prod_id, tblProduct.prod_model, tblCategory.cat_name, tblSalesItemRecord.item_quantity, tblSalesItemRecord.item_price, tblSalesItemRecord.item_total_price, tblProduct.prod_description" _
                                         & " FROM tblCategory INNER JOIN ((tblSalesItemRecord INNER JOIN tblSalesRecord ON tblSalesItemRecord.record_id = tblSalesRecord.record_id) INNER JOIN tblProduct ON tblSalesItemRecord.prod_id = tblProduct.prod_id) ON tblCategory.cat_id = tblProduct.prod_category WHERE tblSalesRecord.record_id = ?", conn)
@@ -436,21 +436,21 @@ Public Class frmRestockManagement
                                 conn.Close()
                                 InsertSalesItemRecord.Parameters.Clear()
                             End Try
-                        End If
 
-                        Dim GetNewPID As New OleDbCommand("SELECT MAX(prod_id) FROM tblProduct", conn)
-                        Try
-                            conn.Open()
-                            SalesGV.SetRowCellValue(k, "prod_id", GetNewPID.ExecuteScalar)
-                        Catch ex As Exception
-                            MsgBox(ex.Message)
-                        Finally
-                            conn.Close()
-                        End Try
+                            Dim GetNewPID As New OleDbCommand("SELECT MAX(prod_id) FROM tblProduct", conn)
+                            Try
+                                conn.Open()
+                                SalesGV.SetRowCellValue(k, "prod_id", GetNewPID.ExecuteScalar)
+                            Catch ex As Exception
+                                MsgBox(ex.Message)
+                            Finally
+                                conn.Close()
+                            End Try
+                        End If
                     Next
 
                     If Mode = 0 Then 'add
-                        Dim InsertSalesRecord As New OleDbCommand("INSERT INTO tblSalesRecord (record_date, record_number, cust_id, discount_on_sales, sales_amount, sales_payment_made, sales_remark, sales_type) VALUES (?, ?, ?, ?, ?, ?, ?, 1)", conn)
+                        Dim InsertSalesRecord As New OleDbCommand("INSERT INTO tblSalesRecord (record_date, record_number, cust_id, discount_on_sales, sales_amount, sales_payment_made, sales_remark, sales_type, sales_note) VALUES (?, ?, ?, ?, ?, ?, ?, 1, 'Restock Order')", conn)
                         InsertSalesRecord.Parameters.AddWithValue("record_date", DateTimePicker.Text)
                         InsertSalesRecord.Parameters.AddWithValue("record_number", lblReceiptNumber.Text)
                         InsertSalesRecord.Parameters.AddWithValue("cust_id", CurrentCID)
@@ -489,20 +489,45 @@ Public Class frmRestockManagement
                                     conn.Close()
                                     InsertSalesItemRecord.Parameters.Clear()
                                 End Try
+
+                                Dim UpdateProductQuantity As New OleDbCommand("UPDATE tblProduct SET prod_quantity = prod_quantity + ? WHERE prod_id = ?", conn)
+                                UpdateProductQuantity.Parameters.AddWithValue("prod_quantity", SalesGV.GetRowCellValue(i, "item_quantity"))
+                                UpdateProductQuantity.Parameters.AddWithValue("prod_id", SalesGV.GetRowCellValue(i, "prod_id"))
+
+                                Try
+                                    conn.Open()
+                                    UpdateProductQuantity.ExecuteNonQuery()
+                                Catch ex As Exception
+                                    MsgBox(ex.Message)
+                                Finally
+                                    conn.Close()
+                                    UpdateProductQuantity.Parameters.Clear()
+                                End Try
                             End If
                         Next
 
-                        Dim UpdateCustomerDebt As New OleDbCommand("UPDATE tblSupplier SET supp_debt = supp_debt + ? WHERE supp_id = ?", conn)
-                        If txtDiscountRate.Text > 0 Or txtDiscountedPrice.Text > 0 Then
-                            UpdateCustomerDebt.Parameters.AddWithValue("supp_debt", CInt(txtPayment.Text) - CInt(txtDiscountedPrice.Text))
-                        Else
-                            UpdateCustomerDebt.Parameters.AddWithValue("supp_debt", Val(txtPayment.Text) - TotalSalesGV.GetRowCellValue(0, "Total"))
-                        End If
-                        UpdateCustomerDebt.Parameters.AddWithValue("supp_id", CurrentCID)
+                        Dim CalculateDebt As New OleDbCommand("SELECT SUM((sales_amount - (sales_amount * (discount_on_sales/100))) - sales_payment_made) AS totalDebt FROM tblSalesRecord WHERE sales_type = 1 GROUP BY cust_id = ?", conn)
+                        CalculateDebt.Parameters.AddWithValue("cust_id", CurrentCID)
+                        Dim debt As Double = 0
+                        Try
+                            conn.Open()
+                            debt = CalculateDebt.ExecuteScalar
+                        Catch ex As Exception
+                            MsgBox(ex.Message)
+                        Finally
+                            conn.Close()
+                            CalculateDebt.Parameters.Clear()
+                        End Try
+
+
+                        Dim UpdateSupplierDebt As New OleDbCommand("UPDATE tblSupplier SET supp_debt = ? WHERE supp_id = ?", conn)
+
+                        UpdateSupplierDebt.Parameters.AddWithValue("supp_debt", debt)
+                        UpdateSupplierDebt.Parameters.AddWithValue("supp_id", CurrentCID)
 
                         Try
                             conn.Open()
-                            UpdateCustomerDebt.ExecuteNonQuery()
+                            UpdateSupplierDebt.ExecuteNonQuery()
                         Catch ex As Exception
                             MsgBox(ex.Message)
                         Finally
@@ -557,35 +582,31 @@ Public Class frmRestockManagement
                         UpdateSalesRecord.Parameters.AddWithValue("record_number", lblReceiptNumber.Text)
                         UpdateSalesRecord.Parameters.AddWithValue("cust_id", CurrentCID)
                         UpdateSalesRecord.Parameters.AddWithValue("discount_on_sales", txtDiscountRate.Text)
-                        If txtDiscountRate.Text > 0 Or txtDiscountedPrice.Text > 0 Then
-                            UpdateSalesRecord.Parameters.AddWithValue("sales_amount", txtDiscountedPrice.Text)
-                        Else
-                            UpdateSalesRecord.Parameters.AddWithValue("sales_amount", TotalSalesGV.GetRowCellValue(0, "Total"))
-                        End If
-                        UpdateSalesRecord.Parameters.AddWithValue("sales_payment_made", txtPayment.Text)
-                        UpdateSalesRecord.Parameters.AddWithValue("sales_remark", txtNote.Text)
-                        UpdateSalesRecord.Parameters.AddWithValue("record_id", RecordID)
+                        UpdateSalesRecord.Parameters.AddWithValue("sales_amount", TotalSalesGV.GetRowCellValue(0, "Total"))
+                    UpdateSalesRecord.Parameters.AddWithValue("sales_payment_made", txtPayment.Text)
+                    UpdateSalesRecord.Parameters.AddWithValue("sales_remark", txtNote.Text)
+                    UpdateSalesRecord.Parameters.AddWithValue("record_id", RecordID)
 
-                        Try
-                            conn.Open()
-                            UpdateSalesRecord.ExecuteNonQuery()
-                        Catch ex As Exception
-                            MsgBox(ex.Message)
-                        Finally
-                            conn.Close()
-                        End Try
+                    Try
+                        conn.Open()
+                        UpdateSalesRecord.ExecuteNonQuery()
+                    Catch ex As Exception
+                        MsgBox(ex.Message)
+                    Finally
+                        conn.Close()
+                    End Try
 
-                        btnOldSalesReport.ToolTipController.ShowHint("You can always check the sales history here!", DevExpress.Utils.ToolTipLocation.TopLeft, btnOldSalesReport.PointToScreen(New Point(20, -5)))
+                    btnOldSalesReport.ToolTipController.ShowHint("You can always check the sales history here!", DevExpress.Utils.ToolTipLocation.TopLeft, btnOldSalesReport.PointToScreen(New Point(20, -5)))
 
-                        XtraMessageBox.Show("You had successfully edited this restock order!", "Sales edited", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    XtraMessageBox.Show("You had successfully edited this restock order!", "Sales edited", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                        ClearAll()
+                    ClearAll()
 
-                        Exit For
-                    End If
-                Else
-                    XtraMessageBox.Show("Please add some items to place sales!", "No data", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                     Exit For
+                End If
+                Else
+                XtraMessageBox.Show("Please add some items to place sales!", "No data", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                Exit For
                 End If
             Next
         Else

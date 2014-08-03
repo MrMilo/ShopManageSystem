@@ -68,10 +68,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Charts.v13.2.Core, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Data.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v13.2.Core, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraBars.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v13.2.UI, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v13.2.Wizard, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraEditors.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraGauges.v13.2.Core, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraGauges.v13.2.Win, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -129,6 +133,24 @@
     <Compile Include="Customer_Module\frmCustomerManagement.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Etc\frmAssistant.Designer.vb">
+      <DependentUpon>frmAssistant.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Etc\frmAssistant.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reporting_Module\frmStockSearch.Designer.vb">
+      <DependentUpon>frmStockSearch.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting_Module\frmStockSearch.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reporting_Module\frmReporting.Designer.vb">
+      <DependentUpon>frmReporting.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting_Module\frmReporting.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Restock_Module\frmEditRestockItem.Designer.vb">
       <DependentUpon>frmEditRestockItem.vb</DependentUpon>
     </Compile>
@@ -175,6 +197,18 @@
       <DependentUpon>frmSalesManagement.vb</DependentUpon>
     </Compile>
     <Compile Include="Sales_Module\frmSalesManagement.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting_Module\frmSetting.Designer.vb">
+      <DependentUpon>frmSetting.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Setting_Module\frmSetting.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stock_Module\frmEditCategory.Designer.vb">
+      <DependentUpon>frmEditCategory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Stock_Module\frmEditCategory.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Stock_Module\frmAddCategory.Designer.vb">
@@ -281,6 +315,15 @@
     <EmbeddedResource Include="Customer_Module\frmCustomerManagement.resx">
       <DependentUpon>frmCustomerManagement.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Etc\frmAssistant.resx">
+      <DependentUpon>frmAssistant.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporting_Module\frmStockSearch.resx">
+      <DependentUpon>frmStockSearch.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporting_Module\frmReporting.resx">
+      <DependentUpon>frmReporting.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Restock_Module\frmEditRestockItem.resx">
       <DependentUpon>frmEditRestockItem.vb</DependentUpon>
     </EmbeddedResource>
@@ -304,6 +347,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Sales_Module\frmSalesManagement.resx">
       <DependentUpon>frmSalesManagement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting_Module\frmSetting.resx">
+      <DependentUpon>frmSetting.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stock_Module\frmEditCategory.resx">
+      <DependentUpon>frmEditCategory.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Stock_Module\frmAddCategory.resx">
       <DependentUpon>frmAddCategory.vb</DependentUpon>

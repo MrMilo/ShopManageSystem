@@ -44,6 +44,8 @@ Public Class frmStockManagement
     End Sub
 
     Private Sub btnDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
+        Dim HaveSalesProduct As Integer = 0
+
         If StockGV.SelectedRowsCount > 0 Then 'confirm yes no
             Dim dialogResult = XtraMessageBox.Show("Are you sure you want to delete the selected data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
@@ -60,23 +62,42 @@ Public Class frmStockManagement
                 For I = 0 To Rows.Count - 1
                     Dim Row As DataRow = CType(Rows(I), DataRow)
 
-                    Dim deleteStockProduct As New OleDbCommand("DELETE FROM tblProduct WHERE prod_id = ?", conn)
-                    deleteStockProduct.Parameters.AddWithValue("prod_id", Row("prod_id"))
+                    Dim VerifyProductHaveSales As New OleDbCommand("SELECT * FROM tblSalesItemRecord WHERE prod_id = ?", conn)
+                    VerifyProductHaveSales.Parameters.AddWithValue("prod_id", Row("prod_id"))
 
                     Try
                         conn.Open()
-                        deleteStockProduct.ExecuteNonQuery()
+                        Dim sdr As OleDbDataReader = VerifyProductHaveSales.ExecuteReader()
+
+                        If sdr.Read = False Then
+                            Dim deleteStockProduct As New OleDbCommand("DELETE FROM tblProduct WHERE prod_id = ?", conn)
+                            deleteStockProduct.Parameters.AddWithValue("prod_id", Row("prod_id"))
+
+                            Try
+                                deleteStockProduct.ExecuteNonQuery()
+                            Catch ex As Exception
+                                MsgBox(ex.Message)
+                            Finally
+                                deleteStockProduct.Parameters.Clear()
+                            End Try
+                        Else
+                            HaveSalesProduct = 1
+                        End If
                     Catch ex As Exception
                         MsgBox(ex.Message)
                     Finally
                         conn.Close()
-                        deleteStockProduct.Parameters.Clear()
                     End Try
                 Next
-                XtraMessageBox.Show("The selected data has been deleted", "Data Deleted", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+
+                If HaveSalesProduct = 0 Then
+                    XtraMessageBox.Show("The selected data has been deleted", "Data Deleted", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                Else
+                    XtraMessageBox.Show("The selected data has been deleted" & vbNewLine & "WARNING : You may not delete a product that already binded with sales!", "Data Deleted", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                End If
 
                 'finally remove the rows from grid control, so that no repopulation is needed
-                StockGV.DeleteSelectedRows()
+                fillStockGV()
 
                 'refresh
                 fillProductSearchGV()
@@ -327,10 +348,89 @@ Public Class frmStockManagement
                 StockGV.ActiveFilter.NonColumnFilter = "[cat_name] = '" & NodeCollectionList & "'"
             End If
         End If
+
+        Me.tvCategory.LabelEdit = True
+        Dim menuStrip As New ContextMenuStrip
+        Me.tvCategory.ContextMenuStrip = menuStrip
+        menuStrip.Items.Add("Edit")
+        menuStrip.Items.Add("Remove")
+
+        AddHandler menuStrip.ItemClicked, AddressOf menuStrip_ItemClicked
+    End Sub
+
+    Private Sub menuStrip_ItemClicked(ByVal sender As Object, ByVal e As ToolStripItemClickedEventArgs) Handles MenuStrip.ItemClicked
+        Select Case e.ClickedItem.Text
+            Case "Edit"
+                If tvCategory.SelectedNode.Name > 2 Then
+                    frmEditCategory.NodeToEdit = tvCategory.SelectedNode.Name
+                    frmEditCategory.txtCategoryName.Text = tvCategory.SelectedNode.Text
+                    frmEditCategory.ShowDialog()
+                Else
+                    XtraMessageBox.Show("You may not edit this category!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                End If
+            Case "Remove"
+                If tvCategory.SelectedNode.Name > 2 Then
+                    Dim IfCatHaveChild As New OleDbCommand("SELECT * FROM tblCategory WHERE cat_parent_id = ?", conn)
+                    IfCatHaveChild.Parameters.AddWithValue("cat_parent_id", tvCategory.SelectedNode.Name)
+
+                    Try
+                        conn.Open() 'open once
+                        Dim sdr As OleDbDataReader = IfCatHaveChild.ExecuteReader
+                        If sdr.Read Then
+                            XtraMessageBox.Show("You cannot delete a category that contains child!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        Else
+                            Dim IfCatHaveProduct As New OleDbCommand("SELECT * FROM tblProduct WHERE prod_category = ?", conn)
+                            IfCatHaveProduct.Parameters.AddWithValue("prod_category", tvCategory.SelectedNode.Name)
+
+                            Try
+                                Dim sdr2 As OleDbDataReader = IfCatHaveProduct.ExecuteReader
+                                If sdr2.Read Then
+                                    XtraMessageBox.Show("You cannot delete a category that contains product!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                Else
+                                    Dim dialogResult = XtraMessageBox.Show("Are you sure you want to delete the selected category?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                                    If dialogResult = Windows.Forms.DialogResult.Yes Then
+                                        Dim DeleteCategory As New OleDbCommand("DELETE * FROM tblCategory WHERE cat_id = ?", conn)
+                                        DeleteCategory.Parameters.AddWithValue("cat_id", tvCategory.SelectedNode.Name)
+
+                                        Try
+                                            DeleteCategory.ExecuteNonQuery()
+                                            XtraMessageBox.Show("The selected category has been deleted!", "Category Deleted", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                                        Catch ex As Exception
+                                            MsgBox(ex.Message)
+                                        End Try
+                                    End If
+                                End If
+                            Catch ex As Exception
+                                MsgBox(ex.Message)
+                            End Try
+                        End If
+                    Catch ex As Exception
+                        MsgBox(ex.Message)
+                    Finally
+                        conn.Close()
+
+                        Try
+                            conn.Open()
+                            tvCategory.Nodes.Clear()
+                            tvCategoryDropDown.Nodes.Clear()
+                            fillTreeView("1", "All Categories", Nothing, tvCategory)
+                            fillTreeView("1", "All Categories", Nothing, tvCategoryDropDown)
+                            tvCategory.ExpandAll()
+                            tvCategoryDropDown.ExpandAll()
+                        Catch ex As Exception
+                            MsgBox(ex.Message)
+                        Finally
+                            conn.Close()
+                        End Try
+                    End Try
+                Else
+                    XtraMessageBox.Show("You may not delete this category!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                End If
+        End Select
     End Sub
 
     Private Sub btnAddNewCategory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewCategory.Click
-        frmCustomerGroupManagement.ShowDialog()
+        frmAddCategory.ShowDialog()
     End Sub
 
     Private Sub PopupContainerProduct_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles PopupContainerProduct.Click

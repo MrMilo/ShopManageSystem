@@ -25,6 +25,7 @@ Public Class frmSetUp
                 ShopBasicConfig.ChildNodes(0).InnerText = txtShopName.Text 'ShopName
                 ShopBasicConfig.ChildNodes(1).InnerText = txtShopAddress.Text 'ShopAddress
                 ShopBasicConfig.ChildNodes(2).InnerText = txtEmailAddress.Text 'EmailAddress
+                ShopBasicConfig.ChildNodes(3).InnerText = txtContactNumber.Text 'contact number
 
                 Dim ShopVariables As XmlNode = xd.SelectSingleNode("/ShopData/ShopVariables")
                 ShopVariables.ChildNodes(0).InnerText = 1 'ShopSetupCondition
