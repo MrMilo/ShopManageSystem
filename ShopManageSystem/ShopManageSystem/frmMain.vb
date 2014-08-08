@@ -61,7 +61,7 @@ Public Class frmMain
         MarqueeTimer.Enabled = True
 
         lblVersion.BackColor = Color.Transparent
-        lblVersion.Text = "v1.0.0.0"
+        lblVersion.Text = "v3.8.0.0"
 
         lblUsername.BackColor = Color.Transparent
         lblUsername.Text = LoggedInUsername

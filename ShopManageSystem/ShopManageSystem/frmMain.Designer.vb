@@ -199,7 +199,7 @@ Partial Class frmMain
         Me.ssVersion.AutoSize = False
         Me.ssVersion.Name = "ssVersion"
         Me.ssVersion.Size = New System.Drawing.Size(290, 19)
-        Me.ssVersion.Text = "Version 1.0.0.0"
+        Me.ssVersion.Text = "Version 3.8.0.0"
         '
         'ssAnnouncement
         '
@@ -508,7 +508,7 @@ Partial Class frmMain
         Me.MaximizeBox = False
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Shop Management System v1.0"
+        Me.Text = "Shop Management System v3.8.0.0"
         Me.SidePanel.ResumeLayout(False)
         Me.StatusStrip.ResumeLayout(False)
         Me.StatusStrip.PerformLayout()

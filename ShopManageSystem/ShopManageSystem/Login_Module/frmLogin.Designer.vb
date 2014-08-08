@@ -131,7 +131,7 @@ Partial Class frmLogin
         Me.ClientSize = New System.Drawing.Size(715, 265)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ImageSlider)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "frmLogin"

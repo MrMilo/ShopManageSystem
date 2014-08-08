@@ -34,6 +34,12 @@ Public Class frmForgetPassword
                             UpdateNewPassword.Parameters.AddWithValue("admin_email", txtEmailAddress.Text)
 
                             Try
+                                UpdateNewPassword.ExecuteNonQuery()
+                            Catch ex As Exception
+                                MsgBox(ex.Message)
+                            End Try
+
+                            Try
                                 Dim SmtpServer As New SmtpClient()
                                 Dim PasswordRecoveryMail As New MailMessage()
                                 SmtpServer.Credentials = New Net.NetworkCredential("shop@milostudio.net", "DN3p1WWL")
